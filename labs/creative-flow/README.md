@@ -33,3 +33,9 @@ layers. Decode it with `base64 -d demo.psd.b64 > demo.psd` on Linux, or
 `base64 -D -i demo.psd.b64 -o demo.psd` on macOS. ImageMagick confirmed
 the composite and two layers. The live HTML output is shown in example.html.
 The PSD sample is a separate static design handoff.
+
+Generate a layered PSD directly from any approved synthetic brief using
+`bash export_layers.sh brief.json campaign.psd` from this directory. The script
+requires ImageMagick and DejaVu Sans, and writes a composite plus separate
+background and raster text layers. The same approval and unsupported-claim
+checks run before creating the Photoshop file.
