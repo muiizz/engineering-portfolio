@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multilingual safety rules | Abdul Muizz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><nav class="wrap"><a class="brand" href="index.html">Abdul Muizz</a><a href="resume.html">Résumé</a></nav></header>
+<main class="wrap">
+  <section class="page-hero">
+    <h1>When mutation tests missed a language gap</h1>
+    <p class="lede">A synthetic evaluation of deterministic routing in English, Roman Urdu, and Urdu script.</p>
+  </section>
+  <article class="prose">
+    <h2>Why the order matters</h2>
+    <p>The pipeline normalizes the message and checks rules before it can reach the model stub. Urgent matches and messages without consent cannot reach the stub. Property tests cover both paths.</p>
+    <h2>What the evaluation found</h2>
+    <p>The first revision killed 112 of 115 mutants while missing 81 of 90 urgent fixtures in the test split. Both Urdu-language groups had zero urgent recall. By the fourth revision, the engine missed 3 of 90. The false urgent rate rose from 4.9% to 14.8%. The final campaign killed 189 of 196 mutants.</p>
+    <p>The results are from 23 November 2026. The data contains 342 synthetic messages across development and test splits. The author wrote both the rules and the cases, so the test split was not independently authored.</p>
+    <h2>What broke during iteration</h2>
+    <p>Collapsing repeated letters helped the matcher handle spelling variants, but it also changed text that the output checker expected. A unit test caught the mismatch. The final pipeline uses separate normalization paths for routing and output checks.</p>
+    <h2>Reproduce the results</h2>
+    <p><a href="https://github.com/muiizz/llm-safety-rules-engine/tree/d0d5e92bd69a0748796ca4c709879c0edc43b498">Source and run commands</a> · <a href="https://github.com/muiizz/llm-safety-rules-engine/blob/d0d5e92bd69a0748796ca4c709879c0edc43b498/docs/fix_loop.md">Revision history and results</a></p>
+    <p>The evaluator uses a deterministic stub and invented data. These measurements describe routing on the fixtures.</p>
+  </article>
+</main>
+</body>
+</html>
