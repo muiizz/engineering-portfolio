@@ -33,7 +33,7 @@ Next step: Project 4, llm-eval-gate. Plan first, then wait for approval.
 ## 23 Nov 2026: Project 9, quality-template
 
 Repo: https://github.com/muiizz/quality-template
-Commit: `f5d8ff6c4a7ebae0d8d9c4ba0f211361924df6b0` (main, after PR 6). Note: on 23 Nov 2026 I rewrote this repo's history to remove a file that should not have been public. The commit I first recorded here, `9bf1909`, no longer exists; `f5d8ff6` has the same content minus that file and two edited lines in CLAUDE.md. The README SHAs were updated in PR 7.
+Commit: `f5d8ff6c4a7ebae0d8d9c4ba0f211361924df6b0` (main, after PR 6). Note: on 23 Nov 2026 I rewrote this repo's history to remove a file that should not have been public. The commit I first recorded here, `9bf1909`, no longer exists; `f5d8ff6` has the same content minus that file and two edited lines in CLAUDE.md. The repo was then deleted and recreated with the same history, so its commit SHAs are unchanged and GitHub no longer serves the old ones. PR numbers restart at 1, and the README evidence links were updated.
 
 Done:
 - One `make check` that runs the gates locally and in CI. CI installs from lockfiles, then calls `make check`.
