@@ -22,6 +22,11 @@ jobs:
           "${runner[@]}" import:workflow --input=/state/workflow.json
           "${runner[@]}" execute --id=CreativeFlowDemo | tee "$RUNNER_TEMP/n8n-result"
           grep -Eq '"status"[[:space:]]*:[[:space:]]*"awaiting_review"' "$RUNNER_TEMP/n8n-result"
+          if grep -q '"filename"' "$RUNNER_TEMP/n8n-result"; then exit 1; fi
+          python3 -c 'import json,sys,uuid; p=sys.argv[1]; w=json.load(open(p)); w["id"]="CreativeFlowApproved"; w["versionId"]=str(uuid.uuid4()); w["nodes"][1]["parameters"]["jsCode"]=w["nodes"][1]["parameters"]["jsCode"].replace(chr(34)+"pending"+chr(34),chr(34)+"approved"+chr(34)); json.dump(w,open(p,"w"))' "$RUNNER_TEMP/n8n/workflow.json"
+          "${runner[@]}" import:workflow --input=/state/workflow.json
+          "${runner[@]}" execute --id=CreativeFlowApproved | tee "$RUNNER_TEMP/n8n-approved"
+          grep -Eq '"filename"[[:space:]]*:[[:space:]]*"campaign-card.html"' "$RUNNER_TEMP/n8n-approved"
       - name: Export and inspect layered PSD
         run: |
           sudo apt-get update -qq
