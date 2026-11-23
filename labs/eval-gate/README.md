@@ -13,3 +13,15 @@ Candidate answers are a JSON object keyed by fixture ID, with string fields rout
 ## Verified locally on 24 November 2026
 
 The reference answers derived from the fixture labels passed 120 of 120. Empty candidate answers returned exit 1 and passed 0 of 120. These are controls for the scoring code. Provider comparison, independent judgement, cost and latency measurements require separately collected candidate responses.
+
+## Compare two saved runs
+
+`python labs/eval-gate/compare.py baseline.json candidate.json` compares
+answer files on the same fixture IDs. It reports per-language results, newly
+passing cases, regressions, and every candidate failure. It exits 1 when a
+previously passing case regresses or any urgent case fails.
+
+Run `python -m unittest discover -s labs/eval-gate -v` for the scorer's
+positive and negative controls. The offline reference is label-derived.
+Judge agreement, external provider baselines, variance, cost and latency
+remain unmeasured.
