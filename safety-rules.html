@@ -3,52 +3,83 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Four revisions of a multilingual rules engine: missed urgent cases fell while false alerts rose.">
+  <meta name="theme-color" content="#eef1f3">
   <title>Multilingual safety rules | Abdul Muizz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
   <link rel="stylesheet" href="style.css">
+  <script defer src="site.js"></script>
 </head>
 <body>
-<header><nav class="wrap"><a class="brand" href="index.html">Abdul Muizz</a><a href="resume.html">Résumé</a></nav></header>
-<main class="wrap">
-  <section class="page-hero">
-    <h1>When mutation tests missed a language gap</h1>
-    <p class="lede">A synthetic evaluation of deterministic routing in English, Roman Urdu, and Urdu script.</p>
-  </section>
-  <article class="prose">
-    <h2>Why the order matters</h2>
-    <p>The pipeline normalizes the message and checks rules before it can reach the model stub. Urgent matches and messages without consent cannot reach the stub. Property tests cover both paths.</p>
-    <h2>What the evaluation found</h2>
-    <p>The first revision killed 112 of 115 mutants while missing 81 of 90 urgent fixtures in the test split. Both Urdu-language groups had zero urgent recall. By the fourth revision, the engine missed 3 of 90. The false urgent rate rose from 4.9% to 14.8%. The final campaign killed 189 of 196 mutants.</p>
-    <p>The results are from 23 November 2026. The data contains 342 synthetic messages across development and test splits. The author wrote both the rules and the cases, so the test split was not independently authored.</p>
-    <h2>Where the errors changed</h2>
-    <div style="overflow-x:auto" tabindex="0" role="region" aria-label="Confusion counts by language">
-      <table>
-        <caption>Recorded test split, first and fourth revisions</caption>
-        <thead><tr><th scope="col">Revision and language</th><th scope="col">Urgent found</th><th scope="col">Urgent missed</th><th scope="col">False alerts</th><th scope="col">Routine classified correctly</th></tr></thead>
-        <tbody><tr><th scope="row">R0 · All</th><td>9</td><td>81</td><td>4</td><td>77</td></tr>
-<tr><th scope="row">R0 · English</th><td>9</td><td>21</td><td>4</td><td>23</td></tr>
-<tr><th scope="row">R0 · Roman Urdu</th><td>0</td><td>30</td><td>0</td><td>27</td></tr>
-<tr><th scope="row">R0 · Urdu script</th><td>0</td><td>30</td><td>0</td><td>27</td></tr>
-<tr><th scope="row">R3 · All</th><td>87</td><td>3</td><td>12</td><td>69</td></tr>
-<tr><th scope="row">R3 · English</th><td>27</td><td>3</td><td>6</td><td>21</td></tr>
-<tr><th scope="row">R3 · Roman Urdu</th><td>30</td><td>0</td><td>3</td><td>24</td></tr>
-<tr><th scope="row">R3 · Urdu script</th><td>30</td><td>0</td><td>3</td><td>24</td></tr></tbody>
-      </table>
-    </div>
-    <p>Each revision had 90 urgent and 81 routine fixtures. R3 identified 78 additional urgent fixtures and flagged eight additional routine fixtures. This is a comparison across two revisions on one synthetic dataset.</p>
-    <p><a href="https://github.com/muiizz/llm-safety-rules-engine/blob/b8468d64a0c879c75a73e9e2a8acf1ddd093555f/python/evals/results/R0.json">R0 raw counts</a> · <a href="https://github.com/muiizz/llm-safety-rules-engine/blob/b8468d64a0c879c75a73e9e2a8acf1ddd093555f/python/evals/results/R3.json">R3 raw counts</a></p>
-    <h2>What broke during iteration</h2>
-    <p>Collapsing repeated letters helped the matcher handle spelling variants, but it also changed text that the output checker expected. A unit test caught the mismatch. The final pipeline uses separate normalization paths for routing and output checks.</p>
-    <h2>Reproduce the results</h2>
-    <p><a href="https://github.com/muiizz/llm-safety-rules-engine/tree/d0d5e92bd69a0748796ca4c709879c0edc43b498">Source and run commands</a> · <a href="https://github.com/muiizz/llm-safety-rules-engine/blob/d0d5e92bd69a0748796ca4c709879c0edc43b498/docs/fix_loop.md">Revision history and results</a></p>
-    <p>The evaluator uses a deterministic stub and invented data. These measurements describe routing on the fixtures.</p>
-  </article>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">Abdul Muizz</a>
+      <div class="links"><a href="index.html#work">Work</a><a href="index.html#projects">All projects</a><a href="index.html#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
+    </nav>
+  </header>
+  <main id="main">
 
-  <article class="prose" id="divia">
-    <h2>Divia case study: evaluating the safety layer</h2>
-    <p>I used two complementary checks to evaluate Divia’s deterministic routing layer. A multilingual audit exercised the system with 1,755 fictional messages in English, Roman Urdu, and Urdu script. A separate mutation campaign introduced 1,737 temporary changes to test whether the automated suite detected them.</p>
-    <p>The audit measured how the router handled different ways of expressing the same intent. Mutation testing measured whether the suite caught changes to code behavior. Together they informed two kinds of regression coverage: additional language examples and targeted tests for behavior the existing suite missed.</p>
-    <p>These were offline experiments on a historical revision using synthetic data. The results describe the coverage of those experiments. The open-source project above is a standalone teaching example with its own data and measurements.</p>
-  </article>
-</main>
+    <section class="page-hero wrap">
+      <p class="kind">Applied AI, evaluation</p>
+      <h1 class="kin">When mutation tests missed a language gap</h1>
+      <p class="lede">A synthetic evaluation of deterministic routing in English, Roman Urdu, and Urdu script. Step through the four revisions and watch which number moves.</p>
+    </section>
+    <section class="stage wrap">
+      <div class="frame" style="view-transition-name:demo-safety" data-demo="takes" data-mode="full">
+        <p>Missed urgent cases: 81 of 90 at the first revision, 3 of 90 at the fourth. False urgent rate: 4.9% to 14.8%.</p>
+      </div>
+      <div class="frame" data-demo="fold"></div>
+    </section>
+    <div class="body wrap">
+      <aside class="facts">
+        <h2>Evidence</h2>
+        <ul>
+          <li><a href="https://github.com/muiizz/llm-safety-rules-engine/blob/b8468d64a0c879c75a73e9e2a8acf1ddd093555f/python/evals/results/R0.json">R0 raw counts</a></li>
+          <li><a href="https://github.com/muiizz/llm-safety-rules-engine/blob/b8468d64a0c879c75a73e9e2a8acf1ddd093555f/python/evals/results/R3.json">R3 raw counts</a></li>
+          <li><a href="https://github.com/muiizz/llm-safety-rules-engine/tree/d0d5e92bd69a0748796ca4c709879c0edc43b498">Source and run commands</a></li>
+          <li><a href="https://github.com/muiizz/llm-safety-rules-engine/blob/d0d5e92bd69a0748796ca4c709879c0edc43b498/docs/fix_loop.md">Revision history and results</a></li>
+        </ul>
+        <h2>Scope</h2>
+        <ul><li>342 synthetic messages</li><li>Deterministic model stub</li><li>Results from 23 November 2026</li></ul>
+      </aside>
+      <article class="prose">
+        <h2>Why the order matters</h2>
+        <p>The pipeline normalizes the message and checks rules before it can reach the model stub. Urgent matches and messages without consent cannot reach the stub. Property tests cover both paths.</p>
+        <h2>What the evaluation found</h2>
+        <p>The first revision killed 112 of 115 mutants while missing 81 of 90 urgent fixtures in the test split. Both Urdu-language groups had zero urgent recall. By the fourth revision, the engine missed 3 of 90. The false urgent rate rose from 4.9% to 14.8%. The final campaign killed 189 of 196 mutants.</p>
+        <p>The results are from 23 November 2026. The data contains 342 synthetic messages across development and test splits. The author wrote both the rules and the cases, so the test split was not independently authored.</p>
+        <h2>Where the errors changed</h2>
+        <div class="scroll" tabindex="0" role="region" aria-label="Confusion counts by language">
+          <table>
+            <caption>Recorded test split, first and fourth revisions</caption>
+            <thead><tr><th scope="col">Revision and language</th><th scope="col">Urgent found</th><th scope="col">Urgent missed</th><th scope="col">False alerts</th><th scope="col">Routine classified correctly</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">R0, all</th><td>9</td><td>81</td><td>4</td><td>77</td></tr>
+              <tr><th scope="row">R0, English</th><td>9</td><td>21</td><td>4</td><td>23</td></tr>
+              <tr><th scope="row">R0, Roman Urdu</th><td>0</td><td>30</td><td>0</td><td>27</td></tr>
+              <tr><th scope="row">R0, Urdu script</th><td>0</td><td>30</td><td>0</td><td>27</td></tr>
+              <tr><th scope="row">R3, all</th><td>87</td><td>3</td><td>12</td><td>69</td></tr>
+              <tr><th scope="row">R3, English</th><td>27</td><td>3</td><td>6</td><td>21</td></tr>
+              <tr><th scope="row">R3, Roman Urdu</th><td>30</td><td>0</td><td>3</td><td>24</td></tr>
+              <tr><th scope="row">R3, Urdu script</th><td>30</td><td>0</td><td>3</td><td>24</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Each revision had 90 urgent and 81 routine fixtures. R3 identified 78 additional urgent fixtures and flagged eight additional routine fixtures. This is a comparison across two revisions on one synthetic dataset.</p>
+        <h2>What broke during iteration</h2>
+        <p>Collapsing repeated letters helped the matcher handle spelling variants, but it also changed text that the output checker expected. A unit test caught the mismatch. The final pipeline uses separate normalization paths for routing and output checks.</p>
+        <h2>Reproduce the results</h2>
+        <p>The evaluator uses a deterministic stub and invented data. These measurements describe routing on the fixtures. The source, run commands and revision history are linked under Evidence.</p>
+        <h2 id="divia">Divia case study: evaluating the safety layer</h2>
+        <p>I used two complementary checks to evaluate Divia’s deterministic routing layer. A multilingual audit exercised the system with 1,755 fictional messages in English, Roman Urdu, and Urdu script. A separate mutation campaign introduced 1,737 temporary changes to test whether the automated suite detected them.</p>
+        <p>The audit measured how the router handled different ways of expressing the same intent. Mutation testing measured whether the suite caught changes to code behavior. Together they informed two kinds of regression coverage: additional language examples and targeted tests for behavior the existing suite missed.</p>
+        <p>These were offline experiments on a historical revision using synthetic data. The results describe the coverage of those experiments. The open-source project above is a standalone teaching example with its own data and measurements.</p>
+      </article>
+    </div>
+    <nav class="next wrap" aria-label="More case studies"><a href="index.html#work">All case studies</a><a href="postgres.html">Next: Find 96 rows in a million</a></nav>
+  </main>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. All scenarios and data on this site are synthetic.</div></footer>
 </body>
 </html>

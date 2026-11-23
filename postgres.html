@@ -1,1 +1,76 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Finding 96 rows in a million | Abdul Muizz</title><link rel="stylesheet" href="style.css"></head><body><header><nav class="wrap"><a class="brand" href="index.html">Abdul Muizz</a><a href="resume.html">Résumé</a></nav></header><main class="wrap"><section class="page-hero"><h1>Finding 96 rows in a million</h1></section><article class="prose"><p>A school attendance dashboard filters by school and week. I generated one million fictional records, then ran the same ordered query before and after adding an index on (tenant_id, attended_on).</p><h2>67.169 ms to 0.126 ms</h2><p>These are median execution times over five measured runs per condition, after one warm-up each. Both queries returned the same 96 records in the same order. PostgreSQL could use the new index to locate the matching range.</p><h2>Inspect the evidence</h2><p><a href="labs/postgres/measured/before-1.json">Before plan</a> · <a href="labs/postgres/measured/after-1.json">After plan</a> · <a href="labs/postgres/measured/summary.json">All ten timings</a> · <a href="labs/postgres/README.md">Reproduce the benchmark</a></p><p>The 23 November 2026 run used PostgreSQL 16.2 in a single-user Linux backend. Production concurrency and index maintenance cost remain open questions.</p></article></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A composite index took a million-row attendance query from 67.169 ms to 0.126 ms. Replay the measured runs.">
+  <meta name="theme-color" content="#eef1f3">
+  <title>Finding 96 rows in a million | Abdul Muizz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="site.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">Abdul Muizz</a>
+      <div class="links"><a href="index.html#work">Work</a><a href="index.html#projects">All projects</a><a href="index.html#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
+    </nav>
+  </header>
+  <main id="main">
+
+    <section class="page-hero wrap">
+      <p class="kind">PostgreSQL, query performance</p>
+      <h1 class="kin">Finding 96 rows in a million</h1>
+      <p class="lede">Run both versions of the query side by side. The replay is paced from the measured timings, so you wait for the slow one exactly as long as it deserves.</p>
+    </section>
+    <section class="stage wrap">
+      <div class="frame" style="view-transition-name:demo-postgres" data-demo="scan" data-mode="full">
+        <p>Median execution time over five warm runs: 67.169 ms before the index, 0.126 ms after. Both returned the same 96 records.</p>
+      </div>
+    </section>
+    <div class="body wrap">
+      <aside class="facts">
+        <h2>Evidence</h2>
+        <ul>
+          <li><a href="labs/postgres/measured/before-1.json">Before plan</a></li>
+          <li><a href="labs/postgres/measured/after-1.json">After plan</a></li>
+          <li><a href="labs/postgres/measured/summary.json">All ten timings</a></li>
+          <li><a href="labs/postgres/suite-evidence/summary.json">Six-query suite timings</a></li>
+          <li><a href="labs/postgres/README.md">Reproduce the benchmark</a></li>
+        </ul>
+        <h2>Scope</h2>
+        <ul><li>PostgreSQL 16.2, single-user Linux backend</li><li>One million generated rows</li><li>Run on 23 November 2026</li></ul>
+      </aside>
+      <article class="prose">
+        <h2>The query</h2>
+        <p>A school attendance dashboard filters by school and week. I generated one million fictional records, then ran the same ordered query before and after adding an index on (tenant_id, attended_on).</p>
+        <h2>67.169 ms to 0.126 ms</h2>
+        <p>These are median execution times over five measured runs per condition, after one warm-up each. Both queries returned the same 96 records in the same order. PostgreSQL could use the new index to locate the matching range.</p>
+        <h2>Six more queries</h2>
+        <div class="scroll" tabindex="0" role="region" aria-label="Six-query benchmark suite">
+          <table>
+            <caption>Each case starts from a freshly seeded million-row database. Medians of five warm runs.</caption>
+            <thead><tr><th scope="col">Case</th><th scope="col">Baseline median</th><th scope="col">Revised median</th><th scope="col">Matching rows</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Tenant week</th><td>47.294 ms</td><td>0.091 ms</td><td>96</td></tr>
+              <tr><th scope="row">Student history</th><td>46.283 ms</td><td>0.028 ms</td><td>10</td></tr>
+              <tr><th scope="row">Absence review</th><td>49.983 ms</td><td>0.471 ms</td><td>500</td></tr>
+              <tr><th scope="row">Date export</th><td>55.440 ms</td><td>0.171 ms</td><td>1,370</td></tr>
+              <tr><th scope="row">Month filter</th><td>160.394 ms</td><td>35.198 ms</td><td>42,465</td></tr>
+              <tr><th scope="row">Deep pagination</th><td>114.436 ms</td><td>0.027 ms</td><td>100</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The month filter is the useful counterexample: it returns 42,465 rows, so the revised query still takes 35 ms. An index helps most when the query is selective.</p>
+        <h2>What this leaves open</h2>
+        <p>The 23 November 2026 run used PostgreSQL 16.2 in a single-user Linux backend. Production concurrency and index maintenance cost remain open questions.</p>
+      </article>
+    </div>
+    <nav class="next wrap" aria-label="More case studies"><a href="safety-rules.html">Previous: the language gap</a><a href="quality-gate.html">Next: Prove the gate catches a failure</a></nav>
+  </main>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. All scenarios and data on this site are synthetic.</div></footer>
+</body>
+</html>

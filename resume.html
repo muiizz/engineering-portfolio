@@ -1,13 +1,60 @@
 <!doctype html>
-<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Abdul Muizz | Engineering résumé</title>
-<style>body{max-width:48rem;margin:3rem auto;padding:0 1.25rem;font:1rem/1.55 system-ui;color:#182b31}h1{font-size:2.5rem;margin-bottom:0}h2{margin-top:2rem;border-bottom:1px solid #70858b}a{color:#074c5d}button{padding:.6rem 1rem;font:inherit}a:focus-visible,button:focus-visible{outline:3px solid #bb510b}@media print{nav,button{display:none}body{margin:0;padding:0}h2{margin-top:1rem}}</style>
-<nav><a href="index.html">Engineering portfolio</a></nav><main><h1>Abdul Muizz</h1><p>Applied AI, PostgreSQL and product operations · Lahore, Pakistan<br><a href="https://github.com/muiizz">GitHub</a> · <a href="https://www.linkedin.com/in/muizzsajid/">LinkedIn</a></p>
-<h2>Selected engineering work</h2>
-<p><strong>Multilingual rules evaluation.</strong> Tested deterministic routing on invented English, Roman Urdu and Urdu-script messages. Tracked missed urgent cases and false alarms separately through four revisions. <a href="https://github.com/muiizz/llm-safety-rules-engine">Rules, fixtures and results</a></p>
-<p><strong>Release quality.</strong> Built shared local and CI checks for Python, TypeScript and SQL. Injected faults into disposable copies to verify which checks block a bad change. <a href="quality-gate.html">Quality gate case study</a></p>
-<p><strong>PostgreSQL query tuning.</strong> Compared execution plans for a synthetic attendance query before and after adding a composite index. Checked ordered result parity and recorded buffer activity alongside execution time. <a href="postgres.html">Reproducible benchmark</a></p>
-<p><strong>Support evaluation.</strong> Exposed a deterministic support-answer grader over MCP and tested whether an incorrect route failed the gate. <a href="support-eval.html">Evaluation demo</a></p>
-<h2>Experience</h2><p><strong>Product and operations, digital health.</strong> Worked with clinicians and engineers on a WhatsApp coaching platform, translating feedback into routing checks, release criteria and issue triage.</p>
-<p><strong>Product delivery, school software.</strong> Interviewed administrators and teachers, shaped school workflows, and trained staff on a Next.js and Supabase platform.</p>
-<h2>Education</h2><p>MS, Innovation and Entrepreneurship, NUST Business School<br>BS, Electrical Engineering, PIEAS</p></main>
-<button type="button" onclick="window.print()">Print or save as PDF</button></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Résumé of Abdul Muizz: applied AI, PostgreSQL and product operations.">
+  <meta name="theme-color" content="#eef1f3">
+  <title>Abdul Muizz | Engineering résumé</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">Abdul Muizz</a>
+      <div class="links"><a href="index.html#work">Work</a><a href="index.html#projects">All projects</a><a href="index.html#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
+    </nav>
+  </header>
+  <main id="main">
+
+    <div class="wrap cv-page">
+    <header class="cv-head">
+      <h1>Abdul Muizz</h1>
+      <p>Applied AI, PostgreSQL and product operations. Lahore, Pakistan.</p>
+      <ul>
+        <li><a href="mailto:muiizzsajid@gmail.com">muiizzsajid@gmail.com</a></li>
+        <li><a href="https://github.com/muiizz">github.com/muiizz</a></li>
+        <li><a href="https://www.linkedin.com/in/muizzsajid/">linkedin.com/in/muizzsajid</a></li>
+      </ul>
+    </header>
+    <section class="cv-sec"><h2>Current project</h2><div>
+      <div class="job"><h3>Founder, Divia</h3><p class="when">2026 to present</p><p>A doctor-led digital coaching programme for people with diabetes and prediabetes in Pakistan. Patients talk to an AI coach on WhatsApp under physician oversight. Live, with its first four patients sending readings every day.</p><ul><li>Designed the safety architecture: a deterministic rules engine runs before the language model and decides thresholds, emergency words, double-dose detection and urgent routing. The model is the second safety net, never the first.</li><li>Every threshold is tested just below, at and just above its value, in both mg/dL and mmol/L. The rules engine is held at 100% branch coverage, with scheduled mutation testing, and each test is traced to an entry in a hazard log.</li><li>Glucose readings are taken from photos of the patient’s meter: two independent reads must agree before a value is accepted, and a plausible low value is escalated as urgent at once.</li><li>Built an automated evaluation runner that checks the coach’s behaviour against a clinical test workbook, which is the source of truth for expected behaviour.</li><li>Clinical governance: all clinical content and thresholds are versioned and approved by the Chief Medical Officer; every outbound message records the content versions and the model used.</li><li>Data protection: the model receives a patient code, never a name or phone number; row-level security on every patient table; health data exchanged as HL7 FHIR R4 with LOINC and SNOMED CT codes.</li><li>Technologies: Python (FastAPI, Pydantic, pytest, mypy), PostgreSQL, TypeScript (Next.js), Docker, WhatsApp Cloud API.</li></ul></div>
+    </div></section>
+    <section class="cv-sec"><h2>Selected engineering work</h2><div>
+      <div class="job"><h3>Multilingual rules evaluation</h3><p class="when"><a href="https://github.com/muiizz/llm-safety-rules-engine">Rules, fixtures and results</a></p><p>Tested deterministic routing on invented English, Roman Urdu and Urdu-script messages. Tracked missed urgent cases and false alarms separately through four revisions.</p></div>
+      <div class="job"><h3>Release quality</h3><p class="when"><a href="quality-gate.html">Quality gate case study</a></p><p>Built shared local and CI checks for Python, TypeScript and SQL. Injected faults into disposable copies to verify which checks block a bad change.</p></div>
+      <div class="job"><h3>PostgreSQL query tuning</h3><p class="when"><a href="postgres.html">Reproducible benchmark</a></p><p>Compared execution plans for a synthetic attendance query before and after adding a composite index. Checked ordered result parity and recorded buffer activity alongside execution time.</p></div>
+      <div class="job"><h3>Support evaluation</h3><p class="when"><a href="support-eval.html">Evaluation demo</a></p><p>Exposed a deterministic support-answer grader over MCP and tested whether an incorrect route failed the gate.</p></div>
+    </div></section>
+    <section class="cv-sec"><h2>Experience</h2><div>
+      <div class="job"><h3>Product delivery, school software</h3><p>Interviewed administrators and teachers, shaped school workflows, and trained staff on a Next.js and Supabase platform.</p></div>
+      <div class="job"><h3>Founder, Muizz &amp; Moonis Studios (“House of Productions”)</h3><p class="when">Lahore, Pakistan. August 2023 to July 2026</p><ul><li>Founded a media production studio and grew it from no clients to more than 100 paying clients, leading a team of 15.</li><li>Held full responsibility for budget, pricing, delivery and results. Negotiated the sale of the business in July 2026.</li></ul></div>
+      <div class="job"><h3>General Manager and Partner (part-time), Social Nova FZ-LLC</h3><p class="when">Dubai, UAE. August 2025 to present</p><ul><li>Co-founded a marketing and creative-services company; pre-commercial, with a small number of pilot engagements.</li></ul></div>
+      <div class="job"><h3>Freelance Digital Producer</h3><p class="when">Remote. September 2021 to August 2023</p><ul><li>Delivered projects for 5 to 15 clients while completing graduate studies.</li></ul></div>
+    </div></section>
+    <section class="cv-sec"><h2>Education</h2><div>
+      <div class="job"><h3>MS, Innovation and Entrepreneurship</h3><p class="when">NUST Business School, National University of Sciences and Technology, Islamabad. September 2021 to September 2025</p><p>Final project: OPDROPPY, the design and launch plan of a digital-first fashion brand.</p></div>
+      <div class="job"><h3>BS, Electrical Engineering</h3><p class="when">Pakistan Institute of Engineering and Applied Sciences (PIEAS), Islamabad. September 2015 to June 2021</p></div>
+    </div></section>
+    <section class="cv-sec"><h2>Certifications</h2><div><p>Google Data Analytics Professional Certificate</p></div></section>
+    <section class="cv-sec"><h2>Languages</h2><div><p>English (fluent), Urdu (native), Punjabi (native), French (A2)</p></div></section>
+    <div class="cv-actions"><button type="button" class="btn" onclick="window.print()">Print or save as PDF</button></div>
+    </div>
+  </main>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. All scenarios and data on this site are synthetic.</div></footer>
+</body>
+</html>

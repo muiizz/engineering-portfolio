@@ -1,4 +1,64 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Support evaluation | Abdul Muizz</title><link rel="stylesheet" href="style.css"></head><body><header><nav class="wrap" aria-label="Main navigation"><a class="brand" href="index.html">Abdul Muizz ✳</a><div class="navlinks"><a href="index.html#work">Work</a><a href="index.html#contact">Contact</a></div></nav></header><main class="wrap"><section class="page-hero"><p class="eyebrow">Applied AI / Synthetic demonstration</p><h1>Evaluating a support assistant.</h1><p class="lede">A small, inspectable contract for routing and response content, available both as a local gate and an MCP tool.</p></section><div class="content"><aside><p><strong>Focus</strong><br>Evaluation, routing, tool interfaces</p><p><strong>Artifacts</strong><br><a href="demo/eval.py">Evaluator</a><br><a href="demo/cases.json">Cases</a><br><a href="demo/server.py">MCP server</a></p></aside><article class="prose"><h2>The problem</h2><p>A support assistant needs to choose whether to respond or hand a request to a person. A plausible answer alone does not show that it followed the intended routing rule.</p><h2>The approach</h2><p>Three fictional requests define expected routes and required reply phrases. The evaluator checks candidate answers against both. All cases must pass for the command to succeed. The MCP server exposes the same grading function for a single known case.</p><pre><code>python demo/eval.py
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A route and phrase contract for a support assistant, graded in the browser with the same rule as the Python evaluator.">
+  <meta name="theme-color" content="#eef1f3">
+  <title>Support evaluation | Abdul Muizz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="site.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">Abdul Muizz</a>
+      <div class="links"><a href="index.html#work">Work</a><a href="index.html#projects">All projects</a><a href="index.html#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
+    </nav>
+  </header>
+  <main id="main">
+
+    <section class="page-hero wrap">
+      <p class="kind">Applied AI, evaluation</p>
+      <h1 class="kin">Evaluating a support assistant</h1>
+      <p class="lede">A small, inspectable contract for routing and response content, available both as a local gate and an MCP tool. Be the assistant and see what the grader accepts.</p>
+    </section>
+    <section class="stage wrap">
+      <div class="frame" data-demo="grader">
+        <p>Three fictional requests define expected routes and required reply phrases.</p>
+      </div>
+    </section>
+    <div class="body wrap">
+      <aside class="facts">
+        <h2>Focus</h2>
+        <ul><li>Evaluation, routing, tool interfaces</li></ul>
+        <h2>Evidence</h2>
+        <ul>
+          <li><a href="demo/eval.py">Evaluator</a></li>
+          <li><a href="demo/cases.json">Cases</a></li>
+          <li><a href="demo/server.py">MCP server</a></li>
+        </ul>
+      </aside>
+      <article class="prose">
+        <h2>The problem</h2>
+        <p>A support assistant needs to choose whether to respond or hand a request to a person. A plausible answer alone does not show that it followed the intended routing rule.</p>
+        <h2>The approach</h2>
+        <p>Three fictional requests define expected routes and required reply phrases. The evaluator checks candidate answers against both. All cases must pass for the command to succeed. The MCP server exposes the same grading function for a single known case.</p>
+        <pre><code>python demo/eval.py
 python demo/eval.py path/to/answers.json
 # Optional, after installing the MCP SDK
-python demo/server.py</code></pre><h2>Review the cases</h2><table><thead><tr><th scope="col">Request</th><th scope="col">Expected route</th><th scope="col">Required phrase</th></tr></thead><tbody><tr><td>Refund approval</td><td>handoff</td><td>support team</td></tr><tr><td>Desk hours</td><td>reply</td><td>9 to 5 UTC</td></tr><tr><td>Roman Urdu handoff</td><td>handoff</td><td>support team</td></tr></tbody></table><h2>Scope</h2><p>This checks a narrow contract, not general answer quality or multilingual coverage. The dataset is deliberately small and fictional. More representative cases and human review would be needed for a real support system.</p><p><a href="quality-gate.html">← Quality gate case study</a></p></article></div></main><footer class="wrap">© 2026 Abdul Muizz</footer></body></html>
+python demo/server.py</code></pre>
+        <h2>Review the cases</h2>
+        <div class="scroll"><table><thead><tr><th scope="col">Request</th><th scope="col">Expected route</th><th scope="col">Required phrase</th></tr></thead><tbody><tr><td>Refund approval</td><td>handoff</td><td>support team</td></tr><tr><td>Desk hours</td><td>reply</td><td>9 to 5 UTC</td></tr><tr><td>Roman Urdu handoff</td><td>handoff</td><td>support team</td></tr></tbody></table></div>
+        <h2>Scope</h2>
+        <p>This checks a narrow contract, not general answer quality or multilingual coverage. The dataset is deliberately small and fictional. More representative cases and human review would be needed for a real support system.</p>
+      </article>
+    </div>
+    <nav class="next wrap" aria-label="More case studies"><a href="quality-gate.html">Previous: Quality gate</a><a href="routing.html">Next: Support routing</a></nav>
+  </main>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. All scenarios and data on this site are synthetic.</div></footer>
+</body>
+</html>
