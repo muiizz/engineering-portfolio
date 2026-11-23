@@ -89,3 +89,27 @@ position can have a different label.
 **Prevention and verification.** Keep a uniqueness constraint on year,
 grade, and position. Retain the fixture where matching labels and matching
 positions disagree. See the [synthetic school lab](../school-rls/README.md).
+
+
+## 7. Solar automation toggled repeatedly near its switching threshold
+
+**Scope.** Synthetic reproduction of the SolaX and Home Assistant scenario
+named in the project brief. The original logs, quota, and timeline were unavailable.
+
+**Impact and sequence.** A changing fixture alternated between 49 and 51 over
+12 samples. Starting off, a single threshold at 50 requested 11 switches.
+If each switch issues a cloud request, a burst like this consumes the request
+budget quickly and can lead to throttling.
+
+**Cause.** One switching threshold turned ordinary variation into repeated
+state changes. A cloud response throttle and local control chatter need
+separate handling.
+
+**Fix and prevention.** Keep the previous state in a deadband. In this
+fixture, turn on at 55 and above and off at 45 and below. Send a command only
+on transition, debounce sustained readings, and handle HTTP 429 separately
+with a bounded retry delay. The values here are synthetic fixture parameters.
+
+**Verification.** An offline Python replay produced 11 transitions before
+and zero after. Tests at 55 and 45 confirmed activation and deactivation
+still occur. No cloud calls were made and no production savings were measured.
