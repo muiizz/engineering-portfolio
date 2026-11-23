@@ -1,0 +1,20 @@
+[
+  {"id":"en01","language":"English","message":"My account was accessed by someone else. Account hacked.","expected":"review"},
+  {"id":"en02","language":"English","message":"I see an unauthorized charge on my statement.","expected":"review"},
+  {"id":"en03","language":"English","message":"I was charged twice for one order.","expected":"review"},
+  {"id":"en04","language":"English","message":"An unknown device signed in and changed my password.","expected":"review"},
+  {"id":"en05","language":"English","message":"Where is the receipt for my order?","expected":"routine"},
+  {"id":"en06","language":"English","message":"How do I change the shipping address?","expected":"routine"},
+  {"id":"ru01","language":"Roman Urdu","message":"Mera account hack ho gaya, madad chahiye.","expected":"review"},
+  {"id":"ru02","language":"Roman Urdu","message":"Ek order ke do baar paisay kat gaye.","expected":"review"},
+  {"id":"ru03","language":"Roman Urdu","message":"Meri ijazat ke baghair payment hui.","expected":"review"},
+  {"id":"ru04","language":"Roman Urdu","message":"Order ki receipt kahan milay gi?","expected":"routine"},
+  {"id":"ru05","language":"Roman Urdu","message":"Mera account hack ho gaya tha? Nahi, sirf sign-in ka tareeqa pooch raha hoon.","expected":"routine"},
+  {"id":"ru06","language":"Roman Urdu","message":"Kya delivery kal ho sakti hai?","expected":"routine"},
+  {"id":"ur01","language":"Urdu","message":"میرا اکاؤنٹ ہیک ہو گیا ہے۔","expected":"review"},
+  {"id":"ur02","language":"Urdu","message":"ایک آرڈر کے دو بار پيسے كٹ گئے۔","expected":"review"},
+  {"id":"ur03","language":"Urdu","message":"میرے کارڈ سے بلا اجازت ادائیگی ہوئی۔","expected":"review"},
+  {"id":"ur04","language":"Urdu","message":"مجھے اپنی رسید چاہیے۔","expected":"routine"},
+  {"id":"ur05","language":"Urdu","message":"میرا پارسل کب پہنچے گا؟","expected":"routine"},
+  {"id":"ur06","language":"Urdu","message":"مجھے اپنا پتہ تبدیل کرنا ہے۔","expected":"routine"}
+]

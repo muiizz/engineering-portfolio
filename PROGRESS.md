@@ -2,6 +2,10 @@
 
 One dated entry per session, newest first. Facts only. Each number can be reproduced from the linked repo.
 
+## 23 Nov 2026: Portfolio release candidate
+
+The public-facing site includes a printable résumé, existing rules-engine and quality-template evidence, a reproducible PostgreSQL case study, a consent-aware routing audit and an MCP support grader. Local checks and negative controls are recorded in the project materials. The PostgreSQL experiment used a single local PostgreSQL 16.2 backend with one million synthetic rows. See [the measured plans](labs/postgres/README.md).
+
 ## 23 Nov 2026: Project 6, llm-safety-rules-engine
 
 Repo: https://github.com/muiizz/llm-safety-rules-engine

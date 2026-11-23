@@ -1,0 +1,5 @@
+{
+  "refund": {"prompt":"I need a refund approved by a person.", "route":"handoff","phrase":"support team"},
+  "hours": {"prompt":"When is the fictional support desk open? Its published hours are 9 to 5 UTC.", "route":"reply","phrase":"9 to 5 UTC"},
+  "urdu": {"prompt":"Mujhe support team se baat karni hai.", "route":"handoff","phrase":"support team"}
+}
