@@ -26,3 +26,21 @@ normally map authenticated identities to trusted membership records.
 
 A successful admission and its audit record commit together. Rejected and
 repeated calls create no audit record. Verified with PostgreSQL 16.2.
+
+## Supabase identity and access
+
+In a disposable Supabase database, apply supabase.sql as the migration owner,
+then run verify_supabase.sql with psql and ON_ERROR_STOP enabled. For plain
+PostgreSQL, apply auth_fixture.sql first to supply the auth.uid contract.
+The standalone demo.sql also exercises position-based promotion.
+
+The identity-based matrix includes two campus principals, head office,
+teachers, accountants, parents, an unlinked authenticated account, and anon.
+Only principals for the matching campus and head office may admit. Teachers,
+accountants, parents, and unlinked identities see no applicant rows. Head
+office can read the admission audit. Authenticated callers cannot write to
+these tables directly.
+
+Verified on PostgreSQL 16.2 using auth_fixture.sql. Full Supabase Auth and
+PostgREST were not exercised. The school_reference schema is accessed directly
+by SQL for the tests. The public admission function can be called as an RPC.
