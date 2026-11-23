@@ -19,6 +19,23 @@
     <h2>What the evaluation found</h2>
     <p>The first revision killed 112 of 115 mutants while missing 81 of 90 urgent fixtures in the test split. Both Urdu-language groups had zero urgent recall. By the fourth revision, the engine missed 3 of 90. The false urgent rate rose from 4.9% to 14.8%. The final campaign killed 189 of 196 mutants.</p>
     <p>The results are from 23 November 2026. The data contains 342 synthetic messages across development and test splits. The author wrote both the rules and the cases, so the test split was not independently authored.</p>
+    <h2>Where the errors changed</h2>
+    <div style="overflow-x:auto" tabindex="0" role="region" aria-label="Confusion counts by language">
+      <table>
+        <caption>Recorded test split, first and fourth revisions</caption>
+        <thead><tr><th scope="col">Revision and language</th><th scope="col">Urgent found</th><th scope="col">Urgent missed</th><th scope="col">False alerts</th><th scope="col">Routine classified correctly</th></tr></thead>
+        <tbody><tr><th scope="row">R0 · All</th><td>9</td><td>81</td><td>4</td><td>77</td></tr>
+<tr><th scope="row">R0 · English</th><td>9</td><td>21</td><td>4</td><td>23</td></tr>
+<tr><th scope="row">R0 · Roman Urdu</th><td>0</td><td>30</td><td>0</td><td>27</td></tr>
+<tr><th scope="row">R0 · Urdu script</th><td>0</td><td>30</td><td>0</td><td>27</td></tr>
+<tr><th scope="row">R3 · All</th><td>87</td><td>3</td><td>12</td><td>69</td></tr>
+<tr><th scope="row">R3 · English</th><td>27</td><td>3</td><td>6</td><td>21</td></tr>
+<tr><th scope="row">R3 · Roman Urdu</th><td>30</td><td>0</td><td>3</td><td>24</td></tr>
+<tr><th scope="row">R3 · Urdu script</th><td>30</td><td>0</td><td>3</td><td>24</td></tr></tbody>
+      </table>
+    </div>
+    <p>Each revision had 90 urgent and 81 routine fixtures. R3 identified 78 additional urgent fixtures and flagged eight additional routine fixtures. This is a comparison across two revisions on one synthetic dataset.</p>
+    <p><a href="https://github.com/muiizz/llm-safety-rules-engine/blob/b8468d64a0c879c75a73e9e2a8acf1ddd093555f/python/evals/results/R0.json">R0 raw counts</a> · <a href="https://github.com/muiizz/llm-safety-rules-engine/blob/b8468d64a0c879c75a73e9e2a8acf1ddd093555f/python/evals/results/R3.json">R3 raw counts</a></p>
     <h2>What broke during iteration</h2>
     <p>Collapsing repeated letters helped the matcher handle spelling variants, but it also changed text that the output checker expected. A unit test caught the mismatch. The final pipeline uses separate normalization paths for routing and output checks.</p>
     <h2>Reproduce the results</h2>
