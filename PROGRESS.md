@@ -2,6 +2,34 @@
 
 One dated entry per session, newest first. Facts only. Each number can be reproduced from the linked repo.
 
+## 23 Nov 2026: Project 6, llm-safety-rules-engine
+
+Repo: https://github.com/muiizz/llm-safety-rules-engine
+Commit: `d0d5e92bd69a0748796ca4c709879c0edc43b498` (main). Gates adopted from quality-template `9bf1909` with `scripts/adopt.sh`, trimmed to Python only.
+
+Done:
+- Toy rules engine in English, Roman Urdu and Urdu script on invented data. Pipeline order: normalise, rules, consent, model stub, output check.
+- Hypothesis properties: urgent never reaches the model, no model call without consent, adding text never lowers the level, normalisation idempotent.
+- Synthetic set of 342 messages (seeded, dev and test split), paraphrase generator, per-language confusion matrix.
+- Four rounds of the fix loop, each committed with result files. Four ADRs. Branch protection on `main`, private vulnerability reporting on.
+
+Measured (test split; the README and `docs/fix_loop.md` have commands, machine and commits):
+- Mutation killed 112/115 at R0 and 189/196 at R3 (7 survivors, all equivalent).
+- R0: Roman Urdu and Urdu recall 0.00 while mutation score 0.97. R3: recall 1.00 and 1.00, English 0.90.
+- Missed urgent 81 to 3 of 90. False urgent rate 0.049 to 0.148.
+- `make check` 22 s locally, 131 tests, coverage 98.70%. GitHub `check` passed on `6dd2f27`.
+
+What failed: folding repeated letters broke the output check ("need" became "ned"). A unit test caught it. Fixed by splitting `normalise` and `plain`.
+
+Open items:
+- A native reader has not reviewed the Roman Urdu and Urdu script text. No number is hand checked.
+- The test split is not blind. Three English test misses are not yet examined.
+- `INTERVIEW.md` answers are empty.
+- No past-system figures or naming permission were provided, so none are used.
+- Not done: the proof that branch protection blocks a failing PR was run on quality-template only.
+
+Next step: Project 4, llm-eval-gate. Plan first, then wait for approval.
+
 ## 23 Nov 2026: Project 9, quality-template
 
 Repo: https://github.com/muiizz/quality-template
