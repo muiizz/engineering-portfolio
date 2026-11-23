@@ -1,0 +1,35 @@
+name: Creative automation checks
+on:
+  pull_request:
+    paths:
+      - 'labs/creative-flow/**'
+      - '.github/workflows/creative-flow.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  workflow:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Execute imported n8n workflow
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/n8n"
+          python3 -c 'import json,sys,uuid; w=json.load(open("labs/creative-flow/workflow.json")); w["id"]="CreativeFlowDemo"; w["versionId"]=str(uuid.uuid4()); json.dump(w,open(sys.argv[1],"w"))' "$RUNNER_TEMP/n8n/workflow.json"
+          runner=(docker run --rm --user "$(id -u):$(id -g)" -e N8N_USER_FOLDER=/state -v "$RUNNER_TEMP/n8n:/state" n8nio/n8n:1.121.3)
+          "${runner[@]}" import:workflow --input=/state/workflow.json
+          "${runner[@]}" execute --id=CreativeFlowDemo | tee "$RUNNER_TEMP/n8n-result"
+          grep -Eq '"status"[[:space:]]*:[[:space:]]*"awaiting_review"' "$RUNNER_TEMP/n8n-result"
+      - name: Export and inspect layered PSD
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y imagemagick fonts-dejavu-core
+          cd labs/creative-flow
+          bash export_layers.sh brief.json "$RUNNER_TEMP/campaign.psd"
+          test "$(identify "$RUNNER_TEMP/campaign.psd" | wc -l)" -eq 3
+          convert "$RUNNER_TEMP/campaign.psd[0]" "$RUNNER_TEMP/campaign-preview.png"
+          sed 's/"approved"/"pending"/' brief.json > "$RUNNER_TEMP/pending.json"
+          if bash export_layers.sh "$RUNNER_TEMP/pending.json" "$RUNNER_TEMP/pending.psd"; then exit 1; fi
+          test ! -e "$RUNNER_TEMP/pending.psd"
