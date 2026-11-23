@@ -26,5 +26,5 @@ convert -size 1060x520 -background none -fill "${colors[1]}" -font DejaVu-Sans -
   caption:"$(cat "$temp/copy.txt")" "$temp/label.png"
 convert -size 1200x630 xc:none "$temp/label.png" -geometry +70+55 -compose over -composite "$temp/copy.png"
 convert "$temp/background.png" "$temp/copy.png" -compose over -composite "$temp/composite.png"
-convert "$temp/composite.png" "$temp/background.png" "$temp/copy.png" -alpha set -colorspace sRGB -type TrueColorAlpha -compress RLE "$temp/export.psd"
+convert "$temp/composite.png" "$temp/background.png" "$temp/copy.png" -alpha set -colorspace sRGB -type TrueColorAlpha -compress None "$temp/export.psd"
 cp -n "$temp/export.psd" "$output"
