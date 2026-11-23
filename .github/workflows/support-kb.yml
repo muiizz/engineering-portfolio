@@ -1,0 +1,29 @@
+name: Support knowledge base lab
+on:
+  pull_request:
+    paths:
+      - 'labs/support-kb/**'
+      - '.github/workflows/support-kb.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    services:
+      db:
+        image: pgvector/pgvector:0.8.1-pg16
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready --health-interval 3s
+          --health-timeout 3s --health-retries 20
+    env:
+      PGHOST: localhost
+      PGUSER: postgres
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: python3 -m unittest discover -s labs/support-kb -v
+      - run: psql -X -v ON_ERROR_STOP=1 -f labs/support-kb/hybrid.sql
