@@ -1,0 +1,50 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Index Only Scan",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Scan Direction": "Forward",
+      "Index Name": "attendance_attended_on_attendance_id_student_id_present_idx",
+      "Relation Name": "attendance",
+      "Alias": "attendance",
+      "Startup Cost": 0.42,
+      "Total Cost": 48.30,
+      "Plan Rows": 1364,
+      "Plan Width": 13,
+      "Actual Startup Time": 0.006,
+      "Actual Total Time": 0.126,
+      "Actual Rows": 1370,
+      "Actual Loops": 1,
+      "Index Cond": "(attended_on = '2025-03-01'::date)",
+      "Rows Removed by Index Recheck": 0,
+      "Heap Fetches": 0,
+      "Shared Hit Blocks": 9,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning": {
+      "Shared Hit Blocks": 0,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 0.026,
+    "Triggers": [
+    ],
+    "Execution Time": 0.174
+  }
+]
