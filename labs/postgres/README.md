@@ -42,3 +42,25 @@ For arbitrary records, take the cursor from the preceding page.
 The [measurement summary](suite-evidence/summary.json) includes the run dates,
 host, server version and all timing samples. Representative JSON plans are in
 suite-evidence. The runner exports every plan on reproduction.
+
+## Operations labs
+
+Use a fresh PostgreSQL 16 cluster with `pg_stat_statements` installed and
+`shared_preload_libraries=pg_stat_statements`. From this directory run
+`psql -X -v ON_ERROR_STOP=1 -f sql/seed.sql -f operations.sql -f query-stats.sql`.
+The GitHub workflow starts a disposable PostgreSQL container.
+
+- RLS compares per-row identity lookup, an InitPlan lookup, and an indexed
+  policy column. It verifies the tenant sees exactly 10,000 of 1,000,000 rows.
+- The migration uses a short lock timeout, a constant default, independent
+  batches, validation, and an assertion that the backfill matches the source.
+  In a live rollout, arrange dual writes before backfilling, monitor locks and
+  replication lag, and retry batches by primary key. Enforce the constraint
+  once older writers have been retired.
+- The vacuum run measures estimated dead tuples and heap bytes before and
+  after regular vacuum. Regular vacuum makes dead space reusable.
+- Query statistics groups repeated statements and ranks them by total
+  execution time, alongside calls and shared block activity.
+
+[Local PostgreSQL 16.2 output](suite-evidence/operations.txt) records the
+operations run. Query statistics is exercised separately on GitHub Actions.
