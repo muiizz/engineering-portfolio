@@ -27,3 +27,8 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - run: python3 -m unittest discover -s labs/support-kb -v
       - run: psql -X -v ON_ERROR_STOP=1 -f labs/support-kb/hybrid.sql
+      - name: Verify PostgreSQL retrieval through the agent
+        run: |
+          python -m pip install 'psycopg[binary]==3.2.13'
+          psql -X -v ON_ERROR_STOP=1 -f labs/support-kb/catalog.sql
+          SUPPORT_DATABASE_URL=postgresql://postgres@localhost:5432/postgres python labs/support-kb/verify_pg.py
