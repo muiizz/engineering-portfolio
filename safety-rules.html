@@ -42,6 +42,13 @@
     <p><a href="https://github.com/muiizz/llm-safety-rules-engine/tree/d0d5e92bd69a0748796ca4c709879c0edc43b498">Source and run commands</a> · <a href="https://github.com/muiizz/llm-safety-rules-engine/blob/d0d5e92bd69a0748796ca4c709879c0edc43b498/docs/fix_loop.md">Revision history and results</a></p>
     <p>The evaluator uses a deterministic stub and invented data. These measurements describe routing on the fixtures.</p>
   </article>
+
+  <article class="prose" id="divia">
+    <h2>Divia case study: evaluating the safety layer</h2>
+    <p>I used two complementary checks to evaluate Divia’s deterministic routing layer. A multilingual audit exercised the system with 1,755 fictional messages in English, Roman Urdu, and Urdu script. A separate mutation campaign introduced 1,737 temporary changes to test whether the automated suite detected them.</p>
+    <p>The audit measured how the router handled different ways of expressing the same intent. Mutation testing measured whether the suite caught changes to code behavior. Together they informed two kinds of regression coverage: additional language examples and targeted tests for behavior the existing suite missed.</p>
+    <p>These were offline experiments on a historical revision using synthetic data. The results describe the coverage of those experiments. The open-source project above is a standalone teaching example with its own data and measurements.</p>
+  </article>
 </main>
 </body>
 </html>
