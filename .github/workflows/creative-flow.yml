@@ -26,6 +26,7 @@ jobs:
           cd labs/creative-flow
           bash export_layers.sh brief.json "$RUNNER_TEMP/campaign.psd"
           test "$(identify "$RUNNER_TEMP/campaign.psd" | wc -l)" -eq 3
+          convert "$RUNNER_TEMP/campaign.psd[0]" "$RUNNER_TEMP/campaign-preview.png"
           sed 's/"approved"/"pending"/' brief.json > "$RUNNER_TEMP/pending.json"
           if bash export_layers.sh "$RUNNER_TEMP/pending.json" "$RUNNER_TEMP/pending.psd"; then exit 1; fi
           test ! -e "$RUNNER_TEMP/pending.psd"

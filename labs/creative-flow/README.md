@@ -28,11 +28,7 @@ The workflow Code node passed four Node checks covering pending and approved
 outputs, invalid palette and prohibited claims. Import and execution in a
 running n8n instance were not tested here.
 
-The static Photoshop sample contains separate background and raster text
-layers. Decode it with `base64 -d demo.psd.b64 > demo.psd` on Linux, or
-`base64 -D -i demo.psd.b64 -o demo.psd` on macOS. ImageMagick confirmed
-the composite and two layers. The live HTML output is shown in example.html.
-The PSD sample is a separate static design handoff.
+The live HTML output is shown in example.html.
 
 Generate a layered PSD directly from any approved synthetic brief using
 `bash export_layers.sh brief.json campaign.psd` from this directory. The script
