@@ -11,6 +11,8 @@ jobs:
   supabase:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
+    env:
+      SUPABASE_INTERNAL_IMAGE_REGISTRY: docker.io
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Start disposable Supabase
