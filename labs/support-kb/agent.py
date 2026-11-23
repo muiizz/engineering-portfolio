@@ -23,18 +23,26 @@ HANDOFF = re.compile(r"\b(refund|complaint|lawyer|human|agent|refund chahiye)\b|
 URGENT = re.compile(r"\b(unsafe|immediate danger|emergency|khatarnak)\b|خطرناک|ہنگامی")
 
 
-def respond(message: str) -> dict:
+def keyword_lookup(message):
+    words = set(re.findall(r"[^\W_]+", message))
+    ranked = sorted(ARTICLES, key=lambda article: len(words & article.terms), reverse=True)
+    best, runner_up = ranked[:2]
+    if len(words & best.terms) > len(words & runner_up.terms):
+        return best.slug, best.answer
+    return None
+
+
+def respond(message: str, lookup=keyword_lookup) -> dict:
     normalized = message.casefold()
     if URGENT.search(normalized):
         return {"route": "urgent", "reason": "safety signal"}
     if HANDOFF.search(normalized):
         return {"route": "handoff", "reason": "human review requested or required"}
-    words = set(re.findall(r"[^\W_]+", normalized))
-    ranked = sorted(ARTICLES, key=lambda article: len(words & article.terms), reverse=True)
-    best, runner_up = ranked[:2]
-    if len(words & best.terms) <= len(words & runner_up.terms):
+    matches = lookup(normalized)
+    if matches is None:
         return {"route": "handoff", "reason": "insufficient evidence for one answer"}
-    return {"route": "reply", "reply": best.answer, "citation": best.slug}
+    citation, answer = matches
+    return {"route": "reply", "reply": answer, "citation": citation}
 
 
 if __name__ == "__main__":

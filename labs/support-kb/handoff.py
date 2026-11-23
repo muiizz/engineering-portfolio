@@ -4,11 +4,11 @@ import json
 import sqlite3
 from pathlib import Path
 
-from agent import respond
+from agent import keyword_lookup, respond
 
 
-def handle(database: Path, request_id: str, message: str) -> dict:
-    decision = respond(message)
+def handle(database: Path, request_id: str, message: str, lookup=keyword_lookup) -> dict:
+    decision = respond(message, lookup=lookup)
     if decision["route"] == "reply":
         return decision
 

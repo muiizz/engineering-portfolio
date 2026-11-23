@@ -30,3 +30,18 @@ The four-dimensional vectors are controlled fixtures. One case deliberately
 has a poor semantic match and another has no keyword match. This tests the
 retrieval and scoring mechanics. It does not measure a learned embedding
 model or HNSW performance with a large corpus.
+
+## Run the integrated agent
+
+Apply catalog.sql to a fresh disposable pgvector database, install
+`psycopg[binary]==3.2.13`, and set SUPPORT_DATABASE_URL. Then run:
+
+    python labs/support-kb/pg_agent.py /tmp/support-demo.db case-1 "opening times"
+    python labs/support-kb/verify_pg.py
+
+The integrated agent uses PostgreSQL full-text ranking first and pgvector
+for the controlled alias fallback. Ties, weak vectors and unknown queries
+go to the durable handoff queue. The test verifies citation IDs and escalation
+precedence end to end. The catalog is synthetic, and the alias vector is
+hand-authored. A learned embedding model and production-scale recall were
+not benchmarked.
