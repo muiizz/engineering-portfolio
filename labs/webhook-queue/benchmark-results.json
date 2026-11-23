@@ -1,0 +1,28 @@
+{
+  "utc": "2026-11-23T21:35:19.912078+00:00",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "postgres": "16.2",
+  "samples": [
+    {
+      "workers": 1,
+      "delivered": 1000,
+      "seconds": 0.811,
+      "events_per_second": 1233.0,
+      "p95_queued_to_delivered_ms": 763.53
+    },
+    {
+      "workers": 4,
+      "delivered": 1000,
+      "seconds": 1.101,
+      "events_per_second": 908.5,
+      "p95_queued_to_delivered_ms": 1041.2
+    },
+    {
+      "workers": 8,
+      "delivered": 1000,
+      "seconds": 1.534,
+      "events_per_second": 651.8,
+      "p95_queued_to_delivered_ms": 1452.55
+    }
+  ]
+}
