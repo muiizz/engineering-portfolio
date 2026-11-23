@@ -1,0 +1,31 @@
+name: School access integration
+on:
+  pull_request:
+    paths:
+      - 'labs/school-rls/**'
+      - '.github/workflows/school-rls.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  supabase:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Start disposable Supabase
+        run: |
+          npx --yes supabase@2.39.2 init
+          npx --yes supabase@2.39.2 start
+      - name: Verify SQL role matrix and Auth RPC
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y postgresql-client
+          set -a
+          source <(npx --yes supabase@2.39.2 status -o env)
+          set +a
+          psql "$DB_URL" -X -v ON_ERROR_STOP=1 -f labs/school-rls/supabase.sql
+          psql "$DB_URL" -X -v ON_ERROR_STOP=1 -f labs/school-rls/verify_supabase.sql
+          python3 labs/school-rls/verify_http.py
