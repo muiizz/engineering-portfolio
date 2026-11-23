@@ -1,0 +1,28 @@
+{
+  "rows": "1000000",
+  "version": "PostgreSQL 16.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit",
+  "before": {
+    "runs_ms": [
+      75.178,
+      67.169,
+      55.125,
+      76.303,
+      51.006
+    ],
+    "median_ms": 67.169
+  },
+  "after": {
+    "runs_ms": [
+      0.106,
+      0.111,
+      0.19,
+      0.211,
+      0.126
+    ],
+    "median_ms": 0.126
+  },
+  "result_rows": 96,
+  "machine": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "utc": "2026-11-23T16:30:21.974250+00:00",
+  "source_commit": "6d93beb99b62cf624b38fbf3c62cce145e174480"
+}

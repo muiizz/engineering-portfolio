@@ -1,0 +1,5 @@
+{
+  "refund":{"route":"handoff","reply":"I can refer your request to the support team."},
+  "hours":{"route":"reply","reply":"The desk is open from 9 to 5 UTC."},
+  "urdu":{"route":"handoff","reply":"Main aap ki request support team ko bhej sakta hun."}
+}
