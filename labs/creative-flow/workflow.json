@@ -1,0 +1,70 @@
+{
+  "name": "Synthetic creative brief and approval",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "trigger",
+      "name": "Manual run",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{json: {\"brand\": \"Northline Studio\", \"headline\": \"Make room for the next idea.\", \"copy\": \"Book a desk for a quiet afternoon of focused work.\", \"background\": \"#173044\", \"foreground\": \"#FAF1DC\", \"review_status\": \"pending\"}}];"
+      },
+      "id": "brief",
+      "name": "Brief and review decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Export an HTML draft after checking the brief and explicit review decision.\nconst input = $input.first().json;\nconst required = [\"brand\", \"headline\", \"copy\", \"background\", \"foreground\"];\nconst escape = (s) => s.replace(/[&<>\"']/g, (ch) => ({\n  \"&\": \"&amp;\", \"<\": \"&lt;\", \">\": \"&gt;\", '\"': \"&quot;\", \"'\": \"&#39;\",\n})[ch]);\n\nif (required.some((field) => typeof input[field] !== \"string\" || !input[field].trim())) {\n  throw new Error(\"Missing brief field\");\n}\nconst palette = /^#[0-9a-f]{6}$/i;\nif (!palette.test(input.background) || !palette.test(input.foreground)) {\n  throw new Error(\"Invalid palette\");\n}\nif (/\\b(guaranteed|cure|clinically proven)\\b/i.test([input.brand, input.headline, input.copy].join(\" \"))) {\n  throw new Error(\"Unsupported claim requires editorial review\");\n}\nconst headline = escape(input.headline);\nconst brand = escape(input.brand);\nconst copy = escape(input.copy);\nconst draft = `<!doctype html><html lang=\"en\"><meta charset=\"utf-8\">\n<title>${brand}</title><body style=\"background:${input.background};color:${input.foreground};padding:4rem;font-family:system-ui\">\n<p>${brand}</p><h1>${headline}</h1><p>${copy}</p></body></html>`;\nif (input.review_status !== \"approved\") {\n  return [{json: {status: \"awaiting_review\", draft}}];\n}\nreturn [{json: {status: \"approved\", filename: \"campaign-card.html\", asset: draft}}];\n"
+      },
+      "id": "render",
+      "name": "Validate and render",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Manual run": {
+      "main": [
+        [
+          {
+            "node": "Brief and review decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Brief and review decision": {
+      "main": [
+        [
+          {
+            "node": "Validate and render",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}
