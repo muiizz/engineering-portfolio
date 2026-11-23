@@ -12,8 +12,9 @@ from pgserver._commands import POSTGRES_BIN_PATH as BIN
 def sql(name):
     return " ".join((Path("sql") / name).read_text().split()).rstrip(";")
 
-def run(output):
-    query = sql("query.sql")
+def run(output, query=None, index=None, revised_query=None):
+    query = query or sql("query.sql")
+    index = sql("index.sql") if index is None else index
     output.mkdir(exist_ok=False)
     with tempfile.TemporaryDirectory() as tmp:
         temp = Path(tmp)
@@ -25,11 +26,12 @@ def run(output):
             cmds.append(f"COPY ({statement}) TO '{temp/filename}' WITH CSV HEADER")
         export("SELECT count(*) AS rows, version() AS version FROM attendance", "environment.csv")
         for phase in ("before","after"):
-            if phase == "after":
-                cmds.append(sql("index.sql"))
+            if phase == "after" and index:
+                cmds.append(index)
+            active_query = revised_query if phase == "after" and revised_query else query
             for n in range(6):
-                export("SELECT plan($q$"+query+"$q$)", f"{phase}-{n}.csv")
-            export(query,f"{phase}-result.csv")
+                export("SELECT plan($q$"+active_query+"$q$)", f"{phase}-{n}.csv")
+            export(active_query,f"{phase}-result.csv")
         result = subprocess.run([BIN/"postgres","--single","-D",db,"postgres"], input=";\n".join(cmds)+";\n",text=True,capture_output=True,check=True)
         if "ERROR:" in result.stderr or "FATAL:" in result.stderr:
             raise RuntimeError(result.stderr)
@@ -50,8 +52,8 @@ def run(output):
     env.update(result_rows=len(rows.splitlines())-1, machine=platform.platform(), utc=datetime.now(timezone.utc).isoformat(),
                source_commit=subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip())
     (output/"summary.json").write_text(json.dumps(env,indent=2)+"\n")
-    print(json.dumps(env,indent=2))
+    return env
 
 if __name__ == "__main__":
     import sys
-    run(Path(sys.argv[1]))
+    print(json.dumps(run(Path(sys.argv[1])), indent=2))

@@ -1,0 +1,77 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Sort",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 24177.19,
+      "Total Cost": 24189.69,
+      "Plan Rows": 5000,
+      "Plan Width": 13,
+      "Actual Startup Time": 155.625,
+      "Actual Total Time": 158.547,
+      "Actual Rows": 42465,
+      "Actual Loops": 1,
+      "Sort Key": ["attended_on", "attendance_id"],
+      "Sort Method": "quicksort",
+      "Sort Space Used": 3195,
+      "Sort Space Type": "Memory",
+      "Shared Hit Blocks": 6370,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0,
+      "Plans": [
+        {
+          "Node Type": "Seq Scan",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Relation Name": "attendance",
+          "Alias": "attendance",
+          "Startup Cost": 0.00,
+          "Total Cost": 23870.00,
+          "Plan Rows": 5000,
+          "Plan Width": 13,
+          "Actual Startup Time": 0.008,
+          "Actual Total Time": 135.443,
+          "Actual Rows": 42465,
+          "Actual Loops": 1,
+          "Filter": "(date_trunc('month'::text, (attended_on)::timestamp without time zone) = '2025-03-01 00:00:00'::timestamp without time zone)",
+          "Rows Removed by Filter": 957535,
+          "Shared Hit Blocks": 6370,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        }
+      ]
+    },
+    "Planning": {
+      "Shared Hit Blocks": 0,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0
+    },
+    "Planning Time": 0.042,
+    "Triggers": [
+    ],
+    "Execution Time": 160.061
+  }
+]

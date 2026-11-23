@@ -1,0 +1,170 @@
+{
+  "tenant-week": {
+    "rows": "1000000",
+    "version": "PostgreSQL 16.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit",
+    "before": {
+      "runs_ms": [
+        46.993,
+        48.136,
+        43.514,
+        48.957,
+        47.294
+      ],
+      "median_ms": 47.294
+    },
+    "after": {
+      "runs_ms": [
+        0.1,
+        0.081,
+        0.084,
+        0.202,
+        0.091
+      ],
+      "median_ms": 0.091
+    },
+    "result_rows": 96,
+    "machine": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "utc": "2026-11-23T22:12:36.677023+00:00",
+    "source_snapshot": "suite.py, single.py and sql/seed.sql in this release"
+  },
+  "student-history": {
+    "rows": "1000000",
+    "version": "PostgreSQL 16.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit",
+    "before": {
+      "runs_ms": [
+        129.927,
+        48.965,
+        46.283,
+        41.927,
+        43.169
+      ],
+      "median_ms": 46.283
+    },
+    "after": {
+      "runs_ms": [
+        0.028,
+        0.048,
+        0.021,
+        0.021,
+        0.272
+      ],
+      "median_ms": 0.028
+    },
+    "result_rows": 10,
+    "machine": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "utc": "2026-11-23T22:12:41.301293+00:00",
+    "source_snapshot": "suite.py, single.py and sql/seed.sql in this release"
+  },
+  "absence-review": {
+    "rows": "1000000",
+    "version": "PostgreSQL 16.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit",
+    "before": {
+      "runs_ms": [
+        121.918,
+        46.575,
+        52.689,
+        49.769,
+        49.983
+      ],
+      "median_ms": 49.983
+    },
+    "after": {
+      "runs_ms": [
+        0.593,
+        0.471,
+        0.503,
+        0.408,
+        0.442
+      ],
+      "median_ms": 0.471
+    },
+    "result_rows": 500,
+    "machine": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "utc": "2026-11-23T22:12:45.012598+00:00",
+    "source_snapshot": "suite.py, single.py and sql/seed.sql in this release"
+  },
+  "date-export": {
+    "rows": "1000000",
+    "version": "PostgreSQL 16.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit",
+    "before": {
+      "runs_ms": [
+        67.353,
+        182.535,
+        44.252,
+        55.44,
+        49.388
+      ],
+      "median_ms": 55.44
+    },
+    "after": {
+      "runs_ms": [
+        0.174,
+        0.168,
+        0.174,
+        0.168,
+        0.171
+      ],
+      "median_ms": 0.171
+    },
+    "result_rows": 1370,
+    "machine": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "utc": "2026-11-23T22:12:50.740656+00:00",
+    "source_snapshot": "suite.py, single.py and sql/seed.sql in this release"
+  },
+  "month-filter": {
+    "rows": "1000000",
+    "version": "PostgreSQL 16.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit",
+    "before": {
+      "runs_ms": [
+        160.061,
+        197.082,
+        221.101,
+        158.473,
+        160.394
+      ],
+      "median_ms": 160.394
+    },
+    "after": {
+      "runs_ms": [
+        35.198,
+        46.018,
+        33.444,
+        33.58,
+        58.913
+      ],
+      "median_ms": 35.198
+    },
+    "result_rows": 42465,
+    "machine": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "utc": "2026-11-23T22:12:57.099059+00:00",
+    "source_snapshot": "suite.py, single.py and sql/seed.sql in this release"
+  },
+  "pagination": {
+    "rows": "1000000",
+    "version": "PostgreSQL 16.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 10.2.1 20210130 (Red Hat 10.2.1-11), 64-bit",
+    "before": {
+      "runs_ms": [
+        114.436,
+        111.172,
+        137.576,
+        115.921,
+        113.433
+      ],
+      "median_ms": 114.436
+    },
+    "after": {
+      "runs_ms": [
+        0.029,
+        0.027,
+        0.028,
+        0.027,
+        0.027
+      ],
+      "median_ms": 0.027
+    },
+    "result_rows": 100,
+    "machine": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "utc": "2026-11-23T22:13:01.616289+00:00",
+    "source_snapshot": "suite.py, single.py and sql/seed.sql in this release"
+  }
+}
