@@ -5,7 +5,7 @@ One dated entry per session, newest first. Facts only. Each number can be reprod
 ## 23 Nov 2026: Project 6, llm-safety-rules-engine
 
 Repo: https://github.com/muiizz/llm-safety-rules-engine
-Commit: `d0d5e92bd69a0748796ca4c709879c0edc43b498` (main). Gates adopted from quality-template `9bf1909` with `scripts/adopt.sh`, trimmed to Python only.
+Commit: `d0d5e92bd69a0748796ca4c709879c0edc43b498` (main). Gates adopted from quality-template `f5d8ff6` (rewritten history, see the Project 9 entry) with `scripts/adopt.sh`, trimmed to Python only.
 
 Done:
 - Toy rules engine in English, Roman Urdu and Urdu script on invented data. Pipeline order: normalise, rules, consent, model stub, output check.
@@ -33,7 +33,7 @@ Next step: Project 4, llm-eval-gate. Plan first, then wait for approval.
 ## 23 Nov 2026: Project 9, quality-template
 
 Repo: https://github.com/muiizz/quality-template
-Commit: `9bf1909863aca5082efdbf53965d5d712cba40b6` (main, after PR 6)
+Commit: `f5d8ff6c4a7ebae0d8d9c4ba0f211361924df6b0` (main, after PR 6). Note: on 23 Nov 2026 I rewrote this repo's history to remove a file that should not have been public. The commit I first recorded here, `9bf1909`, no longer exists; `f5d8ff6` has the same content minus that file and two edited lines in CLAUDE.md. The README SHAs were updated in PR 7.
 
 Done:
 - One `make check` that runs the gates locally and in CI. CI installs from lockfiles, then calls `make check`.
