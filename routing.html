@@ -1,1 +1,56 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>What one extra alert bought | Abdul Muizz</title><link rel="stylesheet" href="style.css"></head><body><header><nav class="wrap"><a class="brand" href="index.html">Abdul Muizz</a><a href="resume.html">Résumé</a></nav></header><main class="wrap"><section class="page-hero"><h1>What one extra alert bought</h1></section><article class="prose"><p>A synthetic support desk needs to route account compromise and unexpected charges to a reviewer. Three English phrases caught only 3 of 10 review-worthy messages across English, Roman Urdu and Urdu script.</p><h2>9 of 10 reached review</h2><p>Adding six phrases and normalizing punctuation and Urdu characters caught six more cases. One ordinary message also reached review: it contained a matching phrase and then negated it. An English paraphrase still went undetected.</p><p>The fixture set has 18 items. Its size makes every mistake inspectable and limits how far the rates generalize. Separate tests check that a handoff can include a transcript only with explicit consent.</p><p><a href="labs/routing-audit/README.md">Counts for each language</a> · <a href="labs/routing-audit/fixtures.json">Inspect the cases</a> · <a href="labs/routing-audit/test_routing.py">Consent and regression tests</a></p></article></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Phrase coverage and review routing across English, Roman Urdu and Urdu, runnable in the browser.">
+  <meta name="theme-color" content="#f4f6f7">
+  <title>What one extra alert bought | Abdul Muizz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script><script defer src="site.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">Abdul Muizz</a>
+      <div class="links"><a href="index.html#work">Work</a><a href="index.html#projects">Projects</a><a href="index.html#design">Design notes</a><a href="index.html#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
+    </nav>
+  </header>
+  <main id="main">
+
+    <section class="page-hero wrap">
+      <p class="kind">Applied AI, routing</p>
+      <h1 class="kin">What one extra alert bought</h1>
+      <p class="lede">The rules from the repository run in your browser. Send them a message in English, Roman Urdu or Urdu and see which queue it lands in.</p>
+    </section>
+    <section class="stage wrap">
+      <div class="frame" data-demo="router">
+        <p>Baseline: 3 of 10 review-worthy messages reached review. Revised: 9 of 10, with one unnecessary review.</p>
+      </div>
+    </section>
+    <div class="body wrap">
+      <aside class="facts">
+        <h2>Evidence</h2>
+        <ul>
+          <li><a href="labs/routing-audit/README.md">Counts for each language</a></li>
+          <li><a href="labs/routing-audit/fixtures.json">Inspect the cases</a></li>
+          <li><a href="labs/routing-audit/routing.py">Routing rules</a></li>
+          <li><a href="labs/routing-audit/test_routing.py">Consent and regression tests</a></li>
+        </ul>
+      </aside>
+      <article class="prose">
+        <h2>3 of 10 reached review</h2>
+        <p>A synthetic support desk needs to route account compromise and unexpected charges to a reviewer. Three English phrases caught only 3 of 10 review-worthy messages across English, Roman Urdu and Urdu script.</p>
+        <h2>9 of 10 reached review</h2>
+        <p>Adding six phrases and normalizing punctuation and Urdu characters caught six more cases. One ordinary message also reached review: it contained a matching phrase and then negated it. An English paraphrase still went undetected.</p>
+        <p>The fixture set has 18 items. Its size makes every mistake inspectable and limits how far the rates generalize. Separate tests check that a handoff can include a transcript only with explicit consent.</p>
+      </article>
+    </div>
+    <nav class="next wrap" aria-label="More case studies"><a href="support-eval.html">Previous: Support evaluation</a><a href="webhook-queue.html">Next: Webhook queue</a></nav>
+  </main>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. All scenarios and data on this site are synthetic.</div></footer>
+</body>
+</html>

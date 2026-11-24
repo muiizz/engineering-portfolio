@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A PostgreSQL webhook queue with replay deduplication, row locking and dead lettering, with a browser simulation.">
+  <meta name="theme-color" content="#f4f6f7">
+  <title>PostgreSQL webhook queue | Abdul Muizz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script><script defer src="site.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">Abdul Muizz</a>
+      <div class="links"><a href="index.html#work">Work</a><a href="index.html#projects">Projects</a><a href="index.html#design">Design notes</a><a href="index.html#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
+    </nav>
+  </header>
+  <main id="main">
+
+    <section class="page-hero wrap">
+      <p class="kind">PostgreSQL, background jobs</p>
+      <h1 class="kin">A webhook queue that survives replays</h1>
+      <p class="lede">Send events, replay one, break one. The queue below follows the same rules as the PostgreSQL version: one row per event, one worker per row, five attempts.</p>
+    </section>
+    <section class="stage wrap">
+      <div class="frame" data-demo="queue">
+        <p>A unique event ID makes replay a no-op. Workers lock one row each and skip rows held by others. Invalid payloads reach the dead-letter table after five failures.</p>
+      </div>
+    </section>
+    <div class="body wrap">
+      <aside class="facts">
+        <h2>Evidence</h2>
+        <ul>
+          <li><a href="labs/webhook-queue/README.md">Lab notes and run steps</a></li>
+          <li><a href="labs/webhook-queue/queue_core.py">Queue source</a></li>
+          <li><a href="labs/webhook-queue/verify.py">Verification script</a></li>
+          <li><a href="labs/webhook-queue/benchmark-results.json">Raw timings</a></li>
+        </ul>
+        <h2>Scope</h2>
+        <ul><li>PostgreSQL 16.2, local synthetic provider</li><li>Verified on 24 November 2026</li></ul>
+      </aside>
+      <article class="prose">
+        <h2>Intake</h2>
+        <p>Intake authenticates the timestamp and raw body before inserting a job. A unique event ID makes replay a no-op. The receiver returns 202 after the transaction commits, including for duplicates.</p>
+        <h2>Workers</h2>
+        <p>The worker locks one available row and skips rows held by other workers. The outbox insert and job completion commit together. A database rollback releases an interrupted claim. Invalid payloads back off and reach the dead-letter table after five failures.</p>
+        <h2>What was verified</h2>
+        <p>Against PostgreSQL 16.2, the verification script passed replay deduplication, recovery from an interruption after the synthetic provider accepted delivery, concurrent claims over 100 events with eight workers, and dead lettering after five failed attempts.</p>
+        <h2>Measured throughput</h2>
+        <div class="scroll"><table>
+          <caption>1,000 events per configuration, queued to delivered, single run</caption>
+          <thead><tr><th scope="col">Workers</th><th scope="col">Events per second</th><th scope="col">p95</th></tr></thead>
+          <tbody><tr><td>1</td><td>1,233</td><td>763.53 ms</td></tr><tr><td>4</td><td>908.5</td><td>1,041.20 ms</td></tr><tr><td>8</td><td>651.8</td><td>1,452.55 ms</td></tr></tbody>
+        </table></div>
+        <p>Four and eight workers were slower in this single run. These results exclude HTTP ingress and external network latency.</p>
+      </article>
+    </div>
+    <nav class="next wrap" aria-label="More case studies"><a href="routing.html">Previous: Support routing</a><a href="school-rls.html">Next: School access</a></nav>
+  </main>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. All scenarios and data on this site are synthetic.</div></footer>
+</body>
+</html>

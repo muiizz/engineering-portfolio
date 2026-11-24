@@ -1,2 +1,65 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Quality gate | Abdul Muizz</title><link rel="stylesheet" href="style.css"></head><body><header><nav class="wrap" aria-label="Main navigation"><a class="brand" href="index.html">Abdul Muizz ✳</a><div class="navlinks"><a href="index.html#work">Work</a><a href="index.html#contact">Contact</a></div></nav></header><main class="wrap"><section class="page-hero"><p class="eyebrow">Engineering quality / Synthetic demonstration</p><h1>A quality gate that catches regressions.</h1><p class="lede">A release decision is easier to review when its rule is explicit and its failure is reproducible.</p></section><div class="content"><aside><p><strong>Focus</strong><br>Policy checks, test design, CI</p><p><strong>Artifact</strong><br><a href="demo/quality_gate.py">Quality gate source</a><br><a href="tests/test_demos.py">Tests</a></p></aside><article class="prose"><h2>Published gate and fault proofs</h2><p>The full Python, TypeScript and SQL template records 17 gate proofs and a 40/40 mutation result. The smaller example below illustrates the release decision.</p><p><a href="https://github.com/muiizz/quality-template/tree/b06007bd1fb533aacf7b8f6ffb24000fd4286a0c">Inspect the published template and dated evidence</a></p><h2>The problem</h2><p>A change can look complete while a required check has failed or never ran. This fictional release gate models a simple policy for deciding whether a set of required checks is ready.</p><h2>The approach</h2><p>The gate requires each named check to be present and exactly marked <code>pass</code>. Missing and failing checks are returned as actionable issues. The tests exercise a passing release, a failure, and a missing check. CI runs the same tests on pushes and pull requests.</p><pre><code>python -m unittest discover -s tests -v
-python demo/quality_gate.py</code></pre><h2>What to look for</h2><p>The example keeps policy separate from presentation, makes missing evidence visible, and returns a nonzero exit code when a release is blocked. It is intentionally small, so it can be inspected and changed quickly.</p><h2>Scope</h2><p>This is a synthetic contract demonstration. It does not connect to a deployment system or establish that a real release is safe.</p><p><a href="support-eval.html">Next case study · Support evaluation →</a></p></article></div></main><footer class="wrap">© 2026 Abdul Muizz</footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A small release gate with explicit failure reasons, and 17 fault proofs showing which check blocks which mistake.">
+  <meta name="theme-color" content="#f4f6f7">
+  <title>Quality gate | Abdul Muizz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script><script defer src="site.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">Abdul Muizz</a>
+      <div class="links"><a href="index.html#work">Work</a><a href="index.html#projects">Projects</a><a href="index.html#design">Design notes</a><a href="index.html#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
+    </nav>
+  </header>
+  <main id="main">
+
+    <section class="page-hero wrap">
+      <p class="kind">CI, release checks</p>
+      <h1 class="kin">A quality gate that catches regressions</h1>
+      <p class="lede">A release decision is easier to review when its rule is explicit and its failure is reproducible. Break a check below and read the verdict.</p>
+    </section>
+    <section class="stage wrap">
+      <div class="frame" style="view-transition-name:demo-gate" data-demo="gate" data-mode="full">
+        <p>The gate requires each named check to be present and exactly marked pass.</p>
+      </div>
+      <div class="frame" data-demo="proofs"></div>
+    </section>
+    <div class="body wrap">
+      <aside class="facts">
+        <h2>Focus</h2>
+        <ul><li>Policy checks, test design, CI</li></ul>
+        <h2>Evidence</h2>
+        <ul>
+          <li><a href="demo/quality_gate.py">Quality gate source</a></li>
+          <li><a href="tests/test_demos.py">Tests</a></li>
+          <li><a href="https://github.com/muiizz/quality-template/tree/b06007bd1fb533aacf7b8f6ffb24000fd4286a0c">Published template and dated evidence</a></li>
+        </ul>
+      </aside>
+      <article class="prose">
+        <h2>Published gate and fault proofs</h2>
+        <p>The full Python, TypeScript and SQL template records 17 gate proofs and a 40/40 mutation result. The smaller example above illustrates the release decision.</p>
+        <h2>The problem</h2>
+        <p>A change can look complete while a required check has failed or never ran. This fictional release gate models a simple policy for deciding whether a set of required checks is ready.</p>
+        <h2>The approach</h2>
+        <p>The gate requires each named check to be present and exactly marked <code>pass</code>. Missing and failing checks are returned as actionable issues. The tests exercise a passing release, a failure, and a missing check. CI runs the same tests on pushes and pull requests.</p>
+        <pre><code>python -m unittest discover -s tests -v
+python demo/quality_gate.py</code></pre>
+        <h2>What to look for</h2>
+        <p>The example keeps policy separate from presentation, makes missing evidence visible, and returns a nonzero exit code when a release is blocked. It is intentionally small, so it can be inspected and changed quickly.</p>
+        <h2>Scope</h2>
+        <p>This is a synthetic contract demonstration. It does not connect to a deployment system or establish that a real release is safe.</p>
+      </article>
+    </div>
+    <nav class="next wrap" aria-label="More case studies"><a href="postgres.html">Previous: 96 rows in a million</a><a href="support-eval.html">Next: Support evaluation</a></nav>
+  </main>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. All scenarios and data on this site are synthetic.</div></footer>
+</body>
+</html>

@@ -4,111 +4,132 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Abdul Muizz’s engineering portfolio. Applied AI, PostgreSQL, and reproducible tests.">
+  <meta name="theme-color" content="#f4f6f7">
   <title>Abdul Muizz | Engineering portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
   <link rel="stylesheet" href="style.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      if (typeof window.Lenis !== "function") return;
-      const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-      let scroller;
-      function syncMotion() {
-        scroller?.destroy();
-        scroller = preference.matches ? undefined : new window.Lenis({
-          autoRaf: true, smoothWheel: true, syncTouch: false, anchors: false,
-        });
-      }
-      syncMotion();
-      preference.addEventListener("change", syncMotion);
-    });
-  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script><script defer src="site.js"></script>
 </head>
-<body class="portfolio-home">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
     <nav class="wrap" aria-label="Main navigation">
       <a class="brand" href="index.html">Abdul Muizz</a>
-      <div class="navlinks">
-        <a href="#work">Work</a>
-        <a href="#projects">All projects</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <a class="resume-link" href="resume.html">Résumé</a>
+      <div class="links"><a href="#work">Work</a><a href="#projects">Projects</a><a href="#design">Design notes</a><a href="#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
     </nav>
   </header>
-  <main id="main" class="wrap">
-    <section class="home-hero">
-      <h1>Applied AI.<br><em>Database engineering.</em></h1>
-      <div class="hero-summary">
-        <p>I’m Abdul Muizz, a product and operations lead in Lahore. Explore the benchmarks, evaluations, and release checks behind my engineering work.</p>
-        <a class="primary-action" href="#work">Explore the work <span aria-hidden="true">↓</span></a>
+  <main id="main">
+
+    <section class="hero wrap">
+      <h1 class="kin">Applied AI.<br>Database engineering.</h1>
+      <div class="hero-grid">
+        <div>
+          <p>I’m Abdul Muizz. I build and test applied AI and PostgreSQL systems from Lahore.</p>
+          <p>Before this I ran a production studio for three years. I still review work the way an editor reviews footage: by looking at what was recorded. Each case study below has a working demo built from the recorded results.</p>
+        </div>
+        <a class="btn" href="#work">See the work</a>
       </div>
     </section>
 
-    <section class="home-section" id="work" aria-labelledby="work-title">
+    <section class="band wrap" id="work" aria-labelledby="work-title">
       <h2 id="work-title">Selected case studies</h2>
-      <article class="feature">
-        <div class="feature-story">
-          <p class="project-type">Applied AI · Evaluation</p>
+
+      <article class="take">
+        <div class="take-story">
+          <p class="kind">Applied AI, evaluation</p>
           <h3>When mutation tests missed a language gap</h3>
           <p>A strong mutation score hid a routing gap in a multilingual test set. Four revisions reduced missed urgent cases, while false alerts increased.</p>
-          <a class="text-action" href="safety-rules.html">Read the safety case study <span aria-hidden="true">→</span></a>
+          <a class="more" href="safety-rules.html">Read the safety case study</a>
         </div>
-        <figure class="evidence">
-          <figcaption>Missed urgent cases <small>Same 90 synthetic cases</small></figcaption>
-          <div class="evidence-row"><span>First revision</span><strong>81 / 90</strong></div>
-          <div class="track" aria-hidden="true"><span style="--bar:90%"></span></div>
-          <div class="evidence-row"><span>Fourth revision</span><strong>3 / 90</strong></div>
-          <div class="track" aria-hidden="true"><span style="--bar:3.33%"></span></div>
-          <p>False alert rate: 4.9% → 14.8%</p>
-        </figure>
+        <div class="frame" style="view-transition-name:demo-safety" data-demo="takes">
+          <p>Missed urgent cases on the same 90 synthetic cases: 81 of 90 in the first revision, 3 of 90 in the fourth. False alert rate: 4.9% to 14.8%.</p>
+        </div>
       </article>
-      <div class="selected-grid">
-        <article class="selected">
-          <p class="project-type">PostgreSQL · Query performance</p>
+
+      <article class="take flip">
+        <div class="take-story">
+          <p class="kind">PostgreSQL, query performance</p>
           <h3>Find 96 rows in a million</h3>
           <p>A composite index reduced the median query time from 67.169 ms to 0.126 ms in five warm runs. Both queries returned the same ordered rows.</p>
-          <a class="text-action" href="postgres.html">Inspect the query plans <span aria-hidden="true">→</span></a>
-        </article>
-        <article class="selected">
-          <p class="project-type">CI · Release checks</p>
+          <a class="more" href="postgres.html">Inspect the query plans</a>
+        </div>
+        <div class="frame" style="view-transition-name:demo-postgres" data-demo="scan">
+          <p>Median execution time, five warm runs: 67.169 ms with the primary key only, 0.126 ms with the composite index. 96 ordered rows in both.</p>
+        </div>
+      </article>
+
+      <article class="take">
+        <div class="take-story">
+          <p class="kind">CI, release checks</p>
           <h3>Prove the gate catches a failure</h3>
           <p>Seventeen gate proofs check that a flawed change fails for the expected reason. The published mutation run killed all 40 mutants.</p>
-          <a class="text-action" href="quality-gate.html">Read the release case study <span aria-hidden="true">→</span></a>
-        </article>
+          <a class="more" href="quality-gate.html">Read the release case study</a>
+        </div>
+        <div class="frame" style="view-transition-name:demo-gate" data-demo="gate">
+          <p>The gate requires tests, lint and security to be present and marked pass. A missing or failing check blocks the release.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="band wrap" id="projects" aria-labelledby="projects-title">
+      <h2 id="projects-title">All twelve projects</h2>
+      <p class="sub">Seven open as a working demo. The rest open the lab notes and source.</p>
+      <div class="sheet">
+        <a class="cell" href="webhook-queue.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><rect x="10" y="34" width="9" height="12" fill="#f4f6f7"/><rect x="23" y="34" width="9" height="12" fill="#f4f6f7"/><rect x="36" y="34" width="9" height="12" fill="#f4f6f7"/><rect x="49" y="34" width="9" height="12" fill="#f4f6f7"/><rect x="62" y="34" width="9" height="12" fill="#f4f6f7"/><rect x="75" y="34" width="9" height="12" fill="#f4f6f7"/><rect x="88" y="34" width="9" height="12" fill="#5d6163"/><rect x="101" y="34" width="9" height="12" fill="#5d6163"/><path d="M10 58h100" stroke="#5d6163" stroke-width="1.5"/></svg><div class="cap"><div class="no">Frame 1, demo</div><strong>PostgreSQL webhook queue</strong><span>Send events, replay one, and watch workers claim rows without colliding.</span></div></a>
+        <a class="cell" href="postgres.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><rect x="12" y="24" width="96" height="10" fill="#5d6163"/><rect x="12" y="46" width="2" height="10" fill="#f4f6f7"/></svg><div class="cap"><div class="no">Frame 2, demo</div><strong>PostgreSQL performance</strong><span>Six query comparisons, RLS, migrations, vacuum and query statistics</span></div></a>
+        <a class="cell" href="school-rls.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><rect x="18" y="16" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="33" y="16" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="48" y="16" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="63" y="16" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="78" y="16" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="93" y="16" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="18" y="29" width="11" height="9" fill="#f4f6f7" stroke="#5d6163" stroke-width="1"/><rect x="33" y="29" width="11" height="9" fill="#f4f6f7" stroke="#5d6163" stroke-width="1"/><rect x="48" y="29" width="11" height="9" fill="#f4f6f7" stroke="#5d6163" stroke-width="1"/><rect x="63" y="29" width="11" height="9" fill="#f4f6f7" stroke="#5d6163" stroke-width="1"/><rect x="78" y="29" width="11" height="9" fill="#f4f6f7" stroke="#5d6163" stroke-width="1"/><rect x="93" y="29" width="11" height="9" fill="#f4f6f7" stroke="#5d6163" stroke-width="1"/><rect x="18" y="42" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="33" y="42" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="48" y="42" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="63" y="42" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="78" y="42" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="93" y="42" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="18" y="55" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="33" y="55" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="48" y="55" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="63" y="55" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="78" y="55" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/><rect x="93" y="55" width="11" height="9" fill="none" stroke="#5d6163" stroke-width="1"/></svg><div class="cap"><div class="no">Frame 3, demo</div><strong>School access and promotion</strong><span>Sign in as each role and see which rows the database lets you read.</span></div></a>
+        <a class="cell" href="labs/eval-gate/README.md"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><circle cx="13" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="18" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="23" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="28" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="33" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="38" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="43" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="48" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="53" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="58" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="63" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="68" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="73" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="78" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="83" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="88" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="93" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="98" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="103" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="108" cy="17" r="1.5" fill="#f4f6f7"/><circle cx="13" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="18" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="23" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="28" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="33" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="38" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="43" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="48" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="53" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="58" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="63" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="68" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="73" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="78" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="83" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="88" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="93" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="98" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="103" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="108" cy="22" r="1.5" fill="#f4f6f7"/><circle cx="13" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="18" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="23" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="28" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="33" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="38" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="43" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="48" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="53" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="58" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="63" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="68" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="73" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="78" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="83" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="88" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="93" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="98" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="103" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="108" cy="27" r="1.5" fill="#f4f6f7"/><circle cx="13" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="18" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="23" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="28" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="33" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="38" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="43" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="48" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="53" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="58" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="63" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="68" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="73" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="78" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="83" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="88" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="93" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="98" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="103" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="108" cy="32" r="1.5" fill="#f4f6f7"/><circle cx="13" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="18" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="23" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="28" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="33" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="38" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="43" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="48" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="53" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="58" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="63" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="68" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="73" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="78" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="83" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="88" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="93" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="98" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="103" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="108" cy="37" r="1.5" fill="#f4f6f7"/><circle cx="13" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="18" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="23" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="28" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="33" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="38" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="43" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="48" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="53" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="58" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="63" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="68" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="73" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="78" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="83" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="88" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="93" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="98" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="103" cy="42" r="1.5" fill="#f4f6f7"/><circle cx="108" cy="42" r="1.5" fill="#f4f6f7"/></svg><div class="cap"><div class="no">Frame 4</div><strong>Multilingual evaluation gate</strong><span>Offline grader verified. Live provider comparisons remain open.</span></div></a>
+        <a class="cell" href="labs/support-kb/README.md"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><rect x="16" y="18" width="70" height="3" fill="#5d6163"/><rect x="16" y="29" width="84" height="3" fill="#5d6163"/><rect x="16" y="40" width="52" height="3" fill="#5d6163"/><rect x="16" y="51" width="78" height="3" fill="#5d6163"/><rect x="16" y="62" width="40" height="3" fill="#5d6163"/><rect x="72" y="38" width="14" height="7" fill="#f4f6f7"/></svg><div class="cap"><div class="no">Frame 5</div><strong>Support knowledge base</strong><span>PostgreSQL retrieval and durable handoff verified. Learned embeddings remain open.</span></div></a>
+        <a class="cell" href="safety-rules.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><circle cx="16" cy="18" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="24" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="32" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="40" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="48" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="56" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="64" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="72" cy="18" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="80" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="88" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="96" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="104" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="16" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="24" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="32" cy="26" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="40" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="48" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="56" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="64" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="72" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="80" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="88" cy="26" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="96" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="104" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="16" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="24" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="32" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="40" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="48" cy="34" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="56" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="64" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="72" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="80" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="88" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="96" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="104" cy="34" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="16" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="24" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="32" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="40" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="48" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="56" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="64" cy="42" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="72" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="80" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="88" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="96" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="104" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="16" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="24" cy="50" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="32" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="40" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="48" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="56" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="64" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="72" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="80" cy="50" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="88" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="96" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="104" cy="50" r="2.4" fill="#f4f6f7"/></svg><div class="cap"><div class="no">Frame 6, demo</div><strong>Multilingual safety rules and Divia audit</strong><span>Synthetic audit, mutation results and approved Divia overview</span></div></a>
+        <a class="cell" href="labs/creative-flow/README.md"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><rect x="26" y="14" width="52" height="38" fill="#5d6163"/><rect x="36" y="22" width="52" height="38" fill="#f4f6f7"/><rect x="46" y="30" width="52" height="38" fill="#f4f6f7"/></svg><div class="cap"><div class="no">Frame 7</div><strong>Creative automation</strong><span>n8n and layered Photoshop export verified. Image generation remains open.</span></div></a>
+        <a class="cell" href="https://github.com/muiizz/engineering-portfolio/blob/main/labs/incidents/README.md"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><path d="M8 44h20l5-16 7 30 6-22 5 8h61" fill="none" stroke="#f4f6f7" stroke-width="2"/><rect x="14" y="62" width="3" height="8" fill="#ee4a30"/><rect x="28" y="62" width="3" height="8" fill="#ee4a30"/><rect x="42" y="62" width="3" height="8" fill="#ee4a30"/><rect x="56" y="62" width="3" height="8" fill="#ee4a30"/><rect x="70" y="62" width="3" height="8" fill="#ee4a30"/><rect x="84" y="62" width="3" height="8" fill="#ee4a30"/><rect x="98" y="62" width="3" height="8" fill="#ee4a30"/></svg><div class="cap"><div class="no">Frame 8</div><strong>Engineering incident reports</strong><span>Seven reports with synthetic reproductions where applicable</span></div></a>
+        <a class="cell" href="quality-gate.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><rect x="16" y="18" width="5" height="48" fill="#5d6163"/><rect x="18" y="26" width="88" height="6" fill="#ee4a30"/><rect x="30" y="26" width="11" height="6" fill="#f4f6f7"/><rect x="52" y="26" width="11" height="6" fill="#f4f6f7"/><rect x="74" y="26" width="11" height="6" fill="#f4f6f7"/><rect x="96" y="26" width="11" height="6" fill="#f4f6f7"/></svg><div class="cap"><div class="no">Frame 9, demo</div><strong>Quality template</strong><span>Shared checks, mutation testing and fault proofs</span></div></a>
+        <a class="cell" href="routing.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><path d="M12 40h40l22-18h34M52 40l22 18h34" fill="none" stroke="#f4f6f7" stroke-width="2"/><circle cx="12" cy="40" r="4" fill="#f4f6f7"/></svg><div class="cap"><div class="no">Frame 10, demo</div><strong>Multilingual support routing</strong><span>Type a message in English, Roman Urdu or Urdu and watch the repository rules route it.</span></div></a>
+        <a class="cell" href="support-eval.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><rect x="16" y="20" width="60" height="6" fill="#f4f6f7"/><rect x="16" y="37" width="60" height="6" fill="#f4f6f7"/><rect x="16" y="54" width="60" height="6" fill="#f4f6f7"/><circle cx="94" cy="23" r="5" fill="#f4f6f7"/><circle cx="94" cy="40" r="5" fill="#f4f6f7"/><circle cx="94" cy="57" r="5" fill="none" stroke="#ee4a30" stroke-width="2"/></svg><div class="cap"><div class="no">Frame 11, demo</div><strong>Support grader over MCP</strong><span>Grade an answer yourself against the route and phrase contract.</span></div></a>
+        <a class="cell" href="#design"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><rect x="16" y="22" width="52" height="36" fill="#f4f6f7"/><rect x="68" y="22" width="30" height="36" fill="#5d6163"/><rect x="98" y="22" width="6" height="36" fill="#ee4a30"/></svg><div class="cap"><div class="no">Frame 12</div><strong>This site</strong><span>Two base colours, one accent, one typeface. The reasoning is in the design notes.</span></div></a>
       </div>
     </section>
 
-    <section class="home-section" id="projects" aria-labelledby="projects-title">
-      <h2 id="projects-title">All nine projects</h2>
-      <div class="project-list">
-        <a href="labs/webhook-queue/README.md"><strong>PostgreSQL webhook queue</strong><span>PostgreSQL CI and throughput measurements</span><i aria-hidden="true">→</i></a>
-        <a href="labs/postgres/README.md"><strong>PostgreSQL performance</strong><span>Six query comparisons, RLS, migrations, vacuum and query statistics</span><i aria-hidden="true">→</i></a>
-        <a href="https://github.com/muiizz/engineering-portfolio/tree/main/labs/school-rls"><strong>School access and promotion</strong><span>Synthetic lab verified with Supabase Auth</span><i aria-hidden="true">↗</i></a>
-        <a href="labs/eval-gate/README.md"><strong>Multilingual evaluation gate</strong><span>Offline grader verified. Live provider comparisons remain open.</span><i aria-hidden="true">→</i></a>
-        <a href="labs/support-kb/README.md"><strong>Support knowledge base</strong><span>PostgreSQL retrieval and durable handoff verified. Learned embeddings remain open.</span><i aria-hidden="true">→</i></a>
-        <a href="safety-rules.html"><strong>Multilingual safety rules and Divia audit</strong><span>Synthetic audit, mutation results and approved Divia overview</span><i aria-hidden="true">→</i></a>
-        <a href="labs/creative-flow/README.md"><strong>Creative automation</strong><span>n8n and layered Photoshop export verified. Image generation remains open.</span><i aria-hidden="true">→</i></a>
-        <a href="https://github.com/muiizz/engineering-portfolio/blob/main/labs/incidents/README.md"><strong>Engineering incident reports</strong><span>Seven reports with synthetic reproductions where applicable</span><i aria-hidden="true">↗</i></a>
-        <a href="https://github.com/muiizz/quality-template"><strong>Quality template</strong><span>Shared checks, mutation testing and fault proofs</span><i aria-hidden="true">↗</i></a>
+    <section class="band wrap" aria-labelledby="bg-title">
+      <h2 id="bg-title">Design and production background</h2>
+      <div class="two-up">
+        <div>
+          <h3>House of Productions, 2023 to 2026</h3>
+          <p>I founded a media production studio in Lahore, grew it from no clients to more than 100 paying clients with a team of 15, and negotiated its sale in July 2026.</p>
+        </div>
+        <div>
+          <h3>Interface design</h3>
+          <p>I design the interfaces I build, including Divia’s. I work in Figma, Photoshop and Illustrator, and came to engineering through branding, photography and photo editing.</p>
+        </div>
       </div>
     </section>
 
-    <section class="home-section demos" aria-labelledby="demos-title">
-      <h2 id="demos-title">More demos</h2>
-      <a class="text-action" href="support-eval.html">Support assistant evaluation <span aria-hidden="true">→</span></a>
-      <a class="text-action" href="routing.html">Multilingual support routing <span aria-hidden="true">→</span></a>
+    <section class="band wrap" id="design" aria-labelledby="design-title">
+      <h2 id="design-title">Design notes</h2>
+      <div class="swatches" role="img" aria-label="Palette: paper, ink and one accent">
+        <div class="a">Paper #F4F6F7</div><div class="b">Ink #14171A</div><div class="c">Accent</div>
+      </div>
+      <dl class="notes">
+        <div><dt>Two base colours, one accent</dt><dd>Every grey is a mix of paper and ink. The accent is kept for errors and misses, so when it appears it means something.</dd></div>
+        <div><dt>One typeface</dt><dd>Archivo, a variable face. Width and weight do the work a second font would. Urdu text is set in Noto Nastaliq.</dd></div>
+        <div><dt>Readable first</dt><dd>Body text is ink on paper at a 16 to 1 contrast ratio, in lines under 80 characters.</dd></div>
+        <div><dt>Motion answers an action</dt><dd>Things move when you press, type or scroll. The reduced-motion setting turns it off.</dd></div>
+        <div><dt>Keyboard and touch</dt><dd>Every demo control is a real button or field, at least 44 pixels tall, with a visible focus ring.</dd></div>
+        <div><dt>Works without scripts</dt><dd>Each demo sits on top of the plain result it illustrates, so the numbers are there even if the script fails.</dd></div>
+      </dl>
     </section>
 
-    <section class="home-section home-contact" id="contact" aria-labelledby="contact-title">
+    <section class="band wrap contact" id="contact" aria-labelledby="contact-title">
       <h2 id="contact-title">Contact</h2>
-      <div class="contact-links">
-        <a href="https://github.com/muiizz">GitHub</a>
-        <a href="https://www.linkedin.com/in/muizzsajid/">LinkedIn</a>
-        <a href="resume.html">Printable résumé</a>
-      </div>
+      <ul>
+        <li><a href="mailto:muiizzsajid@gmail.com">muiizzsajid@gmail.com</a></li>
+        <li><a href="https://github.com/muiizz">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/muizzsajid/">LinkedIn</a></li>
+        <li><a href="resume.html">Printable résumé</a></li>
+      </ul>
     </section>
   </main>
-  <footer><div class="wrap">Abdul Muizz · Lahore, Pakistan</div></footer>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. All scenarios and data on this site are synthetic.</div></footer>
 </body>
 </html>
