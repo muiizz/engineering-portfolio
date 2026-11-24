@@ -25,3 +25,11 @@ Run `python -m unittest discover -s labs/eval-gate -v` for the scorer's
 positive and negative controls. The offline reference is label-derived.
 Judge agreement, external provider baselines, variance, cost and latency
 remain unmeasured.
+
+## Live model run
+
+`labs/eval-gate/live.py` sends the same 120 cases to live models and records
+pass rate by language, urgent pass rate, token counts and latency. It needs an
+API key and a model ID per provider and stops a model at a token ceiling. It is
+run from the manual "Live model evaluation" workflow and is never part of
+`make check`. Results are published to the `live-results` branch.

@@ -45,3 +45,11 @@ go to the durable handoff queue. The test verifies citation IDs and escalation
 precedence end to end. The catalog is synthetic, and the alias vector is
 hand-authored. A learned embedding model and production-scale recall were
 not benchmarked.
+
+## Learned embeddings
+
+`python labs/support-kb/embed_eval.py` scores keyword, embedding and hybrid
+retrieval on 36 queries (three per article in English, Roman Urdu and Urdu)
+using an open multilingual sentence encoder. It needs `sentence-transformers`
+and no API key. The queries were written for this lab, so the result describes
+this small set only.
