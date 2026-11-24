@@ -539,7 +539,44 @@
     paint();
   }
 
-  const DEMOS = { takes, scan, gate, proofs, router, grader, fold, queue, roles };
+  /* ---------- Ladder: the order of checks described on the Divia page ---------- */
+  function ladder(root) {
+    root.textContent = '';
+    let unit = 'mg/dL';
+    const LOW = 70; // mg/dL, the widely used low-glucose line
+    const a = el('input', { type: 'text', inputmode: 'decimal', id: 'read-a', value: '68' });
+    const b = el('input', { type: 'text', inputmode: 'decimal', id: 'read-b', value: '68' });
+    const rows = el('div', { class: 'rows', 'aria-live': 'polite' });
+    const step = (title, text, state) => el('div', { class: 'rowline step ' + state }, el('div', {}, el('b', { class: state === 'stop' ? 'is-red' : '', text: title }), el('div', { text })));
+    const run = () => {
+      const x = parseFloat(a.value), y = parseFloat(b.value);
+      const out = [];
+      if (!isFinite(x) || !isFinite(y)) out.push(step('Waiting for two reads', 'Enter the value each read found on the meter photo.', 'idle'));
+      else if (x !== y) {
+        out.push(step('1. Reads differ', `One read found ${x}, the other ${y}. The value is not accepted and the patient is asked to send the photo again.`, 'stop'));
+        out.push(step('2. Rules', 'Not reached.', 'off'), step('3. Language model', 'Not called.', 'off'));
+      } else {
+        const mg = unit === 'mg/dL' ? x : x * 18;
+        out.push(step('1. Reads agree', `Both reads found ${x} ${unit}. The value is accepted.`, 'ok'));
+        if (mg < LOW) out.push(step('2. Rule matched: low reading', 'The rules send the urgent message and alert the doctor at once.', 'stop'), step('3. Language model', 'Not called. An urgent case never reaches it.', 'off'));
+        else out.push(step('2. Rules', 'No urgent rule matched.', 'ok'), step('3. Language model', 'Called to write the coaching reply, which is then checked before sending.', 'ok'));
+      }
+      rows.replaceChildren(...out);
+    };
+    const preset = (label, mg, mmol) => el('button', { type: 'button', class: 'btn ghost', text: label, onclick: () => { a.value = b.value = String(unit === 'mg/dL' ? mg : mmol); run(); } });
+    [a, b].forEach((i) => i.addEventListener('input', run));
+    root.append(edge('A glucose reading from a meter photo', 'Illustration of the order of checks'),
+      el('div', { class: 'row' }, el('span', { class: 'lab', text: 'Unit' }), seg('Unit', [['mg/dL', 'mg/dL'], ['mmol/L', 'mmol/L']], unit, (v) => { unit = v; a.value = b.value = v === 'mg/dL' ? '68' : '3.8'; run(); })),
+      el('div', { class: 'pair' },
+        el('div', { class: 'field' }, el('label', { for: 'read-a', text: 'First read' }), a),
+        el('div', { class: 'field' }, el('label', { for: 'read-b', text: 'Second read' }), b)),
+      el('div', { class: 'row' }, el('span', { class: 'lab', text: 'Test the boundary' }), preset('Just below', 69, 3.8), preset('At the line', 70, 3.9), preset('Just above', 71, 4.0)),
+      rows,
+      el('p', { class: 'note', text: 'This page runs a small copy of the idea, using the widely used 70 mg/dL low-glucose line. Divia’s own rules, thresholds and tests are private and are approved by its supervising doctor.' }));
+    run();
+  }
+
+  const DEMOS = { takes, scan, gate, proofs, router, grader, fold, queue, roles, ladder };
   document.querySelectorAll('[data-demo]').forEach((n) => {
     try { DEMOS[n.dataset.demo]?.(n, n.dataset.mode === 'full'); } catch (e) { console.error(e); }
   });

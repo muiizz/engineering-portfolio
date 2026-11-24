@@ -184,6 +184,11 @@ button, input, textarea { font: inherit; color: inherit; }
 .rowline.hidden { background: none; box-shadow: inset 0 0 0 1.5px var(--ink-3); color: var(--paper-dim); grid-template-columns: 1fr; font-size: .9rem; }
 .rowline .btn { min-height: 44px; padding: 0 1rem; }
 
+.rowline.step { grid-template-columns: minmax(0, 1fr); align-items: start; padding: .8rem; }
+.rowline.step.off { background: none; box-shadow: inset 0 0 0 1.5px var(--ink-3); color: var(--paper-dim); }
+.rowline.step.stop { box-shadow: inset 3px 0 0 var(--accent); }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+
 /* Notes and background */
 .notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.6rem clamp(1.4rem, 4vw, 3rem); margin: 0; }
 .notes dt { font-weight: 750; font-size: 1.1rem; letter-spacing: -.01em; margin-bottom: .3rem; }

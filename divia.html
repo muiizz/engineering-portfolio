@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The safety architecture of Divia, a doctor-led diabetes coaching programme: deterministic rules run before the language model.">
+  <meta name="theme-color" content="#f4f6f7">
+  <title>Divia: rules before the model | Abdul Muizz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script><script defer src="site.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">Abdul Muizz</a>
+      <div class="links"><a href="index.html#work">Work</a><a href="index.html#projects">Projects</a><a href="index.html#design">Design notes</a><a href="index.html#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
+    </nav>
+  </header>
+  <main id="main">
+
+    <section class="page-hero wrap">
+      <p class="kind">Applied AI, clinical safety</p>
+      <h1 class="kin">Rules decide before the model does</h1>
+      <p class="lede">Divia is a doctor-led coaching programme for people with diabetes and prediabetes in Pakistan. Patients talk to an AI coach on WhatsApp under physician oversight. I founded it and designed its safety architecture.</p>
+    </section>
+    <section class="stage wrap">
+      <div class="frame" style="view-transition-name:demo-divia" data-demo="ladder" data-mode="full">
+        <p>Two independent reads of a meter photo must agree before a value is accepted. A low value is escalated by rules at once and never reaches the model.</p>
+      </div>
+    </section>
+    <div class="body wrap">
+      <aside class="facts">
+        <h2>Status</h2>
+        <ul><li>Live, with its first four patients sending readings every day</li><li>Code and patient data are private</li></ul>
+        <h2>Stack</h2>
+        <ul><li>Python: FastAPI, Pydantic, pytest, mypy</li><li>PostgreSQL</li><li>TypeScript: Next.js</li><li>Docker</li><li>WhatsApp Cloud API</li></ul>
+        <h2>Related</h2>
+        <ul><li><a href="safety-rules.html#divia">Audit and mutation campaign</a></li><li><a href="safety-rules.html">Open-source teaching version</a></li></ul>
+      </aside>
+      <article class="prose">
+        <h2>The decision</h2>
+        <p>A language model could not be the only thing standing between a patient and harm. A deterministic rules engine runs before the model and decides thresholds, emergency words, double-dose detection and urgent routing. The model is the second safety net, never the first.</p>
+        <h2>Testing at the boundary</h2>
+        <p>Every threshold is tested just below, at and just above its value, in both mg/dL and mmol/L. The rules engine is held at 100% branch coverage, with scheduled mutation testing, and each test is traced to an entry in a hazard log.</p>
+        <h2>Reading a meter from a photo</h2>
+        <p>Glucose readings are taken from photos of the patient’s meter. Two independent reads must agree before a value is accepted, and a plausible low value is escalated as urgent at once.</p>
+        <h2>Evaluating the coach</h2>
+        <p>An automated evaluation runner checks the coach’s behaviour against a clinical test workbook, which is the source of truth for expected behaviour.</p>
+        <h2>Clinical governance</h2>
+        <p>All clinical content and thresholds are versioned and approved by the Chief Medical Officer. Every outbound message records the content versions and the model used.</p>
+        <h2>Data protection</h2>
+        <p>The model receives a patient code, never a name or phone number. Row-level security applies to every patient table. Health data is exchanged as HL7 FHIR R4 with LOINC and SNOMED CT codes.</p>
+        <h2>What this page does not show</h2>
+        <p>Divia’s repository is private, so nothing here can be reproduced from this site. The demo above is a small illustration of the order of checks, with one widely used threshold. The measured, reproducible work is in the open-source rules engine linked under Related.</p>
+      </article>
+    </div>
+    <nav class="next wrap" aria-label="More case studies"><a href="index.html#work">All case studies</a><a href="safety-rules.html">Next: the language gap</a></nav>
+  </main>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. All scenarios and data on this site are synthetic.</div></footer>
+</body>
+</html>
