@@ -13,8 +13,8 @@ on:
         description: Cases per run (0 means all)
         default: '0'
       parts:
-        description: Which parts to run (base, hard, agent, embed)
-        default: hard,agent
+        description: Which parts to run (base, hard, agent, embed, workbook)
+        default: workbook
 permissions:
   contents: write
 concurrency:
@@ -53,6 +53,13 @@ jobs:
           ANTHROPIC_MODEL: ${{ inputs.anthropic_models }}
           RUNS: ${{ inputs.runs }}
         run: python labs/support-agent/agent_eval.py --runs "$RUNS" --out labs/support-agent/results
+      - name: Workbook evaluation, rules then model
+        if: contains(inputs.parts, 'workbook')
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ALLOW_LIVE_IN_CI: '1'
+        run: python labs/workbook-eval/workbook_eval.py --mode live --model claude-sonnet-5-5 --runs 3 --max-cost 1.00 --price-in 2 --price-out 10 --out labs/workbook-eval/live-result.json
       - name: Retrieval with a learned embedding model
         if: contains(inputs.parts, 'embed')
         continue-on-error: true
@@ -68,5 +75,6 @@ jobs:
           git add -f labs/eval-gate/live-results || true
           git add -f labs/support-kb/embed-results.json || true
           git add -f labs/support-agent/results || true
+          git add -f labs/workbook-eval/live-result.json || true
           git commit -m "Live evaluation results from run ${GITHUB_RUN_ID}"
           git push --force origin live-results
