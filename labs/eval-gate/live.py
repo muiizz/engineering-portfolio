@@ -55,28 +55,35 @@ def post(url, headers, body, timeout=60):
 def call_anthropic(model, message):
     data = post("https://api.anthropic.com/v1/messages",
                 {"x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01"},
-                {"model": model, "max_tokens": 200, "system": POLICY, "messages": [{"role": "user", "content": message}]})
+                {"model": model, "max_tokens": MAX_OUTPUT, "system": POLICY, "messages": [{"role": "user", "content": message}]})
     text = "".join(part.get("text", "") for part in data["content"])
-    return text, data["usage"]["input_tokens"], data["usage"]["output_tokens"]
+    return text, data["usage"]["input_tokens"], data["usage"]["output_tokens"], data.get("stop_reason")
 
 
 def call_openai(model, message):
     data = post("https://api.openai.com/v1/chat/completions",
                 {"authorization": "Bearer " + os.environ["OPENAI_API_KEY"]},
-                {"model": model, "max_completion_tokens": 400,
+                {"model": model, "max_completion_tokens": MAX_OUTPUT,
                  "messages": [{"role": "system", "content": POLICY}, {"role": "user", "content": message}]})
-    return data["choices"][0]["message"]["content"] or "", data["usage"]["prompt_tokens"], data["usage"]["completion_tokens"]
+    choice = data["choices"][0]
+    return choice["message"]["content"] or "", data["usage"]["prompt_tokens"], data["usage"]["completion_tokens"], choice.get("finish_reason")
 
 
 def call_google(model, message):
     data = post(f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
                 {"x-goog-api-key": os.environ["GOOGLE_API_KEY"]},
                 {"systemInstruction": {"parts": [{"text": POLICY}]}, "contents": [{"role": "user", "parts": [{"text": message}]}],
-                 "generationConfig": {"maxOutputTokens": 400}})
-    parts = data.get("candidates", [{}])[0].get("content", {}).get("parts", [])
+                 "generationConfig": {"maxOutputTokens": MAX_OUTPUT}})
+    candidate = data.get("candidates", [{}])[0]
+    parts = candidate.get("content", {}).get("parts", [])
     usage = data.get("usageMetadata", {})
-    return "".join(p.get("text", "") for p in parts), usage.get("promptTokenCount", 0), usage.get("candidatesTokenCount", 0)
+    return "".join(p.get("text", "") for p in parts), usage.get("promptTokenCount", 0), usage.get("candidatesTokenCount", 0), candidate.get("finishReason")
 
+
+# Urdu script costs several tokens per word. The first live run used 200 and cut replies off
+# mid-sentence, which the scorer then counted as failures; see the README.
+MAX_OUTPUT = 1000
+TRUNCATED = {"max_tokens", "length", "MAX_TOKENS"}
 
 PROVIDERS = {"anthropic": ("ANTHROPIC", call_anthropic), "openai": ("OPENAI", call_openai), "google": ("GOOGLE", call_google)}
 
@@ -97,17 +104,17 @@ def ask(call, model, case, retries=3):
     for attempt in range(retries):
         started = time.perf_counter()
         try:
-            text, tokens_in, tokens_out = call(model, case["message"])
-            return {"answer": parse(text), "raw": text, "in": tokens_in, "out": tokens_out,
+            text, tokens_in, tokens_out, stop = call(model, case["message"])
+            return {"answer": parse(text), "raw": text, "in": tokens_in, "out": tokens_out, "stop": stop,
                     "ms": round((time.perf_counter() - started) * 1000, 1), "error": None}
         except urllib.error.HTTPError as error:
             detail = f"HTTP {error.code}"
             if error.code not in (408, 409, 429, 500, 502, 503, 529):
-                return {"answer": None, "raw": "", "in": 0, "out": 0, "ms": 0, "error": detail}
+                return {"answer": None, "raw": "", "in": 0, "out": 0, "stop": None, "ms": 0, "error": detail}
         except Exception as error:  # network errors and malformed responses
             detail = type(error).__name__
         time.sleep(2 * (attempt + 1))
-    return {"answer": None, "raw": "", "in": 0, "out": 0, "ms": 0, "error": detail}
+    return {"answer": None, "raw": "", "in": 0, "out": 0, "stop": None, "ms": 0, "error": detail}
 
 
 def evaluate(name, call, model, cases, runs, workers, max_tokens):
@@ -124,12 +131,14 @@ def evaluate(name, call, model, cases, runs, workers, max_tokens):
         scored["failed_ids"] = [case["id"] for case in cases if not grade(case, answers[case["id"]])]
         scored["errors"] = sum(1 for result in results if result["error"])
         scored["unparseable"] = sum(1 for result in results if not result["error"] and result["answer"] is None)
+        scored["truncated"] = sum(1 for result in results if result["stop"] in TRUNCATED)
+        scored["empty"] = sum(1 for result in results if not result["error"] and not result["raw"].strip())
         summary["runs"].append(scored)
         summary["tokens_in"] += sum(result["in"] for result in results)
         summary["tokens_out"] += sum(result["out"] for result in results)
         latencies += [result["ms"] for result in results if not result["error"]]
         if run == 0:
-            first_answers = {case["id"]: {"message": case["message"], "expected": case["route"], "raw": result["raw"], "error": result["error"]}
+            first_answers = {case["id"]: {"message": case["message"], "expected": case["route"], "raw": result["raw"], "stop": result["stop"], "error": result["error"]}
                              for case, result in zip(cases, results)}
     if latencies:
         ordered = sorted(latencies)
