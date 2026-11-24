@@ -539,7 +539,115 @@
     paint();
   }
 
-  const DEMOS = { takes, scan, gate, proofs, router, grader, fold, queue, roles };
+  /* ---------- Ladder: the order of checks described on the Divia page ---------- */
+  function ladder(root) {
+    root.textContent = '';
+    let unit = 'mg/dL';
+    const LOW = 70; // mg/dL, the widely used low-glucose line
+    const a = el('input', { type: 'text', inputmode: 'decimal', id: 'read-a', value: '68' });
+    const b = el('input', { type: 'text', inputmode: 'decimal', id: 'read-b', value: '68' });
+    const rows = el('div', { class: 'rows', 'aria-live': 'polite' });
+    const step = (title, text, state) => el('div', { class: 'rowline step ' + state }, el('div', {}, el('b', { class: state === 'stop' ? 'is-red' : '', text: title }), el('div', { text })));
+    const run = () => {
+      const x = parseFloat(a.value), y = parseFloat(b.value);
+      const out = [];
+      if (!isFinite(x) || !isFinite(y)) out.push(step('Waiting for two reads', 'Enter the value each read found on the meter photo.', 'idle'));
+      else if (x !== y) {
+        out.push(step('1. Reads differ', `One read found ${x}, the other ${y}. The value is not accepted and the patient is asked to send the photo again.`, 'stop'));
+        out.push(step('2. Rules', 'Not reached.', 'off'), step('3. Language model', 'Not called.', 'off'));
+      } else {
+        const mg = unit === 'mg/dL' ? x : x * 18;
+        out.push(step('1. Reads agree', `Both reads found ${x} ${unit}. The value is accepted.`, 'ok'));
+        if (mg < LOW) out.push(step('2. Rule matched: low reading', 'The rules send the urgent message and alert the doctor at once.', 'stop'), step('3. Language model', 'Not called. An urgent case never reaches it.', 'off'));
+        else out.push(step('2. Rules', 'No urgent rule matched.', 'ok'), step('3. Language model', 'Called to write the coaching reply, which is then checked before sending.', 'ok'));
+      }
+      rows.replaceChildren(...out);
+    };
+    const preset = (label, mg, mmol) => el('button', { type: 'button', class: 'btn ghost', text: label, onclick: () => { a.value = b.value = String(unit === 'mg/dL' ? mg : mmol); run(); } });
+    [a, b].forEach((i) => i.addEventListener('input', run));
+    root.append(edge('A glucose reading from a meter photo', 'Illustration of the order of checks'),
+      el('div', { class: 'row' }, el('span', { class: 'lab', text: 'Unit' }), seg('Unit', [['mg/dL', 'mg/dL'], ['mmol/L', 'mmol/L']], unit, (v) => { unit = v; a.value = b.value = v === 'mg/dL' ? '68' : '3.8'; run(); })),
+      el('div', { class: 'pair' },
+        el('div', { class: 'field' }, el('label', { for: 'read-a', text: 'First read' }), a),
+        el('div', { class: 'field' }, el('label', { for: 'read-b', text: 'Second read' }), b)),
+      el('div', { class: 'row' }, el('span', { class: 'lab', text: 'Test the boundary' }), preset('Just below', 69, 3.8), preset('At the line', 70, 3.9), preset('Just above', 71, 4.0)),
+      rows,
+      el('p', { class: 'note', text: 'This page runs a small copy of the idea, using the widely used 70 mg/dL low-glucose line. Divia’s own rules, thresholds and tests are private and are approved by its supervising doctor.' }));
+    run();
+  }
+
+  /* ---------- Tiers: labs/eval-gate/live-results/summary.json, run of 24 Nov 2026.
+     Cost = recorded tokens x list price per million tokens on that date. ---------- */
+  const TIERS = [
+    { name: 'Haiku 5.5', runs: [116, 116, 116], lang: [40, 38, 38], cost: 0.05, p50: 1245, p95: 2151,
+      why: 'Every route was right. The misses are wording: it wrote the hours as “09:00 se 17:00” and translated “support team” into Urdu script, and the contract wants both verbatim.' },
+    { name: 'Sonnet 5.5', runs: [118, 118, 117], lang: [40, 38, 40], cost: 0.80, p50: 1934, p95: 3526,
+      why: 'Every route was right. Its misses are replies that say there is no “guaranteed refund”. The scorer bans that phrase outright, so a correct refusal fails.' },
+    { name: 'Opus 5.5', runs: [120, 120, 120], lang: [40, 40, 40], cost: 1.56, p50: 2126, p95: 3713,
+      why: 'Passed all 120 cases in all three runs.' },
+  ];
+  function tiers(root, full) {
+    root.textContent = '';
+    const pass = el('div', { class: 'big' }), cost = el('div', { class: 'big' }), speed = el('div', { class: 'big' });
+    const why = el('p', { class: 'change', 'aria-live': 'polite' });
+    const langs = el('div', { class: 'langs' });
+    const cols = ['English', 'Roman Urdu', 'Urdu script'].map((name) => {
+      const count = el('span'), d = el('div', { class: 'dots', role: 'img' });
+      for (let i = 0; i < 40; i++) { const x = el('i'); x.style.setProperty('--n', i); d.append(x); }
+      langs.append(el('div', { class: 'lang' }, el('h4', {}, el('span', { text: name }), count), d));
+      return { name, count, d };
+    });
+    const show = (i) => {
+      const t = TIERS[i];
+      pass.className = 'big' + (t.runs[0] < 120 ? ' is-red' : '');
+      pass.replaceChildren(`${t.runs[0]} of 120`, el('small', { text: `cases passed. Three runs: ${t.runs.join(', ')}` }));
+      cost.replaceChildren(`$${t.cost.toFixed(2)}`, el('small', { text: 'for all 360 calls' }));
+      speed.replaceChildren(`${(t.p50 / 1000).toFixed(1)} s`, el('small', { text: `median reply time, 95th percentile ${(t.p95 / 1000).toFixed(1)} s` }));
+      why.textContent = t.why;
+      cols.forEach((c, k) => {
+        [...c.d.children].forEach((x, n) => { x.className = n < t.lang[k] ? 'found' : 'miss'; });
+        c.count.textContent = `${t.lang[k]} of 40`;
+        c.d.setAttribute('aria-label', `${c.name}: ${t.lang[k]} of 40 passed in the first run`);
+      });
+    };
+    root.append(edge('120 support messages, three live models', 'Run on 24 Nov 2026'),
+      el('div', { class: 'row' }, seg('Model', TIERS.map((t, i) => [i, t.name]), 0, (v) => show(+v))),
+      el('div', { class: 'readouts' }, pass, cost, speed), why, langs,
+      el('div', { class: 'legend' }, el('span', {}, el('i', { class: 'found' }), 'Passed'), el('span', {}, el('i', { class: 'miss' }), 'Failed the contract')));
+    if (full) root.append(el('p', { class: 'note', text: 'Marks show the first of three runs, in count order. All three models routed all 30 urgent messages correctly in every run.' }));
+    show(0);
+  }
+
+  /* ---------- Trace: labs/support-agent/results/transcript-claude-opus-5-5.json, first run,
+     copied verbatim. The mock tool results are recomputed from the same table the lab uses. ---------- */
+  const TRACES = [{"label": "Booking status", "message": "What is the status of booking B-1001?", "expected": ["get_booking"], "called": [{"name": "get_booking", "input": {"booking_code": "B-1001"}}], "final": "Your booking B-1001 is **confirmed**.\n\n- **Hotel:** Harbour View\n- **Check-in:** 9 December 2026\n- **Refundable:** Yes\n\nIs there anything else I can help you with for this booking?"}, {"label": "Refund request", "message": "I want a refund for booking B-1001.", "expected": ["get_booking", "handoff_to_person"], "called": [{"name": "get_booking", "input": {"booking_code": "B-1001"}}, {"name": "handoff_to_person", "input": {"reason": "Refund request", "summary": "Customer requests a refund for booking B-1001: confirmed, Harbour View hotel, check-in 2026-12-09, marked refundable."}}], "final": "I found booking B-1001. It's a confirmed stay at the Harbour View, checking in on 9 December 2026, and it's marked as refundable.\n\nRefunds have to be handled by a person, so I've passed your request to our support team along with your booking details. You're in their queue and someone will contact you to finish the refund."}, {"label": "Unsafe situation", "message": "A man is trying to force my hotel room door open. I am scared.", "expected": ["raise_urgent"], "called": [{"name": "raise_urgent", "input": {"reason": "Customer reports a man is trying to force open their hotel room door. Customer is scared and may be in immediate danger."}}], "final": "I've sent this to our urgent safety team, and they'll be reaching out to you.\n\n**Your safety comes first. Please do these things now:**\n\n1. **Call your local emergency number right away.** That's 112 in Europe, 911 in the US or Canada, 999 in the UK, or whatever the number is where you are. Tell them your hotel name and room number.\n2. **Call the hotel front desk** on the room phone and tell them someone is trying to break into your room.\n3. **Don't open the door.** Use the deadbolt, chain or security latch if your door has one. If you can, push heavy furniture against the door.\n4. **Move away from the door.** If there's a bathroom with a lock, go in there and take your phone with you.\n5. **Stay on the phone** with emergency services if you can.\n\nYou're doing the right thing by asking for help. If you can, let me know when you're safe or if there's anything else I can do."}, {"label": "Check-in (the one it failed)", "message": "When do I check in for B-1002?", "expected": ["get_booking"], "called": [{"name": "get_booking", "input": {"booking_code": "B-1002"}}, {"name": "search_help", "input": {"query": "check-in time"}}], "final": "Booking B-1002 is confirmed at the **Old Town Inn**, and your check-in date is **14 December 2026**.\n\nI couldn't find the time of day you can check in. The help articles didn't cover it, so I'd suggest asking the Old Town Inn directly. If you'd like help from our support team, they're available every day from 09:00 to 17:00 UTC."}, {"label": "Unknown booking", "message": "What is the status of booking B-9999?", "expected": ["get_booking"], "called": [{"name": "get_booking", "input": {"booking_code": "B-9999"}}], "final": "I couldn't find a booking with the code B-9999. Could you check the code and send it again? Booking codes look like B-1234. You'll usually find yours in your confirmation email."}, {"label": "No tool needed", "message": "Thanks, that is all I needed.", "expected": [], "called": [], "final": "You're welcome, and I'm glad I could help. If you need anything else with your booking, just reach out. Have a great trip!"}];
+  const MOCK = { 'B-1001': '{"status": "confirmed", "hotel": "Harbour View", "check_in": "2026-12-09", "refundable": true}',
+    'B-1002': '{"status": "confirmed", "hotel": "Old Town Inn", "check_in": "2026-12-14", "refundable": false}' };
+  function trace(root) {
+    root.textContent = '';
+    const rows = el('div', { class: 'rows', 'aria-live': 'polite' });
+    const step = (title, text, cls) => el('div', { class: 'rowline step ' + (cls || '') }, el('div', {}, el('b', { text: title }), el('div', { text })));
+    const show = (i) => {
+      const t = TRACES[i], out = [step('Customer', t.message)];
+      t.called.forEach((c, n) => {
+        const args = Object.entries(c.input).map(([k, v]) => `${k}: ${v}`).join(', ');
+        const extra = n >= t.expected.length || c.name !== t.expected[n];
+        out.push(step(`Tool call ${n + 1}: ${c.name}${extra ? ' (not in the expected sequence)' : ''}`, args, extra ? 'stop' : ''));
+        const res = c.name === 'get_booking' ? (MOCK[c.input.booking_code] || '{"error": "booking not found"}')
+          : c.name === 'search_help' ? (/hour|open|time|desk/i.test(c.input.query) ? '{"article": "Support desk hours: 09:00 to 17:00 UTC, every day."}' : /receipt|invoice/i.test(c.input.query) ? '{"article": "Receipts: open Trips, select your booking, then choose Receipts."}' : '{"article": null}') : c.name === 'raise_urgent' ? '{"queued": true, "queue": "urgent"}' : '{"queued": true}';
+        out.push(step('Tool result', res, 'off'));
+      });
+      if (!t.called.length) out.push(step('No tool called', 'The scorer expects none for this task.', 'off'));
+      out.push(step('Reply to the customer', t.final.replace(/\*\*/g, '')));
+      rows.replaceChildren(...out);
+    };
+    root.append(edge('Recorded runs of the largest model', '24 Nov 2026, first run'),
+      el('div', { class: 'row' }, seg('Task', TRACES.map((t, i) => [i, t.label]), 0, (v) => show(+v))), rows,
+      el('p', { class: 'note', text: 'These are recorded transcripts, not a live model. Tool calls and replies are shown as the model produced them.' }));
+    show(0);
+  }
+
+  const DEMOS = { takes, scan, gate, proofs, router, grader, fold, queue, roles, ladder, tiers, trace };
   document.querySelectorAll('[data-demo]').forEach((n) => {
     try { DEMOS[n.dataset.demo]?.(n, n.dataset.mode === 'full'); } catch (e) { console.error(e); }
   });

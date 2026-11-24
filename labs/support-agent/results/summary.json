@@ -1,0 +1,290 @@
+{
+  "utc": "2026-11-24T01:34:53.164745+00:00",
+  "tasks": 24,
+  "runs_requested": 3,
+  "models": [
+    {
+      "model": "claude-haiku-5-5",
+      "runs": [
+        {
+          "passed": 24,
+          "first_tool": 24,
+          "sequence": 24,
+          "no_forbidden_tool": 24,
+          "arguments": 24,
+          "final_reply": 24,
+          "total": 24,
+          "passed_by_language": {
+            "en": 8,
+            "ur-Latn": 8,
+            "ur": 8
+          },
+          "failed": []
+        },
+        {
+          "passed": 23,
+          "first_tool": 24,
+          "sequence": 23,
+          "no_forbidden_tool": 24,
+          "arguments": 24,
+          "final_reply": 24,
+          "total": 24,
+          "passed_by_language": {
+            "en": 8,
+            "ur-Latn": 8,
+            "ur": 7
+          },
+          "failed": [
+            {
+              "id": "hours-ur",
+              "called": [
+                "search_help",
+                "search_help"
+              ],
+              "expected": [
+                "search_help"
+              ],
+              "failed_checks": [
+                "sequence",
+                "passed"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "passed": 24,
+          "first_tool": 24,
+          "sequence": 24,
+          "no_forbidden_tool": 24,
+          "arguments": 24,
+          "final_reply": 24,
+          "total": 24,
+          "passed_by_language": {
+            "en": 8,
+            "ur-Latn": 8,
+            "ur": 8
+          },
+          "failed": []
+        }
+      ],
+      "tokens_in": 133572,
+      "tokens_out": 16217,
+      "latency_ms": {
+        "p50": 1720.2,
+        "p95": 3647.4
+      },
+      "mean_tool_calls": 1.01
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "runs": [
+        {
+          "passed": 23,
+          "first_tool": 24,
+          "sequence": 23,
+          "no_forbidden_tool": 24,
+          "arguments": 24,
+          "final_reply": 24,
+          "total": 24,
+          "passed_by_language": {
+            "en": 7,
+            "ur-Latn": 8,
+            "ur": 8
+          },
+          "failed": [
+            {
+              "id": "check-in-en",
+              "called": [
+                "get_booking",
+                "search_help"
+              ],
+              "expected": [
+                "get_booking"
+              ],
+              "failed_checks": [
+                "sequence",
+                "passed"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "passed": 23,
+          "first_tool": 24,
+          "sequence": 23,
+          "no_forbidden_tool": 24,
+          "arguments": 24,
+          "final_reply": 24,
+          "total": 24,
+          "passed_by_language": {
+            "en": 7,
+            "ur-Latn": 8,
+            "ur": 8
+          },
+          "failed": [
+            {
+              "id": "check-in-en",
+              "called": [
+                "get_booking",
+                "search_help"
+              ],
+              "expected": [
+                "get_booking"
+              ],
+              "failed_checks": [
+                "sequence",
+                "passed"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "passed": 23,
+          "first_tool": 24,
+          "sequence": 23,
+          "no_forbidden_tool": 24,
+          "arguments": 24,
+          "final_reply": 24,
+          "total": 24,
+          "passed_by_language": {
+            "en": 7,
+            "ur-Latn": 8,
+            "ur": 8
+          },
+          "failed": [
+            {
+              "id": "check-in-en",
+              "called": [
+                "get_booking",
+                "search_help"
+              ],
+              "expected": [
+                "get_booking"
+              ],
+              "failed_checks": [
+                "sequence",
+                "passed"
+              ],
+              "error": null
+            }
+          ]
+        }
+      ],
+      "tokens_in": 131012,
+      "tokens_out": 15266,
+      "latency_ms": {
+        "p50": 3519.3999999999996,
+        "p95": 8830.5
+      },
+      "mean_tool_calls": 1.04
+    },
+    {
+      "model": "claude-opus-5-5",
+      "runs": [
+        {
+          "passed": 23,
+          "first_tool": 24,
+          "sequence": 23,
+          "no_forbidden_tool": 24,
+          "arguments": 24,
+          "final_reply": 24,
+          "total": 24,
+          "passed_by_language": {
+            "en": 7,
+            "ur-Latn": 8,
+            "ur": 8
+          },
+          "failed": [
+            {
+              "id": "check-in-en",
+              "called": [
+                "get_booking",
+                "search_help"
+              ],
+              "expected": [
+                "get_booking"
+              ],
+              "failed_checks": [
+                "sequence",
+                "passed"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "passed": 23,
+          "first_tool": 24,
+          "sequence": 23,
+          "no_forbidden_tool": 24,
+          "arguments": 24,
+          "final_reply": 24,
+          "total": 24,
+          "passed_by_language": {
+            "en": 7,
+            "ur-Latn": 8,
+            "ur": 8
+          },
+          "failed": [
+            {
+              "id": "check-in-en",
+              "called": [
+                "get_booking",
+                "search_help"
+              ],
+              "expected": [
+                "get_booking"
+              ],
+              "failed_checks": [
+                "sequence",
+                "passed"
+              ],
+              "error": null
+            }
+          ]
+        },
+        {
+          "passed": 23,
+          "first_tool": 24,
+          "sequence": 23,
+          "no_forbidden_tool": 24,
+          "arguments": 24,
+          "final_reply": 24,
+          "total": 24,
+          "passed_by_language": {
+            "en": 7,
+            "ur-Latn": 8,
+            "ur": 8
+          },
+          "failed": [
+            {
+              "id": "check-in-en",
+              "called": [
+                "get_booking",
+                "search_help"
+              ],
+              "expected": [
+                "get_booking"
+              ],
+              "failed_checks": [
+                "sequence",
+                "passed"
+              ],
+              "error": null
+            }
+          ]
+        }
+      ],
+      "tokens_in": 130281,
+      "tokens_out": 16270,
+      "latency_ms": {
+        "p50": 3366.45,
+        "p95": 12657.9
+      },
+      "mean_tool_calls": 1.04
+    }
+  ]
+}

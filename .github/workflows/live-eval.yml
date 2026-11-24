@@ -10,8 +10,11 @@ on:
         description: Runs per model
         default: '3'
       limit:
-        description: Cases per run (0 means all 120)
+        description: Cases per run (0 means all)
         default: '0'
+      parts:
+        description: Which parts to run (base, hard, agent, embed)
+        default: hard,agent
 permissions:
   contents: write
 concurrency:
@@ -27,13 +30,31 @@ jobs:
         with:
           python-version: '3.12'
       - name: Evaluation gate against live models
+        if: contains(inputs.parts, 'base')
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ANTHROPIC_MODEL: ${{ inputs.anthropic_models }}
           RUNS: ${{ inputs.runs }}
           LIMIT: ${{ inputs.limit }}
         run: python labs/eval-gate/live.py --runs "$RUNS" --limit "$LIMIT" --max-tokens 400000 --out labs/eval-gate/live-results
+      - name: Harder cases against live models
+        if: contains(inputs.parts, 'hard')
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ inputs.anthropic_models }}
+          RUNS: ${{ inputs.runs }}
+        run: python labs/eval-gate/live.py --set hard --runs "$RUNS" --max-tokens 200000 --out labs/eval-gate/live-results
+      - name: Tool-using agent
+        if: contains(inputs.parts, 'agent')
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ inputs.anthropic_models }}
+          RUNS: ${{ inputs.runs }}
+        run: python labs/support-agent/agent_eval.py --runs "$RUNS" --out labs/support-agent/results
       - name: Retrieval with a learned embedding model
+        if: contains(inputs.parts, 'embed')
         continue-on-error: true
         run: |
           python -m pip install --quiet sentence-transformers==6.3.0
@@ -46,5 +67,6 @@ jobs:
           git checkout -B live-results
           git add -f labs/eval-gate/live-results || true
           git add -f labs/support-kb/embed-results.json || true
+          git add -f labs/support-agent/results || true
           git commit -m "Live evaluation results from run ${GITHUB_RUN_ID}"
           git push --force origin live-results
