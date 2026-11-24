@@ -212,18 +212,18 @@
       const front = Math.floor(L.p * N);
       for (let i = 0; i < N; i++) {
         const read = !indexed && i < front;
-        g.fillStyle = read ? '#8f8473' : '#453d33';
+        g.fillStyle = read ? '#9a9da0' : '#575b5e';
         g.fillRect((i % COLS) * cw + (cw - s) / 2, Math.floor(i / COLS) * ch + (ch - s) / 2, s, s);
       }
       const lit = indexed ? Math.floor(L.p * marks.length) : marks.length;
-      g.fillStyle = '#f5c518';
+      g.fillStyle = '#f4f6f7';
       for (let k = 0; k < marks.length; k++) {
         const i = marks[k];
         if (indexed ? k >= lit : i >= front) continue;
         g.fillRect((i % COLS) * cw + (cw - s * 1.5) / 2, Math.floor(i / COLS) * ch + (ch - s * 1.5) / 2, s * 1.5, s * 1.5);
       }
       if (!indexed && L.p > 0 && L.p < 1) {
-        g.fillStyle = 'rgba(224,48,30,.9)';
+        g.fillStyle = '#ee4a30';
         g.fillRect(0, Math.floor(front / COLS) * ch, w, Math.max(2, ch));
       }
     };
@@ -252,7 +252,7 @@
     root.append(edge('One million attendance rows', 'PostgreSQL 16.2, medians of five warm runs'));
     if (full) root.append(el('div', { class: 'row cases' }, seg('Query', CASES.map((c, i) => [i, c[0]]), 0, (v) => { cur = CASES[+v]; reset(); })));
     root.append(el('div', { class: 'row' }, go), el('div', { class: 'lanes' }, A.box, B.box),
-      el('p', { class: 'note', text: 'Paced from the measured medians and slowed 40 times so the gap is visible. It replays recorded timings and does not run a database. Each square stands for a block of rows; yellow marks the matches.' }));
+      el('p', { class: 'note', text: 'Paced from the measured medians and slowed 40 times so the gap is visible. It replays recorded timings and does not run a database. Each square stands for a block of rows; the bright squares are the matches.' }));
     new ResizeObserver(() => { draw(A, false); draw(B, true); }).observe(A.canvas);
     reset();
   }
@@ -409,7 +409,7 @@
       chips,
       el('label', { class: 'toggle', for: 'route-consent' }, consent, 'Customer gave explicit consent to share the transcript'),
       el('div', { class: 'bins' }, review, routine), meta,
-      el('p', { class: 'note', text: 'Fixtures underlined in red are the ones the selected policy gets wrong. Try ru05, which states a matching phrase and then rules it out, and en04, which neither policy catches.' }));
+      el('p', { class: 'note', text: 'Fixtures with an underline are the ones the selected policy gets wrong. Try ru05, which states a matching phrase and then rules it out, and en04, which neither policy catches.' }));
     count(); chips.children[6].click();
   }
 
@@ -450,8 +450,109 @@
     load(id);
   }
 
-  const DEMOS = { takes, scan, gate, proofs, router, grader, fold };
+  /* ---------- Queue: a simulation of the rules in labs/webhook-queue/queue_core.py ---------- */
+  function queue(root) {
+    root.textContent = '';
+    let jobs = [], seq = 0, workers = 4, last = null, delivered = 0;
+    const dead = [];
+    const qList = el('div', { class: 'q-list' }), wList = el('div', { class: 'q-list' }), dList = el('div', { class: 'q-list' });
+    const qN = el('span'), dN = el('span'), xN = el('span');
+    const msg = el('p', { class: 'q-msg', 'aria-live': 'polite', text: 'Send an event to start.' });
+    const paint = () => {
+      const waiting = jobs.filter((j) => !j.worker), held = jobs.filter((j) => j.worker);
+      qList.replaceChildren(...waiting.map((j) => el('span', { class: 'job-chip' + (j.bad ? ' bad' : ''), text: j.bad ? `${j.id}, try ${j.attempts} of 5` : j.id })));
+      wList.replaceChildren(...Array.from({ length: workers }, (_, i) => {
+        const j = held.find((h) => h.worker === i + 1);
+        return el('span', { class: 'job-chip' + (j ? ' held' : ''), text: `w${i + 1}: ${j ? j.id : 'idle'}` });
+      }));
+      dList.replaceChildren(el('span', { class: 'job-chip', text: `${delivered} delivered` }), ...dead.map((d) => el('span', { class: 'job-chip bad', text: `${d} dead letter` })));
+      qN.textContent = waiting.length; dN.textContent = delivered; xN.textContent = dead.length;
+    };
+    const add = (bad) => { const id = `evt-${++seq}`; jobs.push({ id, attempts: 0, bad, worker: 0 }); last = id; return id; };
+    const tick = () => {
+      // Finish what each worker holds, then let each free worker lock one unheld row (SKIP LOCKED).
+      jobs.filter((j) => j.worker).forEach((j) => {
+        if (j.bad) {
+          j.attempts++; j.worker = 0;
+          if (j.attempts >= 5) { jobs = jobs.filter((x) => x !== j); dead.push(j.id); msg.textContent = `${j.id} failed five times and moved to the dead-letter table.`; }
+        } else { jobs = jobs.filter((x) => x !== j); delivered++; }
+      });
+      const busy = new Set(jobs.filter((j) => j.worker).map((j) => j.worker));
+      for (let w = 1; w <= workers; w++) {
+        if (busy.has(w)) continue;
+        const next = jobs.find((j) => !j.worker && !j.fresh);
+        if (!next) break;
+        next.worker = w;
+      }
+      jobs.forEach((j) => { j.fresh = false; });
+      paint();
+    };
+    const send = (n, bad) => { for (let i = 0; i < n; i++) { const id = add(bad); jobs[jobs.length - 1].fresh = true; if (n === 1) msg.textContent = bad ? `${id} accepted. Its payload is invalid, so every attempt will fail and back off.` : `${id} accepted with 202 and queued.`; } if (n > 1) msg.textContent = `${n} events queued. No two workers ever hold the same row.`; paint(); };
+    root.append(edge('Webhook queue', 'Simulated in the browser'),
+      el('div', { class: 'row' },
+        el('button', { type: 'button', class: 'btn', text: 'Send an event', onclick: () => send(1, false) }),
+        el('button', { type: 'button', class: 'btn ghost', text: 'Send 20', onclick: () => send(20, false) }),
+        el('button', { type: 'button', class: 'btn ghost', text: 'Replay the last event', onclick: () => { msg.textContent = last ? `${last} again: 202 returned, no new job. The unique event ID makes a replay a no-op.` : 'Nothing to replay yet.'; } }),
+        el('button', { type: 'button', class: 'btn ghost', text: 'Send an invalid payload', onclick: () => send(1, true) })),
+      el('div', { class: 'row', style: 'margin-top:.8rem' }, el('span', { class: 'lab', text: 'Workers' }), seg('Workers', [[1, '1'], [4, '4'], [8, '8']], 4, (v) => { workers = +v; jobs.forEach((j) => { if (j.worker > workers) j.worker = 0; }); paint(); })),
+      msg,
+      el('div', { class: 'q-grid' },
+        el('div', { class: 'q-col' }, el('h4', {}, 'Waiting', qN), qList),
+        el('div', { class: 'q-col' }, el('h4', {}, 'Workers', el('span')), wList),
+        el('div', { class: 'q-col' }, el('h4', {}, 'Finished', el('span', {}, dN, ' / ', xN)), dList)),
+      el('p', { class: 'note', text: 'This is a simplified simulation: one step every 0.7 seconds, with the backoff wait shortened. The real checks (replay, interruption recovery, eight concurrent workers over 100 events, dead lettering after five failures) are in verify.py.' }));
+    paint();
+    setInterval(tick, 700);
+  }
+
+  /* ---------- Roles: the role matrix in labs/school-rls/README.md ---------- */
+  function roles(root) {
+    root.textContent = '';
+    const ROLES = { east: ['East principal', 'East', 'East', false], west: ['West principal', 'West', 'West', false], head: ['Head office', 'All', 'All', true],
+      teacher: ['Teacher', null, null, false], accountant: ['Accountant', null, null, false], parent: ['Parent', null, null, false], unlinked: ['Unlinked account', null, null, false] };
+    const apps = ['East', 'East', 'East', 'West', 'West', 'West'].map((c, i) => ({ id: `${c[0]}-${101 + i}`, campus: c, state: 'applied' }));
+    const audit = [];
+    let role = 'east';
+    const rows = el('div', { class: 'rows' }), log = el('div', { class: 'verdict', 'aria-live': 'polite' }), auditBox = el('p', { class: 'kv' });
+    const can = (scope, campus) => scope === 'All' || scope === campus;
+    const paint = () => {
+      const [name, read, admit, seeAudit] = ROLES[role];
+      rows.replaceChildren(...apps.map((a) => {
+        if (!can(read, a.campus)) return el('div', { class: 'rowline hidden', text: 'A row exists here. Row-level security hides it from this role.' });
+        return el('div', { class: 'rowline' }, el('b', { text: a.id }), el('span', { text: a.campus }), el('span', { text: a.state === 'applied' ? 'Applied' : 'Admitted' }),
+          el('button', { type: 'button', class: 'btn ghost', text: 'Admit', onclick: () => {
+            if (!can(admit, a.campus)) log.replaceChildren(el('strong', { class: 'is-red', text: 'Rejected' }), 'This role cannot admit for this campus. No audit record is written.');
+            else if (a.state !== 'applied') log.replaceChildren(el('strong', { class: 'is-red', text: 'Rejected' }), 'Already admitted. A repeated call changes nothing and writes no audit record.');
+            else { a.state = 'admitted'; audit.push(`${a.id} admitted by ${name}`); log.replaceChildren(el('strong', { text: 'Admitted' }), 'The admission and its audit record committed together.'); }
+            paint();
+          } }));
+      }));
+      auditBox.replaceChildren('Admission audit: ', seeAudit ? el('b', { text: audit.length ? audit.join('; ') : 'readable, no records yet' }) : el('b', { text: 'not readable by this role' }), '.');
+    };
+    root.append(edge('School applicants, two campuses', 'Invented data, PostgreSQL row-level security'),
+      el('div', { class: 'row' }, el('span', { class: 'lab', text: 'Signed in as' }), seg('Signed in as', Object.entries(ROLES).map(([k, r]) => [k, r[0]]), role, (v) => { role = v; log.replaceChildren(el('strong', { text: ROLES[v][0] }), ROLES[v][1] ? `Can read and admit ${ROLES[v][1] === 'All' ? 'applicants on both campuses' : ROLES[v][1] + ' campus applicants'}.` : 'Sees no applicant rows.'); paint(); })),
+      rows,
+      el('div', { class: 'row' }, el('button', { type: 'button', class: 'btn ghost', text: 'Try a direct table write', onclick: () => log.replaceChildren(el('strong', { class: 'is-red', text: 'Denied' }), 'Authenticated callers cannot write to these tables directly. Admission goes through a function that checks campus and current state.') })),
+      log, auditBox,
+      el('p', { class: 'note', text: 'The six applicants are invented for this page. The rules follow the role matrix in the lab, verified on PostgreSQL 16.2; full Supabase Auth and PostgREST were not exercised.' }));
+    log.replaceChildren(el('strong', { text: 'East principal' }), 'Can read and admit East campus applicants.');
+    paint();
+  }
+
+  const DEMOS = { takes, scan, gate, proofs, router, grader, fold, queue, roles };
   document.querySelectorAll('[data-demo]').forEach((n) => {
     try { DEMOS[n.dataset.demo]?.(n, n.dataset.mode === 'full'); } catch (e) { console.error(e); }
   });
+  /* ---------- Smooth scrolling (Lenis) and current-section marker ---------- */
+  if (typeof window.Lenis === 'function' && !reduce) {
+    try { new window.Lenis({ autoRaf: true, smoothWheel: true, syncTouch: false, anchors: true }); } catch (e) { console.error(e); }
+  }
+  const spy = [...document.querySelectorAll('.top .links a[href^="#"]')];
+  if (spy.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      spy.forEach((a) => (a.getAttribute('href') === '#' + en.target.id ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+    }), { rootMargin: '-40% 0px -55% 0px' });
+    spy.forEach((a) => { const t = document.querySelector(a.getAttribute('href')); if (t) io.observe(t); });
+  }
 })();

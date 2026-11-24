@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Row-level security for a two-campus school: switch roles and see which applicant rows each one can read and admit.">
+  <meta name="theme-color" content="#f4f6f7">
+  <title>School access and promotion | Abdul Muizz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script><script defer src="site.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">Abdul Muizz</a>
+      <div class="links"><a href="index.html#work">Work</a><a href="index.html#projects">Projects</a><a href="index.html#design">Design notes</a><a href="index.html#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
+    </nav>
+  </header>
+  <main id="main">
+
+    <section class="page-hero wrap">
+      <p class="kind">PostgreSQL, access control</p>
+      <h1 class="kin">Who can see which applicant</h1>
+      <p class="lede">Sign in as each school role. The rows you cannot read are still there; the database is the one refusing to show them.</p>
+    </section>
+    <section class="stage wrap">
+      <div class="frame" data-demo="roles">
+        <p>Campus principals read and admit their own applicants. Head office reads all and can read the audit. Teachers, accountants, parents and unlinked accounts see no applicant rows.</p>
+      </div>
+    </section>
+    <div class="body wrap">
+      <aside class="facts">
+        <h2>Evidence</h2>
+        <ul>
+          <li><a href="https://github.com/muiizz/engineering-portfolio/tree/main/labs/school-rls">Lab notes and SQL</a></li>
+          <li><a href="https://github.com/muiizz/engineering-portfolio/blob/main/labs/school-rls/supabase.sql">Supabase policies</a></li>
+          <li><a href="https://github.com/muiizz/engineering-portfolio/blob/main/labs/school-rls/verify_supabase.sql">Verification SQL</a></li>
+        </ul>
+        <h2>Scope</h2>
+        <ul><li>Invented campuses and sections</li><li>Verified on PostgreSQL 16.2</li></ul>
+      </aside>
+      <article class="prose">
+        <h2>The rule</h2>
+        <p>Two campus staff roles can read their own applicants. Direct table writes are withheld. A security-definer admission function checks campus and current state before it updates a row.</p>
+        <h2>Role matrix</h2>
+        <div class="scroll"><table>
+          <thead><tr><th scope="col">Role</th><th scope="col">Read applicants</th><th scope="col">Admit via RPC</th><th scope="col">Read audit</th><th scope="col">Modify audit</th></tr></thead>
+          <tbody><tr><td>East principal</td><td>East</td><td>East</td><td>No</td><td>No</td></tr><tr><td>West principal</td><td>West</td><td>West</td><td>No</td><td>No</td></tr><tr><td>Head office</td><td>All</td><td>All</td><td>Yes</td><td>No</td></tr><tr><td>Teacher</td><td>None</td><td>No</td><td>No</td><td>No</td></tr></tbody>
+        </table></div>
+        <p>A successful admission and its audit record commit together. Rejected and repeated calls create no audit record.</p>
+        <h2>Promotion</h2>
+        <p>The promotion fixture intentionally reuses a section name at a different position next year. It checks that a student follows the section position even when the destination has a different name.</p>
+        <h2>What this leaves open</h2>
+        <p>Verified on PostgreSQL 16.2 using an auth fixture. Full Supabase Auth and PostgREST were not exercised.</p>
+      </article>
+    </div>
+    <nav class="next wrap" aria-label="More case studies"><a href="webhook-queue.html">Previous: Webhook queue</a><a href="index.html#projects">All projects</a></nav>
+  </main>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. All scenarios and data on this site are synthetic.</div></footer>
+</body>
+</html>
