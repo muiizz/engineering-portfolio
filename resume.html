@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Résumé of Abdul Muizz: applied AI, PostgreSQL and product operations.">
   <meta name="theme-color" content="#f4f6f7">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Abdul Muizz | Engineering résumé">
+  <meta property="og:description" content="Résumé of Abdul Muizz: applied AI, PostgreSQL and product operations.">
+  <meta property="og:url" content="https://muiizz.github.io/engineering-portfolio/resume.html">
+  <meta property="og:image" content="https://muiizz.github.io/engineering-portfolio/assets/preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <title>Abdul Muizz | Engineering résumé</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
   <link rel="stylesheet" href="style.css">
@@ -38,6 +45,9 @@
       <div class="job"><h3>Multilingual rules evaluation</h3><p class="when"><a href="https://github.com/muiizz/llm-safety-rules-engine">Rules, fixtures and results</a></p><p>Tested deterministic routing on invented English, Roman Urdu and Urdu-script messages. Tracked missed urgent cases and false alarms separately through four revisions.</p></div>
       <div class="job"><h3>Release quality</h3><p class="when"><a href="quality-gate.html">Quality gate case study</a></p><p>Built shared local and CI checks for Python, TypeScript and SQL. Injected faults into disposable copies to verify which checks block a bad change.</p></div>
       <div class="job"><h3>PostgreSQL query tuning</h3><p class="when"><a href="postgres.html">Reproducible benchmark</a></p><p>Compared execution plans for a synthetic attendance query before and after adding a composite index. Checked ordered result parity and recorded buffer activity alongside execution time.</p></div>
+      <div class="job"><h3>Live model evaluation</h3><p class="when"><a href="live-eval.html">Three models, one contract</a></p><p>Ran 120 multilingual cases against three live models, three times each, and reported pass rate by language, cost and latency. Found and fixed a harness fault that truncated Urdu replies, and a scorer fault that failed correct refusals.</p></div>
+      <div class="job"><h3>Tool-using agent evaluation</h3><p class="when"><a href="agent.html">Agent case study</a></p><p>Built a support agent with four tools and scored 24 tasks in three languages on tool choice, arguments, forbidden tools and final reply.</p></div>
+      <div class="job"><h3>Published evaluation code from Divia</h3><p class="when"><a href="divia-checks.html">Reply checks</a></p><p>Released the fourteen automatic reply checks and the release rule from Divia’s evaluation runner, with a runnable rewrite of the full rules, model and checks flow.</p></div>
       <div class="job"><h3>Support evaluation</h3><p class="when"><a href="support-eval.html">Evaluation demo</a></p><p>Exposed a deterministic support-answer grader over MCP and tested whether an incorrect route failed the gate.</p></div>
     </div></section>
     <section class="cv-sec"><h2>Experience</h2><div>
@@ -52,7 +62,7 @@
     </div></section>
     <section class="cv-sec"><h2>Certifications</h2><div><p>Google Data Analytics Professional Certificate</p></div></section>
     <section class="cv-sec"><h2>Languages</h2><div><p>English (fluent), Urdu (native), Punjabi (native), French (A2)</p></div></section>
-    <div class="cv-actions"><button type="button" class="btn" onclick="window.print()">Print or save as PDF</button></div>
+    <div class="cv-actions"><a class="btn" href="assets/Abdul-Muizz-resume.pdf">Download as PDF</a></div>
     </div>
   </main>
   <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. Scenarios and data are synthetic unless a page says otherwise.</div></footer>

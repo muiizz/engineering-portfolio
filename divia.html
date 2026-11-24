@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="The safety architecture of Divia, a doctor-led diabetes coaching programme: deterministic rules run before the language model.">
   <meta name="theme-color" content="#f4f6f7">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Divia: rules before the model | Abdul Muizz">
+  <meta property="og:description" content="The safety architecture of Divia, a doctor-led diabetes coaching programme: deterministic rules run before the language model.">
+  <meta property="og:url" content="https://muiizz.github.io/engineering-portfolio/divia.html">
+  <meta property="og:image" content="https://muiizz.github.io/engineering-portfolio/assets/preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <title>Divia: rules before the model | Abdul Muizz</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
   <link rel="stylesheet" href="style.css">
@@ -34,7 +41,7 @@
     <div class="body wrap">
       <aside class="facts">
         <h2>Status</h2>
-        <ul><li>Live, with its first four patients sending readings every day</li><li>Code and patient data are private</li></ul>
+        <ul><li>Live, with its first four patients sending readings every day</li><li>Clinical content and patient data are private</li><li><a href="divia-checks.html">Its reply checks are public</a></li></ul>
         <h2>Stack</h2>
         <ul><li>Python: FastAPI, Pydantic, pytest, mypy</li><li>PostgreSQL</li><li>TypeScript: Next.js</li><li>Docker</li><li>WhatsApp Cloud API</li></ul>
         <h2>In the repository</h2>
@@ -48,6 +55,22 @@
         <h2>Testing at the boundary</h2>
         <p>Every threshold is tested just below, at and just above its value, in both mg/dL and mmol/L. The rules engine is held at 100% branch coverage, with scheduled mutation testing, and each test is traced to an entry in a hazard log.</p>
         <p>In the campaign of 23 October 2026 the tests killed 1,427 of 1,497 mutants of the rules engine, 95.3%. The scheduled job fails below 90%. An earlier campaign, before targeted tests were added, scored 81.5%.</p>
+        <h2>How the tests got stronger</h2>
+        <div class="scroll"><table>
+          <caption>Mutation campaigns on the rules engine, 23 October 2026</caption>
+          <thead><tr><th scope="col">Stage</th><th scope="col">Mutants killed</th><th scope="col">Score</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Property and coverage tests only</th><td>1,100 of 1,350</td><td>81.5%</td></tr>
+            <tr><th scope="row">After targeted tests</th><td>1,279 of 1,337</td><td>95.7%</td></tr>
+            <tr><th scope="row">After nine rule decisions, before boundary tests</th><td>1,371 of 1,450</td><td>94.6%</td></tr>
+            <tr><th scope="row">This release</th><td>1,427 of 1,497</td><td>95.3%</td></tr>
+          </tbody>
+        </table></div>
+        <p>Full branch coverage scored 81.5%, so nearly one change in five to the safety code went unnoticed by tests that ran every line. Each surviving mutant is listed in the hazard log with the reason it is left alone, such as a change that only widens detection in the safe direction.</p>
+        <h2>Every test names its hazard</h2>
+        <p>The hazard log lists what could go wrong, how severe it would be, and the control that prevents it. Each rules-engine test is tagged with the hazard it covers, and a gate check keeps the log and the tags in step, so a hazard cannot lose its test without the build failing.</p>
+        <h2>A gate that cannot be skipped quietly</h2>
+        <p>One command runs lint, strict typing, a security scan, every test suite and the coverage rule. It plans itself around the machine it is on, takes a lock so two runs cannot collide, and prints a table of every step’s exit code. Separate tests inject faults to prove the gate fails when it should. A change that only touches documentation is the one case that skips it, decided from the changed files and never from a flag.</p>
         <h2>Reading a meter from a photo</h2>
         <p>Glucose readings are taken from photos of the patient’s meter. Two independent reads must agree before a value is accepted, and a plausible low value is escalated as urgent at once.</p>
         <h2>Evaluating the coach</h2>
@@ -71,8 +94,15 @@
         <p>All clinical content and thresholds are versioned and approved by the Chief Medical Officer. Every outbound message records the content versions and the model used.</p>
         <h2>Data protection</h2>
         <p>The model receives a patient code, never a name or phone number. Row-level security applies to every patient table. Health data is exchanged as HL7 FHIR R4 with LOINC and SNOMED CT codes.</p>
+        <h2>Decisions on record</h2>
+        <p>Divia keeps written decision records. Five that shaped the system:</p>
+        <details class="report"><summary><span>1</span>One cell per country, nothing shared but software</summary><dl><dt>Why</dt><dd>Health data laws differ by country, and some restrict moving data abroad.</dd><dt>Decision</dt><dd>Each data jurisdiction gets its own cell: database, messaging number, clinicians and keys. Only software, clinical content and de-identified analytics are shared.</dd><dt>Cost accepted</dt><dd>Slightly higher running cost per country, in return for a breach or outage staying inside one cell.</dd></dl></details>
+        <details class="report"><summary><span>2</span>No sharding until a cell proves it needs it</summary><dl><dt>Why</dt><dd>Sharding adds cross-shard queries, rebalancing and harder backups, for a problem the product does not have.</dd><dt>Decision</dt><dd>One PostgreSQL database per cell. Revisit only when a larger instance, read replicas, partitioning and archiving cannot fix a sustained problem.</dd><dt>Kept cheap for later</dt><dd>UUID keys, a country code and patient ID on every patient row, monthly partitions on high-volume tables, and no joins across cells.</dd></dl></details>
+        <details class="report"><summary><span>3</span>Clinical content is versioned like code</summary><dl><dt>Why</dt><dd>The coach’s behaviour is defined by prompts, thresholds, messages and food guides. An untracked edit is a patient-safety risk.</dd><dt>Decision</dt><dd>All clinical content lives in one place, split into a core and a pack per country. Every change needs owner review, an evaluation run, a recorded approval and a versioned release.</dd><dt>Cost accepted</dt><dd>Changes are slower, deliberately.</dd></dl></details>
+        <details class="report"><summary><span>4</span>A photo of the meter is the standard way to send a reading</summary><dl><dt>Why</dt><dd>Typed readings go wrong in ways rules can only partly catch: missing or swapped digits, the wrong unit, numbers written as words.</dd><dt>Decision</dt><dd>Photo first, typed number and voice note as fallbacks. Two independent reads must agree on value, unit and flag. A plausible low value is urgent at once, before the reads are compared.</dd><dt>Reasoning</dt><dd>A missed low costs more than a false alarm.</dd></dl></details>
+        <details class="report"><summary><span>5</span>Three separate consents, withdrawn the moment a patient says so</summary><dl><dt>Why</dt><dd>One consent flag per patient gave no evidence of how consent was given or what wording the patient saw.</dd><dt>Decision</dt><dd>Care, AI processing and caregiver alerts are consented separately, each with its own record and wording. Withdrawal applies immediately, and a change of legal entity or host needs fresh consent.</dd></dl></details>
         <h2>What this page does not show</h2>
-        <p>Divia’s repository is private, so nothing here can be reproduced from this site. The demo above is a small illustration of the order of checks, with one widely used threshold. The measured, reproducible work is in the open-source rules engine linked under Related.</p>
+        <p>Divia’s repository is private, apart from its reply checks, so most of what is described here cannot be reproduced from this site. The demo above is a small illustration of the order of checks, with one widely used threshold. The measured, reproducible work is in the open-source rules engine linked under Related.</p>
       </article>
     </div>
     <nav class="next wrap" aria-label="More case studies"><a href="index.html#work">All case studies</a><a href="safety-rules.html">Next: the language gap</a></nav>
