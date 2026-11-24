@@ -53,3 +53,6 @@ retrieval on 36 queries (three per article in English, Roman Urdu and Urdu)
 using an open multilingual sentence encoder. It needs `sentence-transformers`
 and no API key. The queries were written for this lab, so the result describes
 this small set only.
+
+Run of 24 November 2026: keywords 17 of 36, encoder 29 of 36, keywords then
+encoder 32 of 36. See [the recorded results](embed-results.json).

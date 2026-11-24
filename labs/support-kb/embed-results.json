@@ -1,0 +1,88 @@
+{
+  "utc": "2026-11-24T01:00:46.712252+00:00",
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "overall": {
+    "keyword": 17,
+    "embedding": 29,
+    "hybrid": 32,
+    "total": 36
+  },
+  "by_language": {
+    "en": {
+      "keyword": 6,
+      "embedding": 11,
+      "hybrid": 12,
+      "total": 12
+    },
+    "ur-Latn": {
+      "keyword": 7,
+      "embedding": 8,
+      "hybrid": 10,
+      "total": 12
+    },
+    "ur": {
+      "keyword": 4,
+      "embedding": 10,
+      "hybrid": 10,
+      "total": 12
+    }
+  },
+  "misses": [
+    {
+      "query": "Mujhe rasid chahiye",
+      "language": "ur-Latn",
+      "expected": "receipts",
+      "keyword": "receipts",
+      "embedding": "itinerary",
+      "hybrid": "receipts"
+    },
+    {
+      "query": "Aap kab tak available hain?",
+      "language": "ur-Latn",
+      "expected": "hours",
+      "keyword": null,
+      "embedding": "account",
+      "hybrid": "account"
+    },
+    {
+      "query": "Where is my booking confirmation?",
+      "language": "en",
+      "expected": "itinerary",
+      "keyword": "itinerary",
+      "embedding": "receipts",
+      "hybrid": "itinerary"
+    },
+    {
+      "query": "Booking confirmation nahi mil rahi",
+      "language": "ur-Latn",
+      "expected": "itinerary",
+      "keyword": "itinerary",
+      "embedding": "receipts",
+      "hybrid": "itinerary"
+    },
+    {
+      "query": "بکنگ کی تصدیق نہیں مل رہی",
+      "language": "ur",
+      "expected": "itinerary",
+      "keyword": null,
+      "embedding": "receipts",
+      "hybrid": "receipts"
+    },
+    {
+      "query": "Apna naam kahan tabdeel karun?",
+      "language": "ur-Latn",
+      "expected": "account",
+      "keyword": null,
+      "embedding": "itinerary",
+      "hybrid": "itinerary"
+    },
+    {
+      "query": "پروفائل کیسے اپ ڈیٹ کروں؟",
+      "language": "ur",
+      "expected": "account",
+      "keyword": null,
+      "embedding": "hours",
+      "hybrid": "hours"
+    }
+  ]
+}

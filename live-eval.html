@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The same 120 multilingual support messages against three live Claude models: pass rate, cost and latency, plus retrieval with a learned encoder.">
+  <meta name="theme-color" content="#f4f6f7">
+  <title>Three models, one contract, three languages | Abdul Muizz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script><script defer src="site.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">Abdul Muizz</a>
+      <div class="links"><a href="index.html#work">Work</a><a href="index.html#projects">Projects</a><a href="index.html#design">Design notes</a><a href="index.html#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
+    </nav>
+  </header>
+  <main id="main">
+
+    <section class="page-hero wrap">
+      <p class="kind">Applied AI, evaluation</p>
+      <h1 class="kin">Three models, one contract, three languages</h1>
+      <p class="lede">I sent the same 120 support messages to three Claude models, three times each, and scored every reply against a fixed contract. The largest model was the only one to pass everything, at about thirty times the cost of the smallest.</p>
+    </section>
+    <section class="stage wrap">
+      <div class="frame" data-demo="tiers" data-mode="full">
+        <p>First run: Haiku 5.5 passed 116 of 120, Sonnet 5.5 passed 118, Opus 5.5 passed 120. All routed every urgent message correctly.</p>
+      </div>
+    </section>
+    <div class="body wrap">
+      <aside class="facts">
+        <h2>Evidence</h2>
+        <ul>
+          <li><a href="labs/eval-gate/live-results/summary.json">Recorded results</a></li>
+          <li><a href="labs/eval-gate/live-results/answers-claude-haiku-5-5.json">Every Haiku reply</a></li>
+          <li><a href="labs/eval-gate/live-results/answers-claude-sonnet-5-5.json">Every Sonnet reply</a></li>
+          <li><a href="labs/eval-gate/live-results/answers-claude-opus-5-5.json">Every Opus reply</a></li>
+          <li><a href="labs/eval-gate/live.py">Run script</a></li>
+          <li><a href="labs/support-kb/embed-results.json">Retrieval results</a></li>
+        </ul>
+        <h2>Scope</h2>
+        <ul><li>120 generated messages, 40 per language</li><li>One provider, three runs per model</li><li>24 November 2026</li></ul>
+      </aside>
+      <article class="prose">
+        <h2>The contract</h2>
+        <p>A fictional travel support desk has three routes: reply, hand off to a person, or send to the urgent queue. A reply passes only if the route is right, it contains the required wording for that case, and it avoids two banned phrases. The scorer is the same deterministic code as the offline gate.</p>
+        <h2>Results</h2>
+        <div class="scroll" tabindex="0" role="region" aria-label="Results by model">
+          <table>
+            <caption>120 cases per run. Cost is recorded tokens at list price on the run date.</caption>
+            <thead><tr><th scope="col">Model</th><th scope="col">Passed, three runs</th><th scope="col">Urgent routed</th><th scope="col">Median reply</th><th scope="col">Cost, 360 calls</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Haiku 5.5</th><td>116, 116, 116</td><td>30 of 30</td><td>1.2 s</td><td>$0.05</td></tr>
+              <tr><th scope="row">Sonnet 5.5</th><td>118, 118, 117</td><td>30 of 30</td><td>1.9 s</td><td>$0.80</td></tr>
+              <tr><th scope="row">Opus 5.5</th><td>120, 120, 120</td><td>30 of 30</td><td>2.1 s</td><td>$1.56</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Each model used 114,978 input tokens across its three runs and between 54,992 and 69,415 output tokens.</p>
+        <h2>What the failures were</h2>
+        <p>No model sent a message to the wrong queue. Every failure was wording. Haiku wrote the desk hours in its own words and translated “support team” into Urdu script, where the contract wants both verbatim. Sonnet failed for a different reason: it told customers it could not promise a guaranteed refund, and the scorer bans that phrase wherever it appears.</p>
+        <p>That second one is a fault in my scorer. A phrase ban cannot tell a promise from a refusal. It is the same weakness the routing audit found in its rules, and here it cost a correct answer its pass.</p>
+        <h2>What broke on the first run</h2>
+        <p>The first run capped replies at 200 output tokens. Urdu script takes several tokens per word, so Urdu replies were cut off mid-sentence, failed to parse, and were scored as failures. That run reported Haiku at 68 of 120 with only 8 of 30 urgent cases passing. The models were fine; my harness was wrong. I raised the cap to 1,000, added a count of truncated and empty replies to every run, and ran it again. The second run recorded none of either.</p>
+        <h2>Retrieval with a learned encoder</h2>
+        <p>The knowledge base lab used hand-written four-number vectors. I replaced them with an open multilingual sentence encoder and scored 36 queries, three per article in each language.</p>
+        <div class="scroll"><table>
+          <caption>Top-1 article correct, of 12 queries per language</caption>
+          <thead><tr><th scope="col">Method</th><th scope="col">English</th><th scope="col">Roman Urdu</th><th scope="col">Urdu script</th><th scope="col">All</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Keywords</th><td>6</td><td>7</td><td>4</td><td>17 of 36</td></tr>
+            <tr><th scope="row">Encoder</th><td>11</td><td>8</td><td>10</td><td>29 of 36</td></tr>
+            <tr><th scope="row">Keywords, then encoder</th><td>12</td><td>10</td><td>10</td><td>32 of 36</td></tr>
+          </tbody>
+        </table></div>
+        <p>The encoder is weakest on Roman Urdu, which is the script it has seen least. Keywords rescue three of its misses, which is the case for keeping both.</p>
+        <h2>What this does not show</h2>
+        <p>The 120 messages reuse four intents with ten context variants, so they are easier than real traffic. I wrote both the policy prompt and the cases. One provider was tested, with three runs per model, on one day. The 36 retrieval queries were written for this lab. Prices change, so the cost column is a snapshot.</p>
+      </article>
+    </div>
+    <nav class="next wrap" aria-label="More case studies"><a href="safety-rules.html">Previous: the language gap</a><a href="index.html#projects">All projects</a></nav>
+  </main>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. All scenarios and data on this site are synthetic.</div></footer>
+</body>
+</html>

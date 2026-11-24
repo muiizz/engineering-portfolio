@@ -576,7 +576,49 @@
     run();
   }
 
-  const DEMOS = { takes, scan, gate, proofs, router, grader, fold, queue, roles, ladder };
+  /* ---------- Tiers: labs/eval-gate/live-results/summary.json, run of 24 Nov 2026.
+     Cost = recorded tokens x list price per million tokens on that date. ---------- */
+  const TIERS = [
+    { name: 'Haiku 5.5', runs: [116, 116, 116], lang: [40, 38, 38], cost: 0.05, p50: 1245, p95: 2151,
+      why: 'Every route was right. The misses are wording: it wrote the hours as “09:00 se 17:00” and translated “support team” into Urdu script, and the contract wants both verbatim.' },
+    { name: 'Sonnet 5.5', runs: [118, 118, 117], lang: [40, 38, 40], cost: 0.80, p50: 1934, p95: 3526,
+      why: 'Every route was right. Its misses are replies that say there is no “guaranteed refund”. The scorer bans that phrase outright, so a correct refusal fails.' },
+    { name: 'Opus 5.5', runs: [120, 120, 120], lang: [40, 40, 40], cost: 1.56, p50: 2126, p95: 3713,
+      why: 'Passed all 120 cases in all three runs.' },
+  ];
+  function tiers(root, full) {
+    root.textContent = '';
+    const pass = el('div', { class: 'big' }), cost = el('div', { class: 'big' }), speed = el('div', { class: 'big' });
+    const why = el('p', { class: 'change', 'aria-live': 'polite' });
+    const langs = el('div', { class: 'langs' });
+    const cols = ['English', 'Roman Urdu', 'Urdu script'].map((name) => {
+      const count = el('span'), d = el('div', { class: 'dots', role: 'img' });
+      for (let i = 0; i < 40; i++) { const x = el('i'); x.style.setProperty('--n', i); d.append(x); }
+      langs.append(el('div', { class: 'lang' }, el('h4', {}, el('span', { text: name }), count), d));
+      return { name, count, d };
+    });
+    const show = (i) => {
+      const t = TIERS[i];
+      pass.className = 'big' + (t.runs[0] < 120 ? ' is-red' : '');
+      pass.replaceChildren(`${t.runs[0]} of 120`, el('small', { text: `cases passed. Three runs: ${t.runs.join(', ')}` }));
+      cost.replaceChildren(`$${t.cost.toFixed(2)}`, el('small', { text: 'for all 360 calls' }));
+      speed.replaceChildren(`${(t.p50 / 1000).toFixed(1)} s`, el('small', { text: `median reply time, 95th percentile ${(t.p95 / 1000).toFixed(1)} s` }));
+      why.textContent = t.why;
+      cols.forEach((c, k) => {
+        [...c.d.children].forEach((x, n) => { x.className = n < t.lang[k] ? 'found' : 'miss'; });
+        c.count.textContent = `${t.lang[k]} of 40`;
+        c.d.setAttribute('aria-label', `${c.name}: ${t.lang[k]} of 40 passed in the first run`);
+      });
+    };
+    root.append(edge('120 support messages, three live models', 'Run on 24 Nov 2026'),
+      el('div', { class: 'row' }, seg('Model', TIERS.map((t, i) => [i, t.name]), 0, (v) => show(+v))),
+      el('div', { class: 'readouts' }, pass, cost, speed), why, langs,
+      el('div', { class: 'legend' }, el('span', {}, el('i', { class: 'found' }), 'Passed'), el('span', {}, el('i', { class: 'miss' }), 'Failed the contract')));
+    if (full) root.append(el('p', { class: 'note', text: 'Marks show the first of three runs, in count order. All three models routed all 30 urgent messages correctly in every run.' }));
+    show(0);
+  }
+
+  const DEMOS = { takes, scan, gate, proofs, router, grader, fold, queue, roles, ladder, tiers };
   document.querySelectorAll('[data-demo]').forEach((n) => {
     try { DEMOS[n.dataset.demo]?.(n, n.dataset.mode === 'full'); } catch (e) { console.error(e); }
   });

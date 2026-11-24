@@ -1,0 +1,842 @@
+{
+  "refund-0-0": {
+    "message": "refund my booking",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Thanks for reaching out. Refund requests need a person to review them, so our support team will take it from here and contact you about your booking. We can't guarantee the outcome until they've reviewed it.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-0-1": {
+    "message": "Hello, refund my booking?",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Thanks for reaching out. I've passed your refund request to our support team, who will take it from here and review your booking.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-0-2": {
+    "message": "Could you help with this? refund my booking",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Thanks for reaching out. I've passed your refund request to our support team, and they will take it from here. They'll review your booking and get back to you about next steps. Please note that refunds depend on review, so we can't guarantee the outcome.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-0-3": {
+    "message": "This is about my trip. refund my booking",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Thanks for reaching out. I've passed your refund request for this booking to our support team, and they will take it from here. They'll review it and get back to you about whether a refund is possible.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-0-4": {
+    "message": "A quick question: refund my booking",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Thanks for reaching out. I've passed your refund request to our support team, and they will take it from here. They'll review your booking and get back to you about the next steps.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-0-5": {
+    "message": "Please advise: refund my booking",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Thanks for reaching out. I've passed your refund request to our support team, who will take it from here and review your booking. They'll be in touch with next steps.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-0-6": {
+    "message": "Can someone respond? refund my booking",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Thanks for reaching out. I've passed your refund request to our support team, who will take it from here and review your booking. They'll get back to you as soon as possible.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-0-7": {
+    "message": "I tried the app. refund my booking",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Thanks for reaching out. I've passed your refund request to our support team, and they will take it from here. They'll review your booking and get back to you with the next steps.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-0-8": {
+    "message": "I'm messaging from the app. refund my booking",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Thanks for reaching out. Refund requests need a person's review, so our support team will take it from here and follow up with you about your booking.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-0-9": {
+    "message": "Thanks for checking. refund my booking",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Thanks for reaching out. I've passed your refund request for your booking to our support team, and they will take it from here. They'll review your booking and get back to you about the next steps.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-1-0": {
+    "message": "booking ka refund chahiye",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Aapki refund request hum ne note kar li hai. Hamari support team ab is maamle ko aage dekhegi aur aap se raabta karegi. Refund ka faisla booking ki shartein dekh kar kiya jayega.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-1-1": {
+    "message": "Salam, booking ka refund chahiye?",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Wa alaikum salam! Refund ki request ko ek insaan ki manzoori chahiye, is liye aap ka message hamari support team ko bhej diya gaya hai. Support team yahan se aage dekhegi aur aap se jald rabta karegi.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-1-2": {
+    "message": "Madad kar dein: booking ka refund chahiye",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Aap ki booking ke refund ki request hum ne note kar li hai. Refund ki manzoori ek shakhs ko deni hoti hai, is liye hamari support team ab yahan se aap ki madad karegi aur aap se jald rabta karegi.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-1-3": {
+    "message": "Yeh mere safar ka hai. booking ka refund chahiye",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Shukriya aap ke message ka. Aap ki booking ke refund ki darkhwast hamari support team ko bhej di gayi hai, aur support team yahan se aage dekhegi. Refund ka faisla booking ki shuraait ke mutabiq kiya jayega, is liye abhi koi waada nahi kiya ja sakta.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-1-4": {
+    "message": "Aik sawal: booking ka refund chahiye",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Aapki refund ki request hamari support team tak pahunch gayi hai. Support team yahan se aage dekhegi aur aapse rabta karegi. Refund ka faisla booking ki shiraait par depend karta hai, is liye hum abhi iski guarantee nahi de sakte.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-1-5": {
+    "message": "Rehnumai chahiye: booking ka refund chahiye",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Aap ki refund ki darkhwast humein mil gayi hai. Refund ki manzoori ek shakhs ko deni hoti hai, is liye hamari support team ab is maamle ko aage dekhegi aur aap se rabta karegi. Shukriya!\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-1-6": {
+    "message": "Koi jawab de sakta hai? booking ka refund chahiye",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Assalam-o-Alaikum! Aap ki booking ke refund ki request hum ne note kar li hai. Refund ka faisla hamari support team karti hai, is liye support team yahan se aage aap ki madad karegi. Wo aap ki booking ki tafseelat check kar ke aap ko agle qadam batayegi.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-1-7": {
+    "message": "App use ki hai. booking ka refund chahiye",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Aap ki booking ke refund ki request note kar li gayi hai. Refund ke liye manzoori zaroori hai, is liye hamari support team yahan se aage dekhegi aur aap se jald rabta karegi.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-1-8": {
+    "message": "App se message kar raha hun. booking ka refund chahiye",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Aapka message mil gaya hai. Refund ki request ko ek shakhs ka approve karna zaroori hai, is liye ab hamari support team ise yahan se aage handle karegi. Woh aapki booking dekh kar aap se rabta karegi. Barah-e-karam yaad rakhein ke refund ka faisla booking ki sharait par mabni hoga.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-1-9": {
+    "message": "Check karne ka shukriya. booking ka refund chahiye",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"Shukriya aap ke message ka. Aap ki booking ke refund ki darkhwast hum ne aage bhej di hai. Ab hamari support team is maamle ko dekhegi aur aap se rabta karegi. Refund ka faisla booking ki sharaait ke mutabiq hoga.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-2-0": {
+    "message": "بکنگ کی رقم واپس چاہیے",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"آپ کی بکنگ کی رقم واپسی کی درخواست ہمیں موصول ہو گئی ہے۔ ہماری support team اب اس معاملے کو آگے دیکھے گی اور جائزے کے بعد آپ سے رابطہ کرے گی۔ براہ کرم نوٹ کریں کہ رقم کی واپسی کی منظوری جائزے پر منحصر ہے۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-2-1": {
+    "message": "سلام، بکنگ کی رقم واپس چاہیے?",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"وعلیکم السلام! رقم کی واپسی کی درخواست کا جائزہ ایک نمائندہ لیتا ہے، اس لیے آپ کی درخواست support team کو بھیج دی گئی ہے اور اب وہی اسے آگے دیکھیں گے۔ ریفنڈ کا فیصلہ جائزے کے بعد ہوگا۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-2-2": {
+    "message": "مدد کریں: بکنگ کی رقم واپس چاہیے",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"آپ کی رقم کی واپسی کی درخواست ہمیں موصول ہو گئی ہے۔ اب ہماری support team اسے آگے دیکھے گی اور آپ سے رابطہ کرے گی۔ براہ کرم نوٹ کریں کہ رقم کی واپسی کا فیصلہ جائزے کے بعد ہی کیا جائے گا۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-2-3": {
+    "message": "یہ میرے سفر کے بارے میں ہے۔ بکنگ کی رقم واپس چاہیے",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"آپ کی بکنگ کی رقم واپسی کی درخواست موصول ہو گئی ہے۔ اب ہماری سپورٹ ٹیم (support team) اسے آگے دیکھے گی اور آپ سے رابطہ کرے گی۔ رقم کی واپسی کا فیصلہ ان کے جائزے پر منحصر ہوگا۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-2-4": {
+    "message": "ایک سوال: بکنگ کی رقم واپس چاہیے",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"آپ کا پیغام موصول ہو گیا ہے۔ بکنگ کی رقم واپسی کی درخواست کو ہماری ٹیم کی منظوری درکار ہوتی ہے، اس لیے اب ہماری support team اس معاملے کو آگے دیکھے گی اور آپ سے رابطہ کرے گی۔ براہِ کرم نوٹ کریں کہ رقم واپسی کا فیصلہ جائزے کے بعد ہی کیا جائے گا۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-2-5": {
+    "message": "رہنمائی کریں: بکنگ کی رقم واپس چاہیے",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"آپ کی بکنگ کی رقم واپسی کی درخواست موصول ہو گئی ہے۔ ریفنڈ کی منظوری ایک نمائندہ دیتا ہے، اس لیے ہماری support team اب آپ کی درخواست دیکھے گی اور آپ سے رابطہ کرے گی۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-2-6": {
+    "message": "کوئی جواب دے سکتا ہے؟ بکنگ کی رقم واپس چاہیے",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"آپ کے پیغام کا شکریہ۔ ریفنڈ کی درخواست کسی نمائندے کی منظوری سے ہی آگے بڑھ سکتی ہے، اس لیے ہماری support team اب اس معاملے کو دیکھے گی اور آپ سے رابطہ کرے گی۔ ریفنڈ کا فیصلہ جائزے کے بعد ہی ہو گا۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-2-7": {
+    "message": "میں نے ایپ استعمال کی۔ بکنگ کی رقم واپس چاہیے",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"آپ کی رقم کی واپسی کی درخواست موصول ہو گئی ہے۔ ہماری support team اب اس معاملے کو دیکھے گی اور آپ سے رابطہ کرے گی۔ رقم کی واپسی کا فیصلہ جائزے کے بعد کیا جائے گا۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-2-8": {
+    "message": "میں ایپ سے پیغام بھیج رہا ہوں۔ بکنگ کی رقم واپس چاہیے",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"آپ کا پیغام موصول ہو گیا ہے۔ رقم کی واپسی کی درخواست کا جائزہ ہماری support team لے گی اور وہ یہاں سے آگے آپ سے رابطہ کرے گی۔ براہ کرم نوٹ کریں کہ رقم کی واپسی کی ضمانت نہیں دی جا سکتی، فیصلہ جائزے کے بعد ہوگا۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "refund-2-9": {
+    "message": "دیکھنے کا شکریہ۔ بکنگ کی رقم واپس چاہیے",
+    "expected": "handoff",
+    "raw": "{\"route\": \"handoff\", \"reply\": \"آپ کے پیغام کا شکریہ۔ رقم کی واپسی کی درخواست کی منظوری ایک نمائندہ دیتا ہے، اس لیے آپ کی درخواست ہماری support team کو بھیج دی گئی ہے۔ اب support team آگے کی کارروائی کرے گی اور آپ سے رابطہ کرے گی۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-0-0": {
+    "message": "unsafe situation",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"We're sorry you're in an unsafe situation. Your message has gone to the urgent queue. If you are in immediate danger, please contact local emergency services right away. When you can, reply with your location and what is happening so we can help faster.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-0-1": {
+    "message": "Hello, unsafe situation?",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Hello, we've placed your message in the urgent queue so it's seen as quickly as possible. If you're in immediate danger, please contact local emergency services right away. Could you tell us where you are and what's happening so we can help?\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-0-2": {
+    "message": "Could you help with this? unsafe situation",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"I'm sorry you're dealing with an unsafe situation. Your message has gone to our urgent queue, and a team member will contact you as soon as possible. If you are in immediate danger, please contact local emergency services right away. If you can, reply with your location and what is happening so we can help faster.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-0-3": {
+    "message": "This is about my trip. unsafe situation",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Thank you for telling us. Your message has gone to the urgent queue, and a team member will contact you as soon as possible. If you are in immediate danger, please contact local emergency services right away. When you can, reply with your location and what is happening so we can help faster.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-0-4": {
+    "message": "A quick question: unsafe situation",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"We're sorry you're dealing with an unsafe situation. Your message has gone to the urgent queue, and our team will follow up as soon as possible. If you are in immediate danger, please contact local emergency services right away. When you can, reply with your location and what is happening so we can help faster.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-0-5": {
+    "message": "Please advise: unsafe situation",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"We're sorry you're dealing with an unsafe situation. Your message has gone to our urgent queue, and a member of our team will contact you as soon as possible. If you are in immediate danger, please contact local emergency services right away. If you can, reply with your location, your booking reference and what is happening so we can help faster.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-0-6": {
+    "message": "Can someone respond? unsafe situation",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"We're sorry you're in an unsafe situation. Your message has gone to the urgent queue and someone will respond as soon as possible. If you are in immediate danger, please contact local emergency services right away.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-0-7": {
+    "message": "I tried the app. unsafe situation",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"We're sorry you're in an unsafe situation. Your message has gone to the urgent queue, and a team member will contact you as soon as possible. If you are in immediate danger, please call your local emergency services now. If you can, reply with your location and what is happening so we can help faster.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-0-8": {
+    "message": "I'm messaging from the app. unsafe situation",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"We're sorry you're in an unsafe situation. Your message has been sent to our urgent queue and a team member will respond as soon as possible. If you are in immediate danger, please contact local emergency services right away.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-0-9": {
+    "message": "Thanks for checking. unsafe situation",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Thank you for letting us know. Your message has gone to our urgent queue, and someone will follow up with you as soon as possible. If you are in immediate danger, please contact local emergency services right away. If you can, reply with your location and what is happening so we can help faster.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-1-0": {
+    "message": "khatarnak surat e haal",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Aap ka message hamari urgent queue mein bhej diya gaya hai. Agar aap fori khatre mein hain to pehle mehfooz jagah par jayen aur local emergency services se rabta karein. Agar mumkin ho to batayen ke aap kahan hain aur kya ho raha hai.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-1-1": {
+    "message": "Salam, khatarnak surat e haal?",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Wa alaikum assalam. Aap ka message hamari urgent queue mein bhej diya gaya hai. Agar aap ya koi aur is waqt foran khatre mein hai, to pehle local emergency services se rabta karein. Barah-e-karam batayein ke kya ho raha hai aur aap kahan hain, taake hum jaldi madad kar sakein.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-1-2": {
+    "message": "Madad kar dein: khatarnak surat e haal",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Hum aapki madad ke liye haazir hain. Aapka message urgent queue mein bhej diya gaya hai aur jald se jald is par kaam kiya jayega. Agar aap is waqt fori khatre mein hain, to barah-e-karam foran local emergency services se rabta karein aur kisi mehfooz jagah par chale jayein.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-1-3": {
+    "message": "Yeh mere safar ka hai. khatarnak surat e haal",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Aap ka message urgent queue mein bhej diya gaya hai aur hamari team jald az jald aap se rabta karegi. Agar aap is waqt fori khatre mein hain to baraye meharbani foran local emergency services se rabta karein. Aap kahan hain aur kya ho raha hai, yeh bata dein taake hum behtar madad kar sakein.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-1-4": {
+    "message": "Aik sawal: khatarnak surat e haal",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Aap ka message hamari urgent queue mein bhej diya gaya hai. Agar aap is waqt khatre mein hain to foran local emergency services se rabta karein. Baraye meharbani batayein ke kya hua hai aur aap kahan hain, taake hum jaldi madad kar sakein.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-1-5": {
+    "message": "Rehnumai chahiye: khatarnak surat e haal",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Aap ka message urgent queue mein bhej diya gaya hai, aur hamari team jald az jald aap se rabta karegi. Agar aap is waqt fori khatre mein hain, to baraye meharbani foran apni maqami emergency services se rabta karein aur kisi mehfooz jagah par chale jayen. Mumkin ho to humein batayen ke aap kahan hain aur kya ho raha hai.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-1-6": {
+    "message": "Koi jawab de sakta hai? khatarnak surat e haal",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Aap ka message humari urgent queue mein bhej diya gaya hai aur team jald aap se rabta karegi. Agar aap is waqt fori khatre mein hain, to baraye meherbani foran maqami emergency services se rabta karein. Mumkin ho to batayein ke aap kahan hain aur kya ho raha hai.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-1-7": {
+    "message": "App use ki hai. khatarnak surat e haal",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Aap ka message urgent queue mein bhej diya gaya hai. Agar aap foran khatre mein hain, to baraye meharbani pehle apni local emergency services se rabta karein aur kisi mehfooz jagah par chale jayein.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-1-8": {
+    "message": "App se message kar raha hun. khatarnak surat e haal",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Aap ka message urgent queue mein bhej diya gaya hai. Agar aap ko foran khatra hai to baraye meharbani pehle local emergency services se rabta karein aur kisi mehfooz jagah par chale jayein. Hamari team jald aap se rabta karegi.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-1-9": {
+    "message": "Check karne ka shukriya. khatarnak surat e haal",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"Hum aap ki baat samajh gaye hain. Aap ka message urgent queue mein bhej diya gaya hai aur hamari team jald se jald aap se rabta karegi. Agar aap ko foran khatra hai to baraye meharbani pehle local emergency services se rabta karein aur kisi mehfooz jagah par chale jayein.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-2-0": {
+    "message": "خطرناک صورتحال",
+    "expected": "urgent",
+    "raw": "```json\n{\"route\": \"urgent\", \"reply\": \"آپ کا پیغام urgent queue میں بھیج دیا گیا ہے اور جلد آپ سے رابطہ کیا جائے گا۔ اگر آپ کو فوری خطرہ ہے تو براہ کرم مقامی ایمرجنسی سروسز سے فوراً رابطہ کریں اور کسی محفوظ جگہ پر چلے جائیں۔\"}\n```",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-2-1": {
+    "message": "سلام، خطرناک صورتحال?",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"وعلیکم السلام۔ آپ کا پیغام urgent queue میں بھیج دیا گیا ہے۔ اگر آپ فوری خطرے میں ہیں تو براہ کرم پہلے مقامی ایمرجنسی سروسز سے رابطہ کریں۔ اگر ممکن ہو تو بتائیں کہ آپ کہاں ہیں اور کیا ہو رہا ہے۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-2-2": {
+    "message": "مدد کریں: خطرناک صورتحال",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"ہمیں افسوس ہے کہ آپ خطرناک صورتحال میں ہیں۔ آپ کا پیغام urgent queue میں بھیج دیا گیا ہے۔ اگر آپ کو فوری خطرہ ہے تو براہ کرم مقامی ایمرجنسی سروسز سے فوراً رابطہ کریں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-2-3": {
+    "message": "یہ میرے سفر کے بارے میں ہے۔ خطرناک صورتحال",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"آپ کا پیغام urgent queue میں بھیج دیا گیا ہے اور جلد آپ سے رابطہ کیا جائے گا۔ اگر آپ فوری خطرے میں ہیں تو براہِ کرم ابھی مقامی ایمرجنسی سروسز سے رابطہ کریں اور کسی محفوظ جگہ پر چلے جائیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-2-4": {
+    "message": "ایک سوال: خطرناک صورتحال",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"آپ کا پیغام urgent queue میں بھیج دیا گیا ہے۔ براہِ کرم مختصراً بتائیں کہ کیا ہو رہا ہے اور آپ کہاں ہیں۔ اگر آپ فوری خطرے میں ہیں تو ابھی مقامی ایمرجنسی سروسز سے رابطہ کریں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-2-5": {
+    "message": "رہنمائی کریں: خطرناک صورتحال",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"آپ کا پیغام ہماری urgent queue میں بھیج دیا گیا ہے اور ہماری ٹیم جلد آپ سے رابطہ کرے گی۔ اگر آپ کو فوری خطرہ ہے تو براہ کرم مقامی ایمرجنسی سروسز سے فوراً رابطہ کریں اور کسی محفوظ جگہ پر چلے جائیں۔ ممکن ہو تو بتائیں کہ آپ کہاں ہیں اور کیا ہو رہا ہے۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-2-6": {
+    "message": "کوئی جواب دے سکتا ہے؟ خطرناک صورتحال",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"آپ کا پیغام ہمیں مل گیا ہے اور اسے urgent queue میں بھیج دیا گیا ہے۔ اگر آپ فوری خطرے میں ہیں تو براہ کرم پہلے مقامی ایمرجنسی سروسز سے رابطہ کریں۔ ہو سکے تو بتائیں کہ آپ کہاں ہیں اور کیا ہو رہا ہے۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-2-7": {
+    "message": "میں نے ایپ استعمال کی۔ خطرناک صورتحال",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"آپ کا پیغام ہمارے urgent queue میں بھیج دیا گیا ہے، اور ہماری ٹیم جلد از جلد آپ سے رابطہ کرے گی۔ اگر آپ کو فوری خطرہ ہے تو براہ کرم ابھی مقامی ایمرجنسی سروسز سے رابطہ کریں اور کسی محفوظ جگہ پر چلے جائیں۔ اگر ممکن ہو تو مختصراً بتائیں کہ کیا ہوا اور آپ کہاں ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-2-8": {
+    "message": "میں ایپ سے پیغام بھیج رہا ہوں۔ خطرناک صورتحال",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"آپ کا پیغام ہماری urgent queue میں بھیج دیا گیا ہے اور ہماری ٹیم جلد از جلد آپ سے رابطہ کرے گی۔ اگر آپ کو فوری خطرہ ہے تو براہ کرم مقامی ایمرجنسی سروسز سے فوراً رابطہ کریں اور کسی محفوظ جگہ پر چلے جائیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "safety-2-9": {
+    "message": "دیکھنے کا شکریہ۔ خطرناک صورتحال",
+    "expected": "urgent",
+    "raw": "{\"route\": \"urgent\", \"reply\": \"رابطہ کرنے کا شکریہ۔ آپ کا پیغام urgent queue میں بھیج دیا گیا ہے اور جلد ہی کوئی آپ سے رابطہ کرے گا۔ اگر آپ کو فوری خطرہ ہے تو براہ کرم مقامی ایمرجنسی سروسز سے ابھی رابطہ کریں۔ اگر ممکن ہو تو اپنی موجودہ جگہ اور صورتحال کی مختصر تفصیل بتائیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-0-0": {
+    "message": "desk hours",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Our desk hours are 09:00–17:00 UTC.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-0-1": {
+    "message": "Hello, desk hours?",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Hello! Our desk hours are 09:00–17:00 UTC.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-0-2": {
+    "message": "Could you help with this? desk hours",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Of course! Our desk hours are 09:00–17:00 UTC. Feel free to reach out anytime during those hours.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-0-3": {
+    "message": "This is about my trip. desk hours",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Our desk hours are 09:00–17:00 UTC. If you have a question about your trip, send it over and we'll be happy to help.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-0-4": {
+    "message": "A quick question: desk hours",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Our desk hours are 09:00–17:00 UTC.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-0-5": {
+    "message": "Please advise: desk hours",
+    "expected": "reply",
+    "raw": "```json\n{\"route\": \"reply\", \"reply\": \"Our desk hours are 09:00–17:00 UTC. Feel free to reach out anytime during those hours and we'll be happy to help.\"}\n```",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-0-6": {
+    "message": "Can someone respond? desk hours",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Our desk hours are 09:00–17:00 UTC. A member of our team will respond to your message during those hours.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-0-7": {
+    "message": "I tried the app. desk hours",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Our desk hours are 09:00–17:00 UTC. Feel free to reach out during those times and we'll be happy to help.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-0-8": {
+    "message": "I'm messaging from the app. desk hours",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Our desk hours are 09:00–17:00 UTC. Is there anything else I can help you with?\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-0-9": {
+    "message": "Thanks for checking. desk hours",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"You're welcome! Our desk hours are 09:00–17:00 UTC.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-1-0": {
+    "message": "desk ka waqt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Hamari desk ke auqaat 09:00–17:00 UTC hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-1-1": {
+    "message": "Salam, desk ka waqt?",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Wa Alaikum Salam! Hamari desk ke auqaat 09:00–17:00 UTC hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-1-2": {
+    "message": "Madad kar dein: desk ka waqt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Hamari desk ke auqaat 09:00–17:00 UTC hain. Is dauran aap kabhi bhi hum se raabta kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-1-3": {
+    "message": "Yeh mere safar ka hai. desk ka waqt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Hamara desk 09:00–17:00 UTC tak khula rehta hai. Apne safar ke baare mein kisi aur madad ki zaroorat ho to batayein.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-1-4": {
+    "message": "Aik sawal: desk ka waqt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Hamari desk ke auqaat 09:00–17:00 UTC hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-1-5": {
+    "message": "Rehnumai chahiye: desk ka waqt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Hamari desk ke auqaat 09:00–17:00 UTC hain. In auqaat mein aap hum se raabta kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-1-6": {
+    "message": "Koi jawab de sakta hai? desk ka waqt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Ji zaroor! Hamari desk ke auqaat 09:00–17:00 UTC hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-1-7": {
+    "message": "App use ki hai. desk ka waqt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Hamari desk ke auqat 09:00–17:00 UTC hain. Is dauran aap kabhi bhi hum se rabta kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-1-8": {
+    "message": "App se message kar raha hun. desk ka waqt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Assalam o Alaikum! Hamari desk ke auqaat 09:00–17:00 UTC hain. Aap in auqaat mein humse rabta kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-1-9": {
+    "message": "Check karne ka shukriya. desk ka waqt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Shukriya! Hamara desk 09:00–17:00 UTC tak khula rehta hai.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-2-0": {
+    "message": "دفتر کے اوقات",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"ہمارے دفتر کے اوقات 09:00–17:00 UTC ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-2-1": {
+    "message": "سلام، دفتر کے اوقات?",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"وعلیکم السلام! ہمارے ڈیسک کے اوقات 09:00–17:00 UTC ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-2-2": {
+    "message": "مدد کریں: دفتر کے اوقات",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"ہمارے ڈیسک کے اوقات 09:00–17:00 UTC ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-2-3": {
+    "message": "یہ میرے سفر کے بارے میں ہے۔ دفتر کے اوقات",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"ہماری ڈیسک کے اوقات 09:00–17:00 UTC ہیں۔ اگر آپ کے سفر کے بارے میں کوئی اور سوال ہو تو بتائیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-2-4": {
+    "message": "ایک سوال: دفتر کے اوقات",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"ہمارے ڈیسک کے اوقات 09:00–17:00 UTC ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-2-5": {
+    "message": "رہنمائی کریں: دفتر کے اوقات",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"ہمارے ڈیسک کے اوقات 09:00–17:00 UTC ہیں۔ ان اوقات میں ہم سے رابطہ کر سکتے ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-2-6": {
+    "message": "کوئی جواب دے سکتا ہے؟ دفتر کے اوقات",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"جی ہاں، ہماری ڈیسک کے اوقات 09:00–17:00 UTC ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-2-7": {
+    "message": "میں نے ایپ استعمال کی۔ دفتر کے اوقات",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"ہماری ڈیسک کے اوقات 09:00–17:00 UTC ہیں۔ اگر آپ کو کسی اور مدد کی ضرورت ہو تو ضرور بتائیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-2-8": {
+    "message": "میں ایپ سے پیغام بھیج رہا ہوں۔ دفتر کے اوقات",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"ہمارے دفتر کے اوقات 09:00–17:00 UTC ہیں۔ اگر آپ کو کسی اور چیز میں مدد چاہیے تو بتائیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "hours-2-9": {
+    "message": "دیکھنے کا شکریہ۔ دفتر کے اوقات",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"رابطہ کرنے کا شکریہ۔ ہمارے ڈیسک کے اوقات 09:00–17:00 UTC ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-0-0": {
+    "message": "download a receipt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"You can download your receipt under Trips > Receipts. Select the trip you need, then download the receipt from there.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-0-1": {
+    "message": "Hello, download a receipt?",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Hello! You can download your receipt under Trips > Receipts.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-0-2": {
+    "message": "Could you help with this? download a receipt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Sure! You can download your receipt under Trips > Receipts.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-0-3": {
+    "message": "This is about my trip. download a receipt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"You can download your receipt under Trips > Receipts. Open that section, select your trip, and download the receipt from there.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-0-4": {
+    "message": "A quick question: download a receipt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"You can download your receipt under Trips > Receipts. Select the trip you need and download the receipt from there.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-0-5": {
+    "message": "Please advise: download a receipt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"You can download your receipt under Trips > Receipts. If you need more help, our desk is open 09:00–17:00 UTC.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-0-6": {
+    "message": "Can someone respond? download a receipt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Yes, happy to help! You can download your receipt under Trips > Receipts. Just open that section and select the trip you need.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-0-7": {
+    "message": "I tried the app. download a receipt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"You can download your receipt in the app under Trips > Receipts. If it still doesn't work, let us know what you see and we'll help.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-0-8": {
+    "message": "I'm messaging from the app. download a receipt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"You can download your receipt in the app under Trips > Receipts. Open the trip you need and download the receipt from there.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-0-9": {
+    "message": "Thanks for checking. download a receipt",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"You can download your receipt under Trips > Receipts. If you need anything else, our desk hours are 09:00–17:00 UTC.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-1-0": {
+    "message": "rasid download karni hai",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Aap apni rasid Trips > Receipts mein ja kar download kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-1-1": {
+    "message": "Salam, rasid download karni hai?",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Wa alaikum assalam! Aap apni rasid Trips > Receipts mein ja kar download kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-1-2": {
+    "message": "Madad kar dein: rasid download karni hai",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Zaroor! Apni rasid download karne ke liye Trips > Receipts par jayein. Wahan aapki tamam rasidein mil jayengi.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-1-3": {
+    "message": "Yeh mere safar ka hai. rasid download karni hai",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Aap apni rasid Trips > Receipts mein ja kar download kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-1-4": {
+    "message": "Aik sawal: rasid download karni hai",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Aap apni rasid Trips > Receipts mein ja kar download kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-1-5": {
+    "message": "Rehnumai chahiye: rasid download karni hai",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Aap apni rasid Trips > Receipts mein ja kar download kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-1-6": {
+    "message": "Koi jawab de sakta hai? rasid download karni hai",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Ji zaroor! Aap apni rasid Trips > Receipts mein ja kar download kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-1-7": {
+    "message": "App use ki hai. rasid download karni hai",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Aap apni rasid app mein Trips > Receipts mein ja kar download kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-1-8": {
+    "message": "App se message kar raha hun. rasid download karni hai",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Aap apni rasid Trips > Receipts mein ja kar download kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-1-9": {
+    "message": "Check karne ka shukriya. rasid download karni hai",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"Shukriya! Aap apni rasid Trips > Receipts mein ja kar download kar sakte hain.\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-2-0": {
+    "message": "رسید ڈاؤن لوڈ کریں",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"آپ اپنی رسید Trips > Receipts میں جا کر ڈاؤن لوڈ کر سکتے ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-2-1": {
+    "message": "سلام، رسید ڈاؤن لوڈ کریں?",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"وعلیکم السلام! آپ اپنی رسید Trips > Receipts سے ڈاؤن لوڈ کر سکتے ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-2-2": {
+    "message": "مدد کریں: رسید ڈاؤن لوڈ کریں",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"آپ اپنی رسید Trips > Receipts میں جا کر ڈاؤن لوڈ کر سکتے ہیں۔ اگر مزید مدد درکار ہو تو ہماری ڈیسک 09:00–17:00 UTC کے دوران دستیاب ہے۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-2-3": {
+    "message": "یہ میرے سفر کے بارے میں ہے۔ رسید ڈاؤن لوڈ کریں",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"آپ اپنی رسید Trips > Receipts میں جا کر ڈاؤن لوڈ کر سکتے ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-2-4": {
+    "message": "ایک سوال: رسید ڈاؤن لوڈ کریں",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"آپ اپنی رسید Trips > Receipts میں جا کر ڈاؤن لوڈ کر سکتے ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-2-5": {
+    "message": "رہنمائی کریں: رسید ڈاؤن لوڈ کریں",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"آپ اپنی رسید Trips > Receipts میں جا کر ڈاؤن لوڈ کر سکتے ہیں۔ مزید مدد کے لیے ہماری ڈیسک 09:00–17:00 UTC دستیاب ہے۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-2-6": {
+    "message": "کوئی جواب دے سکتا ہے؟ رسید ڈاؤن لوڈ کریں",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"جی ہاں! آپ اپنی رسید Trips > Receipts میں جا کر ڈاؤن لوڈ کر سکتے ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-2-7": {
+    "message": "میں نے ایپ استعمال کی۔ رسید ڈاؤن لوڈ کریں",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"آپ اپنی رسید ایپ میں Trips > Receipts پر جا کر ڈاؤن لوڈ کر سکتے ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-2-8": {
+    "message": "میں ایپ سے پیغام بھیج رہا ہوں۔ رسید ڈاؤن لوڈ کریں",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"آپ اپنی رسید ایپ میں Trips > Receipts پر جا کر ڈاؤن لوڈ کر سکتے ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  },
+  "receipt-2-9": {
+    "message": "دیکھنے کا شکریہ۔ رسید ڈاؤن لوڈ کریں",
+    "expected": "reply",
+    "raw": "{\"route\": \"reply\", \"reply\": \"شکریہ! آپ اپنی رسید Trips > Receipts میں جا کر ڈاؤن لوڈ کر سکتے ہیں۔\"}",
+    "stop": "end_turn",
+    "error": null
+  }
+}

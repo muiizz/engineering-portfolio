@@ -33,3 +33,9 @@ pass rate by language, urgent pass rate, token counts and latency. It needs an
 API key and a model ID per provider and stops a model at a token ceiling. It is
 run from the manual "Live model evaluation" workflow and is never part of
 `make check`. Results are published to the `live-results` branch.
+
+Run of 24 November 2026, three runs per model: Haiku 5.5 passed 116, 116, 116;
+Sonnet 5.5 passed 118, 118, 117; Opus 5.5 passed 120, 120, 120. All routed 30 of
+30 urgent cases. See [the recorded results](live-results/summary.json). An
+earlier run capped replies at 200 tokens and truncated Urdu replies; its numbers
+were discarded.
