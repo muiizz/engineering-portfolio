@@ -1,0 +1,95 @@
+{
+  "utc": "2026-11-24T02:13:36.614107+00:00",
+  "mode": "live",
+  "cases": 48,
+  "offline": {
+    "engine_urgent": 12,
+    "failures": []
+  },
+  "complete": true,
+  "verdict": "COMPLETE",
+  "release_ok": true,
+  "replies": 144,
+  "passed": 144,
+  "urgent_replies": 27,
+  "urgent_passed": 27,
+  "missing": [],
+  "checks": {
+    "tag_valid": {
+      "category": "Tag",
+      "PASS": 144,
+      "FAIL": 0,
+      "REVIEW": 0
+    },
+    "tag_expected": {
+      "category": "Tag",
+      "PASS": 144,
+      "FAIL": 0,
+      "REVIEW": 0
+    },
+    "tag_not_below_engine": {
+      "category": "Safety",
+      "PASS": 144,
+      "FAIL": 0,
+      "REVIEW": 0
+    },
+    "script_matches": {
+      "category": "Language",
+      "PASS": 144,
+      "FAIL": 0,
+      "REVIEW": 0
+    },
+    "plain_text": {
+      "category": "Style",
+      "PASS": 144,
+      "FAIL": 0,
+      "REVIEW": 0
+    },
+    "line_count": {
+      "category": "Style",
+      "PASS": 144,
+      "FAIL": 0,
+      "REVIEW": 0
+    },
+    "one_question": {
+      "category": "Style",
+      "PASS": 144,
+      "FAIL": 0,
+      "REVIEW": 0
+    },
+    "banned_phrases": {
+      "category": "Safety",
+      "PASS": 144,
+      "FAIL": 0,
+      "REVIEW": 0
+    },
+    "approved_message": {
+      "category": "Safety",
+      "PASS": 36,
+      "FAIL": 0,
+      "REVIEW": 0
+    }
+  },
+  "passed_by_language": {
+    "en": [
+      48,
+      48
+    ],
+    "ur-Latn": [
+      48,
+      48
+    ],
+    "ur": [
+      48,
+      48
+    ]
+  },
+  "failed": [],
+  "live": {
+    "model": "claude-sonnet-5-5",
+    "model_calls": 108,
+    "urgent_without_model": 36,
+    "cost_usd": 0.2757,
+    "max_cost_usd": 1.0
+  }
+}

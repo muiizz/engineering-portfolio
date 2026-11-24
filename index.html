@@ -25,7 +25,7 @@
       <h1 class="kin">Applied AI.<br>Database engineering.</h1>
       <div class="hero-grid">
         <div>
-          <p>I’m Abdul Muizz. I build and test applied AI and PostgreSQL systems from Lahore.</p>
+          <p>I’m Abdul Muizz. I founded and built Divia, a doctor-led diabetes coach on WhatsApp that is live with patients, and I build and test applied AI and PostgreSQL systems from Lahore.</p>
           <p>Before this I ran a production studio for three years. I still review work the way an editor reviews footage: by looking at what was recorded. Each case study below has a working demo built from the recorded results.</p>
         </div>
         <a class="btn" href="#work">See the work</a>
@@ -37,6 +37,19 @@
 
       <article class="take">
         <div class="take-story">
+          <p class="kind">Applied AI, clinical safety</p>
+          <h3>Rules decide before the model does</h3>
+          <p>Divia is a doctor-led diabetes coaching programme on WhatsApp. Every dangerous situation is caught by deterministic rules first. The language model is the second safety net, never the first.</p>
+          <p>In the live evaluation of 24 November 2026, 206 of 211 replies passed every automatic check, and all 22 urgent cases passed in all three runs.</p>
+          <a class="more" href="divia.html">Read the Divia case study</a>
+        </div>
+        <div class="frame" style="view-transition-name:demo-divia" data-demo="ladder">
+          <p>Two independent reads of a meter photo must agree before a value is accepted. A low value is escalated by rules at once and never reaches the model.</p>
+        </div>
+      </article>
+
+      <article class="take flip">
+        <div class="take-story">
           <p class="kind">Applied AI, evaluation</p>
           <h3>When mutation tests missed a language gap</h3>
           <p>A strong mutation score hid a routing gap in a multilingual test set. Four revisions reduced missed urgent cases, while false alerts increased.</p>
@@ -47,7 +60,7 @@
         </div>
       </article>
 
-      <article class="take flip">
+      <article class="take">
         <div class="take-story">
           <p class="kind">PostgreSQL, query performance</p>
           <h3>Find 96 rows in a million</h3>
@@ -59,7 +72,7 @@
         </div>
       </article>
 
-      <article class="take">
+      <article class="take flip">
         <div class="take-story">
           <p class="kind">CI, release checks</p>
           <h3>Prove the gate catches a failure</h3>
@@ -70,23 +83,11 @@
           <p>The gate requires tests, lint and security to be present and marked pass. A missing or failing check blocks the release.</p>
         </div>
       </article>
-
-      <article class="take flip">
-        <div class="take-story">
-          <p class="kind">Applied AI, clinical safety</p>
-          <h3>Rules decide before the model does</h3>
-          <p>Divia is a doctor-led diabetes coaching programme on WhatsApp. Every dangerous situation is caught by deterministic rules first. The language model is the second safety net, never the first.</p>
-          <a class="more" href="divia.html">Read the Divia case study</a>
-        </div>
-        <div class="frame" style="view-transition-name:demo-divia" data-demo="ladder">
-          <p>Two independent reads of a meter photo must agree before a value is accepted. A low value is escalated by rules at once and never reaches the model.</p>
-        </div>
-      </article>
     </section>
 
     <section class="band wrap" id="projects" aria-labelledby="projects-title">
-      <h2 id="projects-title">All twelve projects</h2>
-      <p class="sub">Nine open as a working demo. The rest open the lab notes and source.</p>
+      <h2 id="projects-title">All fourteen projects</h2>
+      <p class="sub">Ten open as a working demo. The rest open the lab notes and source.</p>
       <div class="sheet">
         <a class="cell" href="webhook-queue.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><rect x="10" y="34" width="9" height="12" fill="#f4f6f7"/><rect x="23" y="34" width="9" height="12" fill="#f4f6f7"/><rect x="36" y="34" width="9" height="12" fill="#f4f6f7"/><rect x="49" y="34" width="9" height="12" fill="#f4f6f7"/><rect x="62" y="34" width="9" height="12" fill="#f4f6f7"/><rect x="75" y="34" width="9" height="12" fill="#f4f6f7"/><rect x="88" y="34" width="9" height="12" fill="#5d6163"/><rect x="101" y="34" width="9" height="12" fill="#5d6163"/><path d="M10 58h100" stroke="#5d6163" stroke-width="1.5"/></svg><div class="cap"><div class="no">Frame 1, demo</div><strong>PostgreSQL webhook queue</strong><span>Send events, replay one, and watch workers claim rows without colliding.</span></div></a>
         <a class="cell" href="postgres.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><rect x="12" y="24" width="96" height="10" fill="#5d6163"/><rect x="12" y="46" width="2" height="10" fill="#f4f6f7"/></svg><div class="cap"><div class="no">Frame 2, demo</div><strong>PostgreSQL performance</strong><span>Six query comparisons, RLS, migrations, vacuum and query statistics</span></div></a>
@@ -100,6 +101,8 @@
         <a class="cell" href="routing.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><path d="M12 40h40l22-18h34M52 40l22 18h34" fill="none" stroke="#f4f6f7" stroke-width="2"/><circle cx="12" cy="40" r="4" fill="#f4f6f7"/></svg><div class="cap"><div class="no">Frame 10, demo</div><strong>Multilingual support routing</strong><span>Type a message in English, Roman Urdu or Urdu and watch the repository rules route it.</span></div></a>
         <a class="cell" href="support-eval.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><rect x="16" y="20" width="60" height="6" fill="#f4f6f7"/><rect x="16" y="37" width="60" height="6" fill="#f4f6f7"/><rect x="16" y="54" width="60" height="6" fill="#f4f6f7"/><circle cx="94" cy="23" r="5" fill="#f4f6f7"/><circle cx="94" cy="40" r="5" fill="#f4f6f7"/><circle cx="94" cy="57" r="5" fill="none" stroke="#ee4a30" stroke-width="2"/></svg><div class="cap"><div class="no">Frame 11, demo</div><strong>Support grader over MCP</strong><span>Grade an answer yourself against the route and phrase contract.</span></div></a>
         <a class="cell" href="agent.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><path d="M12 40h40l22-18h34M52 40l22 18h34" fill="none" stroke="#f4f6f7" stroke-width="2"/><circle cx="12" cy="40" r="4" fill="#f4f6f7"/></svg><div class="cap"><div class="no">Frame 12, demo</div><strong>Tool-using support agent</strong><span>Four tools, 24 tasks in three languages, scored on which tool the model picks and when it stops.</span></div></a>
+        <a class="cell" href="divia.html"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><circle cx="16" cy="18" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="24" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="32" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="40" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="48" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="56" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="64" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="72" cy="18" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="80" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="88" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="96" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="104" cy="18" r="2.4" fill="#f4f6f7"/><circle cx="16" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="24" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="32" cy="26" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="40" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="48" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="56" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="64" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="72" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="80" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="88" cy="26" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="96" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="104" cy="26" r="2.4" fill="#f4f6f7"/><circle cx="16" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="24" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="32" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="40" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="48" cy="34" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="56" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="64" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="72" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="80" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="88" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="96" cy="34" r="2.4" fill="#f4f6f7"/><circle cx="104" cy="34" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="16" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="24" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="32" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="40" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="48" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="56" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="64" cy="42" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="72" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="80" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="88" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="96" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="104" cy="42" r="2.4" fill="#f4f6f7"/><circle cx="16" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="24" cy="50" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="32" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="40" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="48" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="56" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="64" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="72" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="80" cy="50" r="2.4" fill="none" stroke="#ee4a30" stroke-width="1.6"/><circle cx="88" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="96" cy="50" r="2.4" fill="#f4f6f7"/><circle cx="104" cy="50" r="2.4" fill="#f4f6f7"/></svg><div class="cap"><div class="no">Frame 13, demo</div><strong>Divia</strong><span>A live, doctor-led diabetes coach on WhatsApp. Architecture, test counts and the live evaluation.</span></div></a>
+        <a class="cell" href="labs/workbook-eval/README.md"><svg viewBox="0 0 120 80" aria-hidden="true" focusable="false"><rect x="16" y="20" width="60" height="6" fill="#f4f6f7"/><rect x="16" y="37" width="60" height="6" fill="#f4f6f7"/><rect x="16" y="54" width="60" height="6" fill="#f4f6f7"/><circle cx="94" cy="23" r="5" fill="#f4f6f7"/><circle cx="94" cy="40" r="5" fill="#f4f6f7"/><circle cx="94" cy="57" r="5" fill="none" stroke="#ee4a30" stroke-width="2"/></svg><div class="cap"><div class="no">Frame 14</div><strong>Workbook evaluation runner</strong><span>Rules first, then a model, then nine automatic checks on every reply. A standalone version of how Divia is evaluated.</span></div></a>
       </div>
     </section>
 
