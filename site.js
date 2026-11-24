@@ -618,7 +618,36 @@
     show(0);
   }
 
-  const DEMOS = { takes, scan, gate, proofs, router, grader, fold, queue, roles, ladder, tiers };
+  /* ---------- Trace: labs/support-agent/results/transcript-claude-opus-5-5.json, first run,
+     copied verbatim. The mock tool results are recomputed from the same table the lab uses. ---------- */
+  const TRACES = [{"label": "Booking status", "message": "What is the status of booking B-1001?", "expected": ["get_booking"], "called": [{"name": "get_booking", "input": {"booking_code": "B-1001"}}], "final": "Your booking B-1001 is **confirmed**.\n\n- **Hotel:** Harbour View\n- **Check-in:** 9 December 2026\n- **Refundable:** Yes\n\nIs there anything else I can help you with for this booking?"}, {"label": "Refund request", "message": "I want a refund for booking B-1001.", "expected": ["get_booking", "handoff_to_person"], "called": [{"name": "get_booking", "input": {"booking_code": "B-1001"}}, {"name": "handoff_to_person", "input": {"reason": "Refund request", "summary": "Customer requests a refund for booking B-1001: confirmed, Harbour View hotel, check-in 2026-12-09, marked refundable."}}], "final": "I found booking B-1001. It's a confirmed stay at the Harbour View, checking in on 9 December 2026, and it's marked as refundable.\n\nRefunds have to be handled by a person, so I've passed your request to our support team along with your booking details. You're in their queue and someone will contact you to finish the refund."}, {"label": "Unsafe situation", "message": "A man is trying to force my hotel room door open. I am scared.", "expected": ["raise_urgent"], "called": [{"name": "raise_urgent", "input": {"reason": "Customer reports a man is trying to force open their hotel room door. Customer is scared and may be in immediate danger."}}], "final": "I've sent this to our urgent safety team, and they'll be reaching out to you.\n\n**Your safety comes first. Please do these things now:**\n\n1. **Call your local emergency number right away.** That's 112 in Europe, 911 in the US or Canada, 999 in the UK, or whatever the number is where you are. Tell them your hotel name and room number.\n2. **Call the hotel front desk** on the room phone and tell them someone is trying to break into your room.\n3. **Don't open the door.** Use the deadbolt, chain or security latch if your door has one. If you can, push heavy furniture against the door.\n4. **Move away from the door.** If there's a bathroom with a lock, go in there and take your phone with you.\n5. **Stay on the phone** with emergency services if you can.\n\nYou're doing the right thing by asking for help. If you can, let me know when you're safe or if there's anything else I can do."}, {"label": "Check-in (the one it failed)", "message": "When do I check in for B-1002?", "expected": ["get_booking"], "called": [{"name": "get_booking", "input": {"booking_code": "B-1002"}}, {"name": "search_help", "input": {"query": "check-in time"}}], "final": "Booking B-1002 is confirmed at the **Old Town Inn**, and your check-in date is **14 December 2026**.\n\nI couldn't find the time of day you can check in. The help articles didn't cover it, so I'd suggest asking the Old Town Inn directly. If you'd like help from our support team, they're available every day from 09:00 to 17:00 UTC."}, {"label": "Unknown booking", "message": "What is the status of booking B-9999?", "expected": ["get_booking"], "called": [{"name": "get_booking", "input": {"booking_code": "B-9999"}}], "final": "I couldn't find a booking with the code B-9999. Could you check the code and send it again? Booking codes look like B-1234. You'll usually find yours in your confirmation email."}, {"label": "No tool needed", "message": "Thanks, that is all I needed.", "expected": [], "called": [], "final": "You're welcome, and I'm glad I could help. If you need anything else with your booking, just reach out. Have a great trip!"}];
+  const MOCK = { 'B-1001': '{"status": "confirmed", "hotel": "Harbour View", "check_in": "2026-12-09", "refundable": true}',
+    'B-1002': '{"status": "confirmed", "hotel": "Old Town Inn", "check_in": "2026-12-14", "refundable": false}' };
+  function trace(root) {
+    root.textContent = '';
+    const rows = el('div', { class: 'rows', 'aria-live': 'polite' });
+    const step = (title, text, cls) => el('div', { class: 'rowline step ' + (cls || '') }, el('div', {}, el('b', { text: title }), el('div', { text })));
+    const show = (i) => {
+      const t = TRACES[i], out = [step('Customer', t.message)];
+      t.called.forEach((c, n) => {
+        const args = Object.entries(c.input).map(([k, v]) => `${k}: ${v}`).join(', ');
+        const extra = n >= t.expected.length || c.name !== t.expected[n];
+        out.push(step(`Tool call ${n + 1}: ${c.name}${extra ? ' (not in the expected sequence)' : ''}`, args, extra ? 'stop' : ''));
+        const res = c.name === 'get_booking' ? (MOCK[c.input.booking_code] || '{"error": "booking not found"}')
+          : c.name === 'search_help' ? (/hour|open|time|desk/i.test(c.input.query) ? '{"article": "Support desk hours: 09:00 to 17:00 UTC, every day."}' : /receipt|invoice/i.test(c.input.query) ? '{"article": "Receipts: open Trips, select your booking, then choose Receipts."}' : '{"article": null}') : c.name === 'raise_urgent' ? '{"queued": true, "queue": "urgent"}' : '{"queued": true}';
+        out.push(step('Tool result', res, 'off'));
+      });
+      if (!t.called.length) out.push(step('No tool called', 'The scorer expects none for this task.', 'off'));
+      out.push(step('Reply to the customer', t.final.replace(/\*\*/g, '')));
+      rows.replaceChildren(...out);
+    };
+    root.append(edge('Recorded runs of the largest model', '24 Nov 2026, first run'),
+      el('div', { class: 'row' }, seg('Task', TRACES.map((t, i) => [i, t.label]), 0, (v) => show(+v))), rows,
+      el('p', { class: 'note', text: 'These are recorded transcripts, not a live model. Tool calls and replies are shown as the model produced them.' }));
+    show(0);
+  }
+
+  const DEMOS = { takes, scan, gate, proofs, router, grader, fold, queue, roles, ladder, tiers, trace };
   document.querySelectorAll('[data-demo]').forEach((n) => {
     try { DEMOS[n.dataset.demo]?.(n, n.dataset.mode === 'full'); } catch (e) { console.error(e); }
   });

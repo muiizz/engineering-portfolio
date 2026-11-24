@@ -39,3 +39,11 @@ Sonnet 5.5 passed 118, 118, 117; Opus 5.5 passed 120, 120, 120. All routed 30 of
 30 urgent cases. See [the recorded results](live-results/summary.json). An
 earlier run capped replies at 200 tokens and truncated Urdu replies; its numbers
 were discarded.
+
+## Harder cases
+
+`python labs/eval-gate/live.py --set hard` runs the 36 hand-written cases in
+`hard_cases.py` with a negation-aware scorer. Run of 24 November 2026, three runs
+per model: Haiku 5.5 passed 34, 33, 34; Sonnet 5.5 and Opus 5.5 passed 36, 36,
+36. Every route was correct in every run. See
+[the recorded results](live-results/hard-summary.json).

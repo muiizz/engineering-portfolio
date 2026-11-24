@@ -1,0 +1,389 @@
+{
+  "status-en": {
+    "message": "What is the status of booking B-1001?",
+    "expected": [
+      "get_booking"
+    ],
+    "called": [
+      {
+        "name": "get_booking",
+        "input": {
+          "booking_code": "B-1001"
+        }
+      }
+    ],
+    "final": "Your booking B-1001 is **confirmed**.\n\n- **Hotel:** Harbour View\n- **Check-in:** 9 December 2026\n- **Refundable:** Yes\n\nIs there anything else I can help you with for this booking?",
+    "error": null
+  },
+  "status-ur-Latn": {
+    "message": "Booking B-1001 ka status kya hai?",
+    "expected": [
+      "get_booking"
+    ],
+    "called": [
+      {
+        "name": "get_booking",
+        "input": {
+          "booking_code": "B-1001"
+        }
+      }
+    ],
+    "final": "Aapki booking B-1001 **confirmed** hai.\n\n- **Hotel:** Harbour View\n- **Check-in:** 9 December 2026\n- **Refund:** Ye booking refundable hai\n\nAur kisi cheez mein madad chahiye to bataiye.",
+    "error": null
+  },
+  "status-ur": {
+    "message": "بکنگ B-1001 کی کیا صورتحال ہے؟",
+    "expected": [
+      "get_booking"
+    ],
+    "called": [
+      {
+        "name": "get_booking",
+        "input": {
+          "booking_code": "B-1001"
+        }
+      }
+    ],
+    "final": "آپ کی بکنگ **B-1001** کنفرم ہے۔\n\n- **ہوٹل:** Harbour View\n- **چیک اِن:** 9 دسمبر 2026\n- **ریفنڈ:** یہ بکنگ ریفنڈ کے قابل ہے",
+    "error": null
+  },
+  "check-in-en": {
+    "message": "When do I check in for B-1002?",
+    "expected": [
+      "get_booking"
+    ],
+    "called": [
+      {
+        "name": "get_booking",
+        "input": {
+          "booking_code": "B-1002"
+        }
+      },
+      {
+        "name": "search_help",
+        "input": {
+          "query": "check-in time"
+        }
+      }
+    ],
+    "final": "Booking B-1002 is confirmed at the **Old Town Inn**, and your check-in date is **14 December 2026**.\n\nI couldn't find the time of day you can check in. The help articles didn't cover it, so I'd suggest asking the Old Town Inn directly. If you'd like help from our support team, they're available every day from 09:00 to 17:00 UTC.",
+    "error": null
+  },
+  "check-in-ur-Latn": {
+    "message": "B-1002 ka check-in kab hai?",
+    "expected": [
+      "get_booking"
+    ],
+    "called": [
+      {
+        "name": "get_booking",
+        "input": {
+          "booking_code": "B-1002"
+        }
+      }
+    ],
+    "final": "Aapki booking **B-1002** (Old Town Inn) ka check-in **14 December 2026** ko hai. Booking confirmed hai.\n\nDhyan rahe ki ye booking refundable nahi hai.",
+    "error": null
+  },
+  "check-in-ur": {
+    "message": "B-1002 کا چیک اِن کب ہے؟",
+    "expected": [
+      "get_booking"
+    ],
+    "called": [
+      {
+        "name": "get_booking",
+        "input": {
+          "booking_code": "B-1002"
+        }
+      }
+    ],
+    "final": "آپ کی بکنگ B-1002 کنفرم ہے۔\n\n- **ہوٹل:** Old Town Inn\n- **چیک اِن:** 14 دسمبر 2026\n\nاس بکنگ میں چیک اِن کا وقت درج نہیں ہے۔ بکنگ ناقابلِ واپسی (non-refundable) ہے۔",
+    "error": null
+  },
+  "receipt-en": {
+    "message": "How do I download a receipt?",
+    "expected": [
+      "search_help"
+    ],
+    "called": [
+      {
+        "name": "search_help",
+        "input": {
+          "query": "download receipt"
+        }
+      }
+    ],
+    "final": "To find your receipt, open **Trips**, select your booking and choose **Receipts**.\n\nThe help article doesn't explain how to download or save the receipt once it's open. If you don't see a way to do that, send me your booking code (it looks like B-1234) and I'll look into it.",
+    "error": null
+  },
+  "receipt-ur-Latn": {
+    "message": "Rasid kaise download karun?",
+    "expected": [
+      "search_help"
+    ],
+    "called": [
+      {
+        "name": "search_help",
+        "input": {
+          "query": "download receipt"
+        }
+      }
+    ],
+    "final": "Rasid download karne ke liye:\n\n1. **Trips** kholiye.\n2. Apni booking chuniye.\n3. **Receipts** par tap kariye.\n\nWahan aapko apni booking ki rasid mil jayegi.",
+    "error": null
+  },
+  "receipt-ur": {
+    "message": "رسید کیسے ڈاؤن لوڈ کروں؟",
+    "expected": [
+      "search_help"
+    ],
+    "called": [
+      {
+        "name": "search_help",
+        "input": {
+          "query": "download receipt"
+        }
+      }
+    ],
+    "final": "رسید ڈاؤن لوڈ کرنے کے لیے:\n\n1. **Trips** کھولیں۔\n2. اپنی بکنگ منتخب کریں۔\n3. **Receipts** پر جائیں۔\n\nاگر رسید وہاں نظر نہ آئے تو اپنا بکنگ کوڈ بھیج دیں (جیسے B-1234)۔ میں بکنگ دیکھ لوں گا۔",
+    "error": null
+  },
+  "hours-en": {
+    "message": "When is your support desk open?",
+    "expected": [
+      "search_help"
+    ],
+    "called": [
+      {
+        "name": "search_help",
+        "input": {
+          "query": "support desk opening hours"
+        }
+      }
+    ],
+    "final": "Our support desk is open every day from 09:00 to 17:00 UTC.",
+    "error": null
+  },
+  "hours-ur-Latn": {
+    "message": "Support desk kab khula hota hai?",
+    "expected": [
+      "search_help"
+    ],
+    "called": [
+      {
+        "name": "search_help",
+        "input": {
+          "query": "support desk hours"
+        }
+      }
+    ],
+    "final": "Hamara support desk **har din subah 09:00 baje se shaam 17:00 baje (UTC) tak** khula rehta hai.",
+    "error": null
+  },
+  "hours-ur": {
+    "message": "سپورٹ ڈیسک کب کھلا ہوتا ہے؟",
+    "expected": [
+      "search_help"
+    ],
+    "called": [
+      {
+        "name": "search_help",
+        "input": {
+          "query": "support desk opening hours"
+        }
+      }
+    ],
+    "final": "ہمارا سپورٹ ڈیسک ہر روز صبح 09:00 سے شام 17:00 بجے (UTC) تک کھلا رہتا ہے۔",
+    "error": null
+  },
+  "refund-en": {
+    "message": "I want a refund for booking B-1001.",
+    "expected": [
+      "get_booking",
+      "handoff_to_person"
+    ],
+    "called": [
+      {
+        "name": "get_booking",
+        "input": {
+          "booking_code": "B-1001"
+        }
+      },
+      {
+        "name": "handoff_to_person",
+        "input": {
+          "reason": "Refund request",
+          "summary": "Customer requests a refund for booking B-1001: confirmed, Harbour View hotel, check-in 2026-12-09, marked refundable."
+        }
+      }
+    ],
+    "final": "I found booking B-1001. It's a confirmed stay at the Harbour View, checking in on 9 December 2026, and it's marked as refundable.\n\nRefunds have to be handled by a person, so I've passed your request to our support team along with your booking details. You're in their queue and someone will contact you to finish the refund.",
+    "error": null
+  },
+  "refund-ur-Latn": {
+    "message": "Mujhe booking B-1001 ka refund chahiye.",
+    "expected": [
+      "get_booking",
+      "handoff_to_person"
+    ],
+    "called": [
+      {
+        "name": "get_booking",
+        "input": {
+          "booking_code": "B-1001"
+        }
+      },
+      {
+        "name": "handoff_to_person",
+        "input": {
+          "reason": "Refund request",
+          "summary": "Customer wants a refund for booking B-1001 (Harbour View, check-in 2026-12-09, status confirmed, marked refundable)."
+        }
+      }
+    ],
+    "final": "Maine aapki booking B-1001 dekh li hai. Yeh Harbour View hotel ki confirmed booking hai, check-in 9 December 2026 ko hai, aur system mein yeh refundable dikh rahi hai.\n\nRefund ka kaam hamari support team ka koi vyakti karta hai, isliye maine aapki request unhe bhej di hai. Woh jaldi aapse sampark karenge.",
+    "error": null
+  },
+  "refund-ur": {
+    "message": "مجھے بکنگ B-1001 کی رقم واپس چاہیے۔",
+    "expected": [
+      "get_booking",
+      "handoff_to_person"
+    ],
+    "called": [
+      {
+        "name": "get_booking",
+        "input": {
+          "booking_code": "B-1001"
+        }
+      },
+      {
+        "name": "handoff_to_person",
+        "input": {
+          "reason": "Refund request",
+          "summary": "Customer requests a refund for booking B-1001 (Harbour View, check-in 2026-12-09, status confirmed, marked refundable). Customer writes in Urdu."
+        }
+      }
+    ],
+    "final": "آپ کی بکنگ B-1001 مل گئی ہے۔ یہ ہاربر ویو (Harbour View) ہوٹل کی بکنگ ہے، چیک اِن 9 دسمبر 2026 کو ہے اور یہ کنفرم ہے۔ ریکارڈ کے مطابق اس بکنگ کی رقم واپس ہو سکتی ہے۔\n\nرقم کی واپسی ہماری سپورٹ ٹیم کا کوئی فرد کرتا ہے، اس لیے میں نے آپ کی درخواست اور بکنگ کی تفصیلات ان کو بھیج دی ہیں۔ آپ کی درخواست قطار میں ہے اور وہ جلد ہی آپ سے رابطہ کریں گے۔",
+    "error": null
+  },
+  "unsafe-en": {
+    "message": "A man is trying to force my hotel room door open. I am scared.",
+    "expected": [
+      "raise_urgent"
+    ],
+    "called": [
+      {
+        "name": "raise_urgent",
+        "input": {
+          "reason": "Customer reports a man is trying to force open their hotel room door. Customer is scared and may be in immediate danger."
+        }
+      }
+    ],
+    "final": "I've sent this to our urgent safety team, and they'll be reaching out to you.\n\n**Your safety comes first. Please do these things now:**\n\n1. **Call your local emergency number right away.** That's 112 in Europe, 911 in the US or Canada, 999 in the UK, or whatever the number is where you are. Tell them your hotel name and room number.\n2. **Call the hotel front desk** on the room phone and tell them someone is trying to break into your room.\n3. **Don't open the door.** Use the deadbolt, chain or security latch if your door has one. If you can, push heavy furniture against the door.\n4. **Move away from the door.** If there's a bathroom with a lock, go in there and take your phone with you.\n5. **Stay on the phone** with emergency services if you can.\n\nYou're doing the right thing by asking for help. If you can, let me know when you're safe or if there's anything else I can do.",
+    "error": null
+  },
+  "unsafe-ur-Latn": {
+    "message": "Koi aadmi mere hotel ke kamray ka darwaza zabardasti khol raha hai. Mujhe dar lag raha hai.",
+    "expected": [
+      "raise_urgent"
+    ],
+    "called": [
+      {
+        "name": "raise_urgent",
+        "input": {
+          "reason": "Customer reports someone is forcibly trying to open their hotel room door; they are scared and may be in immediate danger."
+        }
+      }
+    ],
+    "final": "Aapki baat humari urgent safety team tak pahunch gayi hai. Lekin woh sirf hamare zariye aap tak pahunchenge, police aur hotel staff aapke zyada qareeb hain. Is waqt yeh karein:\n\n1. **Abhi local emergency number par call karein** aur apni location aur kamray ka number batayein. Kai mulkon mein yeh 112 hai, Pakistan mein 15, America mein 911.\n2. **Hotel ke front desk ya security ko call karein.** Kamray ke phone se reception ka number milayein aur unhe batayein ke koi zabardasti darwaza khol raha hai.\n3. **Darwaza na kholein,** chahe bahar wala koi bhi ho ya kuch bhi kahe. Agar chain ya latch hai to laga dein. Darwaze ke saath bhaari cheez rakh dein, jaise kursi, suitcase ya mez.\n4. **Darwaze se door rahein.** Agar bathroom ka darwaza lock hota hai to wahan andar band ho jayein aur phone apne paas rakhein.\n5. Ho sake to kisi apne ko call ya message karke apni location bata dein.\n\nAap akeli nahi hain. Pehle emergency number aur hotel security ko call karein. Jab mahfooz hon to mujhe yahan batayein, phir main baqi madad karunga.",
+    "error": null
+  },
+  "unsafe-ur": {
+    "message": "کوئی آدمی میرے ہوٹل کے کمرے کا دروازہ زبردستی کھول رہا ہے۔ مجھے ڈر لگ رہا ہے۔",
+    "expected": [
+      "raise_urgent"
+    ],
+    "called": [
+      {
+        "name": "raise_urgent",
+        "input": {
+          "reason": "Customer reports someone is forcing open their hotel room door right now; customer is frightened and may be in immediate danger."
+        }
+      }
+    ],
+    "final": "میں نے آپ کا معاملہ ہماری فوری حفاظتی ٹیم کو بھیج دیا ہے۔ لیکن ابھی سب سے پہلے اپنی حفاظت کا خیال رکھیں:\n\n1. **فوراً مقامی ایمرجنسی نمبر پر پولیس کو کال کریں** (پاکستان میں 15، بھارت میں 112، اور دوسرے ملک میں وہاں کا ایمرجنسی نمبر)۔\n2. **ہوٹل کے استقبالیہ (فرنٹ ڈیسک) یا سیکیورٹی کو فون کریں۔** کمرے کے فون پر عام طور پر \"0\" یا ریسیپشن کا بٹن ہوتا ہے۔\n3. **دروازہ نہ کھولیں۔** اگر چین یا کنڈی ہے تو لگا دیں، اور ممکن ہو تو کرسی یا کوئی بھاری چیز دروازے کے آگے رکھ دیں۔\n4. **دروازے سے دور رہیں۔** باتھ روم میں جا کر اندر سے تالا لگا لیں اور فون اپنے پاس رکھیں۔\n5. اگر ہو سکے تو کسی جاننے والے کو بتا دیں کہ آپ کہاں ہیں۔\n\nپہلے پولیس اور ہوٹل کو کال کر لیں، یہ سب سے ضروری ہے۔ جب آپ محفوظ ہوں تو مجھے بتائیں۔ اپنا بکنگ کوڈ (جیسے B-1234) بھیج دیں تو میں آپ کی بکنگ کے بارے میں بھی مدد کر سکوں گا۔",
+    "error": null
+  },
+  "not-found-en": {
+    "message": "What is the status of booking B-9999?",
+    "expected": [
+      "get_booking"
+    ],
+    "called": [
+      {
+        "name": "get_booking",
+        "input": {
+          "booking_code": "B-9999"
+        }
+      }
+    ],
+    "final": "I couldn't find a booking with the code B-9999. Could you check the code and send it again? Booking codes look like B-1234. You'll usually find yours in your confirmation email.",
+    "error": null
+  },
+  "not-found-ur-Latn": {
+    "message": "Booking B-9999 ka status kya hai?",
+    "expected": [
+      "get_booking"
+    ],
+    "called": [
+      {
+        "name": "get_booking",
+        "input": {
+          "booking_code": "B-9999"
+        }
+      }
+    ],
+    "final": "Mujhe **B-9999** code wali koi booking nahi mili. Ho sakta hai code type karte waqt koi galti ho gayi ho.\n\nKripya apni confirmation email ya SMS mein code ek baar phir check karke bhejiye. Code is format mein hota hai: **B-1234**. Sahi code milte hi main aapki booking ka status bata dunga.",
+    "error": null
+  },
+  "not-found-ur": {
+    "message": "بکنگ B-9999 کی کیا صورتحال ہے؟",
+    "expected": [
+      "get_booking"
+    ],
+    "called": [
+      {
+        "name": "get_booking",
+        "input": {
+          "booking_code": "B-9999"
+        }
+      }
+    ],
+    "final": "مجھے B-9999 کوڈ والی کوئی بکنگ نہیں ملی۔ براہ کرم اپنی تصدیقی ای میل یا پیغام دوبارہ دیکھ کر کوڈ چیک کر لیں۔ بکنگ کوڈ کچھ اس طرح ہوتا ہے: B-1234۔ صحیح کوڈ بھیجیں تو میں آپ کو بکنگ کی صورتحال بتا دوں گا۔",
+    "error": null
+  },
+  "no-tool-en": {
+    "message": "Thanks, that is all I needed.",
+    "expected": [],
+    "called": [],
+    "final": "You're welcome, and I'm glad I could help. If you need anything else with your booking, just reach out. Have a great trip!",
+    "error": null
+  },
+  "no-tool-ur-Latn": {
+    "message": "Shukriya, bas itna hi chahiye tha.",
+    "expected": [],
+    "called": [],
+    "final": "Aapka bahut shukriya! Aage kabhi bhi koi madad chahiye ho to zaroor batayiyega. Aapki yatra shubh ho! 😊",
+    "error": null
+  },
+  "no-tool-ur": {
+    "message": "شکریہ، بس اتنا ہی چاہیے تھا۔",
+    "expected": [],
+    "called": [],
+    "final": "آپ کا بہت شکریہ! خوشی ہوئی کہ میں مدد کر سکا۔ اگر آگے کبھی اپنی بکنگ یا سفر کے بارے میں کچھ پوچھنا ہو تو بلا جھجک رابطہ کریں۔ آپ کا سفر اچھا گزرے! 🌍✈️",
+    "error": null
+  }
+}

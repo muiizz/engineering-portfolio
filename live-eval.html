@@ -64,6 +64,18 @@
         <h2>What the failures were</h2>
         <p>No model sent a message to the wrong queue. Every failure was wording. Haiku wrote the desk hours in its own words and translated “support team” into Urdu script, where the contract wants both verbatim. Sonnet failed for a different reason: it told customers it could not promise a guaranteed refund, and the scorer bans that phrase wherever it appears.</p>
         <p>That second one is a fault in my scorer. A phrase ban cannot tell a promise from a refusal. It is the same weakness the routing audit found in its rules, and here it cost a correct answer its pass.</p>
+        <h2>A harder set</h2>
+        <p>The 120 cases are easy, so I wrote 36 harder ones by hand: negated requests, misspellings, two requests in one message, prompt injection, mixed language, an indirect safety report and an out-of-scope ask.</p>
+        <div class="scroll"><table>
+          <caption>36 cases per run, three runs, scored with the negation-aware check</caption>
+          <thead><tr><th scope="col">Model</th><th scope="col">Passed</th><th scope="col">Route correct</th><th scope="col">Cost, 108 calls</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Haiku 5.5</th><td>34, 33, 34</td><td>36 of 36</td><td>$0.01</td></tr>
+            <tr><th scope="row">Sonnet 5.5</th><td>36, 36, 36</td><td>36 of 36</td><td>$0.27</td></tr>
+            <tr><th scope="row">Opus 5.5</th><td>36, 36, 36</td><td>36 of 36</td><td>$0.52</td></tr>
+          </tbody>
+        </table></div>
+        <p>No model was fooled by the injection attempts or the negations: every route was right in every run. Haiku again lost points only on wording, in Roman Urdu and Urdu script. The set did not separate the two larger models, so it is still not hard enough for that. <a href="labs/eval-gate/hard_cases.py">The cases</a> and <a href="labs/eval-gate/live-results/hard-summary.json">the results</a> are in the repository. A native Urdu reader has not reviewed the cases.</p>
         <h2>Fixing the scorer</h2>
         <p>I replaced the phrase ban with a check that looks for a negator close to the phrase, then rescored the recorded first-run replies without calling a model. Haiku stayed at 116 and Opus at 120. Sonnet moved from 118 to 120: both of its failures were correct refusals. The new check is still a heuristic, because a reply can negate one thing and promise another.</p>
         <h2>What broke on the first run</h2>

@@ -51,7 +51,22 @@
         <h2>Reading a meter from a photo</h2>
         <p>Glucose readings are taken from photos of the patient’s meter. Two independent reads must agree before a value is accepted, and a plausible low value is escalated as urgent at once.</p>
         <h2>Evaluating the coach</h2>
-        <p>An automated evaluation runner checks the coach’s behaviour against a clinical test workbook, which is the source of truth for expected behaviour.</p>
+        <p>An automated evaluation runner checks the coach’s behaviour against a clinical test workbook, which is the source of truth for expected behaviour. Every reply is checked by code for its tag, for never tagging below the rules engine, for the required urgent steps word for word, for medicine advice, for script and language, and for style. People score only what code cannot judge, such as tone and cultural fit.</p>
+        <h2>Live evaluation, 24 November 2026</h2>
+        <p>I ran the full Pakistan test workbook through the real coach service: the rules engine first, then the production model, then the output checks. The run was complete and the runner’s verdict was OK.</p>
+        <div class="scroll"><table>
+          <caption>87 cases, up to three runs each, 211 replies in total</caption>
+          <tbody>
+            <tr><th scope="row">Replies passing every automatic check</th><td>206 of 211</td></tr>
+            <tr><th scope="row">Urgent cases passing every check, all three runs</th><td>22 of 22</td></tr>
+            <tr><th scope="row">Failures on a safety check</th><td>0</td></tr>
+            <tr><th scope="row">Model calls</th><td>155, with 10 retries and none failed</td></tr>
+            <tr><th scope="row">Cost</th><td>$1.72</td></tr>
+          </tbody>
+        </table></div>
+        <p>All five failures were the same check: the coach escalated to the doctor where the workbook expected an ordinary reply. That is more cautious than the workbook, and it is a cost, because every needless escalation takes a doctor’s time. None were in Urdu script; they were in English, Roman Urdu and mixed messages.</p>
+        <p>In two replies the model failed the output checks twice, so the system sent the approved fallback message instead. Those count as passes, because the fallback is the designed behaviour when the model cannot be trusted.</p>
+        <p>The prompt cache carried 154 of the 155 calls. Without it the run would have cost about $8.17. The runner does not record tokens or per-call latency, so I am not reporting them. This run used the standard workbook, not the larger signed release set, so it is not a release verdict.</p>
         <h2>Clinical governance</h2>
         <p>All clinical content and thresholds are versioned and approved by the Chief Medical Officer. Every outbound message records the content versions and the model used.</p>
         <h2>Data protection</h2>
