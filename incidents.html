@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ten engineering incident reports: impact, root cause, fix and verification.">
+  <meta name="theme-color" content="#f4f6f7">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ten things that broke | Abdul Muizz">
+  <meta property="og:description" content="Ten engineering incident reports: impact, root cause, fix and verification.">
+  <meta property="og:url" content="https://muiizz.github.io/engineering-portfolio/incidents.html">
+  <meta property="og:image" content="https://muiizz.github.io/engineering-portfolio/assets/preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <title>Ten things that broke | Abdul Muizz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">Abdul Muizz</a>
+      <div class="links"><a href="index.html#work">Work</a><a href="index.html#projects">Projects</a><a href="index.html#design">Design notes</a><a href="index.html#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
+    </nav>
+  </header>
+  <main id="main">
+
+    <section class="page-hero wrap">
+      <p class="kind">Engineering practice</p>
+      <h1 class="kin">Ten things that broke</h1>
+      <p class="lede">Each report says what happened, why, what fixed it and how the fix was checked. Three of them are from the evaluations on this site, including one where my own harness produced the wrong result.</p>
+    </section>
+    <div class="body wrap">
+      <aside class="facts">
+        <h2>Evidence</h2>
+        <ul><li><a href="https://github.com/muiizz/engineering-portfolio/tree/main/labs/incidents">Full reports with commands</a></li></ul>
+        <h2>Scope</h2>
+        <ul><li>Synthetic fixtures and disposable environments</li><li>No production records</li></ul>
+      </aside>
+      <article class="prose">
+        <details class="report"><summary><span>1</span>A multilingual message missed the review queue</summary><dl><dt>Impact</dt><dd>The baseline missed seven of ten review-worthy fixtures.</dd><dt>Root cause</dt><dd>Three English phrases did not cover Roman Urdu and Urdu wording.</dd><dt>Fix and verification</dt><dd>Six translated phrases and normalised punctuation and Urdu characters. Missed reviews fell from seven to one, with one false alert when a matched phrase was followed by a denial.</dd></dl></details>
+        <details class="report"><summary><span>2</span>A TypeScript error passed the commit hook</summary><dl><dt>Impact</dt><dd>An invalid type assignment was committed in a disposable repository.</dd><dt>Root cause</dt><dd>The fast commit hook checks secrets and Python only. Full compilation happens at the push gate and in CI.</dd><dt>Fix and verification</dt><dd>Type checking stays in both the push gate and CI, so a local bypass does not remove the server-side check. The faulty push exited 1 at TypeScript.</dd></dl></details>
+        <details class="report"><summary><span>3</span>Mutation artifacts interfered with test discovery</summary><dl><dt>Impact</dt><dd>pytest discovered both the real tests and copies emitted by the mutation tool.</dd><dt>Root cause</dt><dd>Test discovery started at the repository root and included the mutation work directory.</dd><dt>Fix and verification</dt><dd>Discovery is scoped to the tests directory, and the ordinary gate is rerun after a mutation run.</dd></dl></details>
+        <details class="report"><summary><span>4</span>A selective query scanned a million rows</summary><dl><dt>Impact</dt><dd>A weekly dashboard query returning 96 rows took a median of 67.169 ms.</dd><dt>Root cause</dt><dd>The primary key did not serve the tenant and date filters.</dd><dt>Fix and verification</dt><dd>A composite index on tenant and date. The median fell to 0.126 ms and both ordered exports matched byte for byte.</dd></dl></details>
+        <details class="report"><summary><span>5</span>Delivery was accepted before the worker recorded it</summary><dl><dt>Impact</dt><dd>A provider accepted a delivery, then the worker failed before marking it sent, and the next worker tried again.</dd><dt>Root cause</dt><dd>The provider and the local database have separate commit boundaries. A local lock cannot make both commits atomic.</dd><dt>Fix and verification</dt><dd>Retry with the same event ID, which the provider uses as a unique key. The test asserts one delivery and no duplicate.</dd></dl></details>
+        <details class="report"><summary><span>6</span>A section name pointed to the wrong destination</summary><dl><dt>Impact</dt><dd>The same display name meant position two one year and position one the next, so a name match would move a student to the wrong section.</dd><dt>Root cause</dt><dd>A display label is editable and is not an identity.</dd><dt>Fix and verification</dt><dd>Select by grade, year and stable position, with a uniqueness constraint on those three.</dd></dl></details>
+        <details class="report"><summary><span>7</span>Automation toggled repeatedly near its threshold</summary><dl><dt>Impact</dt><dd>A reading alternating between 49 and 51 requested 11 switches in 12 samples against a single threshold of 50.</dd><dt>Root cause</dt><dd>One switching threshold turned ordinary variation into repeated state changes.</dd><dt>Fix and verification</dt><dd>A deadband: on at 55 and above, off at 45 and below, and a command only on transition. An offline replay produced zero transitions.</dd></dl></details>
+        <details class="report" open><summary><span>8</span>Replies were cut off and scored as model failures</summary><dl><dt>Impact</dt><dd>The first live model run reported 68 of 120 for the smallest model. The figures were wrong.</dd><dt>Root cause</dt><dd>The harness capped replies at 200 output tokens. Urdu script uses several tokens per word, so Urdu replies stopped mid-sentence and failed to parse.</dd><dt>Fix and verification</dt><dd>The cap is 1,000, and every run records its stop reasons and a truncated count. The rerun scored 116, 118 and 120.</dd></dl></details>
+        <details class="report"><summary><span>9</span>The scorer failed a correct refusal</summary><dl><dt>Impact</dt><dd>Two replies failed in each run although they had the right route and declined to promise a refund.</dd><dt>Root cause</dt><dd>The scorer banned the phrase “guaranteed refund” wherever it appeared.</dd><dt>Fix and verification</dt><dd>It now looks for a negating word near the phrase. Rescoring moved that model from 118 to 120. It is still a heuristic.</dd></dl></details>
+        <details class="report"><summary><span>10</span>An ambiguous task failed two models for being thorough</summary><dl><dt>Impact</dt><dd>The two larger models failed the same agent task in all three runs.</dd><dt>Root cause</dt><dd>Asked when a guest checks in, they found the date and then searched for a time of day. The task was ambiguous and the scorer required exactly one tool call.</dd><dt>Fix and verification</dt><dd>Not yet applied: score required and forbidden calls separately, and count extra harmless calls as cost. The result is published as recorded.</dd></dl></details>
+        <h2>What they have in common</h2>
+        <p>Most of these were caught by a check that existed for another reason: a unit test, a byte-for-byte comparison, a count of truncated replies added after the fact. The last three were found by reading the failures instead of trusting the score.</p>
+      </article>
+    </div>
+    <nav class="next wrap" aria-label="More case studies"><a href="index.html#projects">All projects</a><a href="live-eval.html">Related: three models, one contract</a></nav>
+  </main>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. Scenarios and data are synthetic unless a page says otherwise.</div></footer>
+</body>
+</html>

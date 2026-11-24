@@ -193,6 +193,17 @@ button, input, textarea { font: inherit; color: inherit; }
 .rowline.step.stop { box-shadow: inset 3px 0 0 var(--accent); }
 .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 
+details.report { border-top: 1px solid var(--line); padding: .2rem 0; }
+details.report:last-of-type { border-bottom: 1px solid var(--line); }
+details.report summary { cursor: pointer; padding: .9rem 0; font-weight: 700; font-size: 1.1rem; list-style: none; display: flex; gap: 1rem; align-items: baseline; }
+details.report summary::-webkit-details-marker { display: none; }
+details.report summary::after { content: '+'; margin-left: auto; font-weight: 500; }
+details.report[open] summary::after { content: '\2212'; }
+details.report summary span { color: var(--ink-soft); font-weight: 600; font-size: .9rem; min-width: 1.6rem; }
+details.report dl { margin: 0 0 1.2rem 2.6rem; display: grid; gap: .5rem; }
+details.report dt { font-weight: 700; font-size: .9rem; color: var(--ink-soft); }
+details.report dd { margin: 0; max-width: 62ch; }
+
 /* Notes and background */
 .notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.6rem clamp(1.4rem, 4vw, 3rem); margin: 0; }
 .notes dt { font-weight: 750; font-size: 1.1rem; letter-spacing: -.01em; margin-bottom: .3rem; }
@@ -288,6 +299,7 @@ thead th { font-size: .85rem; color: var(--ink-soft); font-weight: 600; }
   .lanes, .bins { grid-template-columns: minmax(0, 1fr); }
   .sheet, .sheet.two { grid-template-columns: minmax(0, 1fr); }
   .q-grid, .notes, .two-up { grid-template-columns: minmax(0, 1fr); }
+  details.report dl { margin-left: 0; }
   .rowline { grid-template-columns: 4.6rem 3.6rem 1fr; }
   .rowline .btn { grid-column: 1 / -1; justify-content: center; }
   .cell { grid-template-columns: 38% 1fr; grid-template-rows: auto; gap: 12px; align-items: center; }

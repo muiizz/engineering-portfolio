@@ -647,7 +647,69 @@
     show(0);
   }
 
-  const DEMOS = { takes, scan, gate, proofs, router, grader, fold, queue, roles, ladder, tiers, trace };
+  /* ---------- Reply check: a JavaScript port of eight of the fourteen checks in
+     labs/divia-reply-checks/reply_checks/checks.py. The Python is the real one. ---------- */
+  function replycheck(root) {
+    root.textContent = '';
+    const TAGS = ['OK', 'ESCALATE', 'URGENT'];
+    const PRESETS = [
+      ['A clean reply', 'Rasid kahan se milay gi?', 'Trips mein jaa kar apni booking chunein, phir Receipts par jaayein.\n[OK]'],
+      ['Bullets and bold', 'Where is my receipt?', '**Steps:**\n- Open Trips\n- Choose Receipts\n[OK]'],
+      ['Two questions', 'Where is my receipt?', 'Which booking is it? Did you pay by card?\n[OK]'],
+      ['Wrong script', 'رسید کہاں ملے گی؟', 'Open Trips, then choose Receipts.\n[OK]'],
+      ['Tag in the wrong place', 'Where is my receipt?', '[OK] Open Trips, then choose Receipts.'],
+      ['Masculine voice', 'Rasid kahan se milay gi?', 'Main abhi bata raha hoon, Trips mein Receipts dekhein.\n[OK]'],
+    ];
+    const msg = el('textarea', { rows: '2', id: 'rc-msg', dir: 'auto' });
+    const reply = el('textarea', { rows: '4', id: 'rc-reply', dir: 'auto' });
+    const out = el('div', { class: 'rows', 'aria-live': 'polite' });
+    const script = (t) => { const a = (t.match(/[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿]/g) || []).length, l = (t.match(/[A-Za-z]/g) || []).length; return !a && !l ? 'unknown' : a > l ? 'arabic' : 'latin'; };
+    const emoji = (t) => (t.replace(/[\u{1F3FB}-\u{1F3FF}️]/gu, '').match(/[\u{1F300}-\u{1FAFF}☀-➿]/gu) || []).length;
+    const run = () => {
+      const lines = reply.value.replace(/\r\n?/g, '\n').split('\n').map((x) => x.replace(/\s+$/, ''));
+      while (lines.length && !lines[0].trim()) lines.shift();
+      while (lines.length && !lines[lines.length - 1].trim()) lines.pop();
+      const known = (lines.join('\n').match(/\[([A-Z][A-Z ]*)\]/g) || []).map((x) => x.slice(1, -1)).filter((x) => TAGS.includes(x));
+      const last = lines.length ? lines[lines.length - 1].trim() : '';
+      const lastTok = /^\[([A-Z][A-Z ]*)\]$/.exec(last);
+      let problem = null;
+      if (lastTok && !TAGS.includes(lastTok[1])) problem = `invalid: ${last}`;
+      else if (known.length > 1) problem = 'more than one tag';
+      else if (!lastTok) problem = known.length ? 'not on last line' : 'missing';
+      const body = (lastTok ? lines.slice(0, -1) : lines).join('\n');
+      const bodyLines = body.split('\n').filter((x) => x.trim());
+      const res = [];
+      const add = (name, cat, status, detail) => res.push([name, cat, status, detail]);
+      add('tag_valid', 'Tag', problem ? 'FAIL' : 'PASS', problem ? `tag line ${problem}` : `tagged ${lastTok[1]}`);
+      const ps = script(msg.value), rs = script(body);
+      add('script_matches', 'Language', ps === 'unknown' ? 'REVIEW' : rs !== ps ? 'FAIL' : 'PASS', ps === 'unknown' ? 'customer message has no letters to compare' : rs !== ps ? `customer wrote in ${ps} script, reply is ${rs}` : '');
+      add('no_devanagari', 'Language', /[ऀ-ॿ]/.test(body) ? 'FAIL' : 'PASS', '');
+      const masc = /\b(?:\w+ta|raha|rha|gaya|chuka|hua)\s+h(?:oo|u)n?\b/i.test(body) || /\b\w+(?:unga|oonga|onga)\b/i.test(body) || /(?:تا|رہا|گیا|چکا|ہوا)\s+ہوں/.test(body) || /وں\s+گا(?![\p{L}\p{N}_])/u.test(body);
+      add('feminine_voice', 'Voice', masc ? 'FAIL' : 'PASS', masc ? 'masculine self-reference' : '');
+      const fmt = bodyLines.some((x) => /^\s*(?:[-*•●▪]\s|\d+[.)]\s|#)/.test(x)) || /\*\*|__|`/.test(body);
+      add('plain_text', 'Style', fmt ? 'FAIL' : 'PASS', fmt ? 'bullets, numbering, bold or code marks' : '');
+      add('line_count', 'Style', bodyLines.length >= 1 && bodyLines.length <= 5 ? 'PASS' : 'FAIL', `${bodyLines.length} lines; 1 to 5 allowed`);
+      const q = (body.match(/[?؟]/g) || []).length;
+      add('one_question', 'Style', q > 1 ? 'FAIL' : 'PASS', q > 1 ? `${q} questions` : '');
+      const used = emoji(body), theirs = emoji(msg.value);
+      add('emoji', 'Style', used > 1 || (used && !theirs) ? 'FAIL' : 'PASS', used > 1 || (used && !theirs) ? `${used} emoji (${theirs ? 'at most 1' : 'customer used none'})` : '');
+      const fails = res.filter((r) => r[2] !== 'PASS').length;
+      out.replaceChildren(el('div', { class: 'rowline step' + (fails ? ' stop' : '') }, el('div', {}, el('b', { class: fails ? 'is-red' : '', text: fails ? `${fails} of 8 checks did not pass` : 'All 8 checks passed' }))),
+        ...res.map(([name, cat, status, detail]) => el('div', { class: 'rowline step ' + (status === 'PASS' ? 'off' : 'stop') },
+          el('div', {}, el('b', { text: `${name}: ${status}` }), el('div', { text: `${cat}${detail ? '. ' + detail : ''}` })))));
+    };
+    const load = (i) => { msg.value = PRESETS[i][1]; reply.value = PRESETS[i][2]; run(); };
+    [msg, reply].forEach((x) => x.addEventListener('input', run));
+    root.append(edge('Checks on one reply', 'Ported from the Python for this page'),
+      el('div', { class: 'row' }, seg('Example', PRESETS.map((p, i) => [i, p[0]]), 0, (v) => load(+v))),
+      el('div', { class: 'field' }, el('label', { for: 'rc-msg', text: 'Customer message' }), msg),
+      el('div', { class: 'field' }, el('label', { for: 'rc-reply', text: 'Reply, with its tag on the last line' }), reply),
+      out,
+      el('p', { class: 'note', text: 'Eight of the fourteen checks run here. The other six need the rules engine’s verdict, the approved messages or the word lists, so they only run in the Python.' }));
+    load(0);
+  }
+
+  const DEMOS = { takes, scan, gate, proofs, router, grader, fold, queue, roles, ladder, tiers, trace, replycheck };
   document.querySelectorAll('[data-demo]').forEach((n) => {
     try { DEMOS[n.dataset.demo]?.(n, n.dataset.mode === 'full'); } catch (e) { console.error(e); }
   });

@@ -113,3 +113,40 @@ with a bounded retry delay. The values here are synthetic fixture parameters.
 **Verification.** An offline Python replay produced 11 transitions before
 and zero after. Tests at 55 and 45 confirmed activation and deactivation
 still occur. No cloud calls were made and no production savings were measured.
+
+## 8. Replies were cut off and scored as model failures
+
+**Impact.** The first live model run reported 68 of 120 for the smallest
+model, with 8 of 30 urgent cases passing. The figures were wrong.
+**Root cause.** The harness capped replies at 200 output tokens. Urdu script
+uses several tokens per word, so Urdu replies stopped mid-sentence, the JSON
+did not parse, and the scorer counted each as a failure.
+**Fix.** Raise the cap to 1,000 and record the stop reason, a truncated count
+and an empty count for every run.
+**Verification.** The rerun recorded no truncated or empty replies and scored
+116, 118 and 120 of 120 across the three models. See
+[the live results](../eval-gate/live-results/summary.json). The first run's
+numbers were discarded.
+
+## 9. The scorer failed a correct refusal
+
+**Impact.** Two replies from one model failed in each run. Both had the right
+route and told the customer a refund could not be promised.
+**Root cause.** The scorer banned the phrase "guaranteed refund" wherever it
+appeared, so a refusal that named it failed like a promise would.
+**Fix.** Look for a negating word within 60 characters of the phrase before
+failing. Rescoring the recorded replies moved that model from 118 to 120.
+**Limit.** It is still a heuristic. A reply can deny one thing and promise
+another. See `labs/eval-gate/hard_cases.py`.
+
+## 10. An ambiguous task failed two models for being thorough
+
+**Impact.** In the tool-using agent evaluation, the two larger models failed
+the same task in all three runs.
+**Sequence.** Asked "When do I check in for B-1002?", each looked the booking
+up, found the date, then searched the help articles for a time of day.
+**Root cause.** The task did not say whether "when" meant the date or the
+time, and the scorer required exactly one tool call.
+**Fix, not yet applied.** Score required calls and forbidden calls separately
+and count extra harmless calls as cost. The result is published as recorded.
+See [the transcripts](../support-agent/results/summary.json).

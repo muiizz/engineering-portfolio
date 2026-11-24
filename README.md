@@ -1,34 +1,42 @@
 # Abdul Muizz | Engineering portfolio
 
-A recruiter-facing site with reproducible synthetic projects in PostgreSQL tuning, multilingual routing, support evaluation and release quality. The site works from a local HTTP server and uses relative links for GitHub Pages project paths.
+Live site: https://muiizz.github.io/engineering-portfolio/
 
-[Printable résumé](resume.html) · [PostgreSQL measurements](labs/postgres/README.md) · [Routing audit](labs/routing-audit/README.md) · [Quality proofs](https://github.com/muiizz/quality-template) · [Multilingual rules engine](https://github.com/muiizz/llm-safety-rules-engine)
+Applied AI evaluation, safety rules and PostgreSQL work, each with a demo built from recorded results. Scenarios and data are synthetic unless a page says otherwise.
 
-Run `make demo` for the fast offline checks.
+## What is here
+
+| Area | Where |
+|---|---|
+| Divia, a live doctor-led diabetes coach: architecture and live evaluation | `divia.html` |
+| Reply checks published from Divia's evaluation runner | `labs/divia-reply-checks`, `divia-checks.html` |
+| Runnable rewrite of the rules, model and checks flow | `labs/workbook-eval` |
+| Three live models on 120 multilingual cases, plus a harder set | `labs/eval-gate`, `live-eval.html` |
+| Tool-using agent scored on tool choice | `labs/support-agent`, `agent.html` |
+| Multilingual safety rules and a mutation-testing blind spot | `safety-rules.html`, [llm-safety-rules-engine](https://github.com/muiizz/llm-safety-rules-engine) |
+| Support routing, MCP grader, knowledge base retrieval | `labs/routing-audit`, `demo/`, `labs/support-kb` |
+| PostgreSQL: query tuning, webhook queue, row-level security | `labs/postgres`, `labs/webhook-queue`, `labs/school-rls` |
+| Release gates with fault proofs | `quality-gate.html`, [quality-template](https://github.com/muiizz/quality-template) |
+| Ten incident reports | `labs/incidents`, `incidents.html` |
+| Hard questions about this work | `INTERVIEW.md` |
 
 ## Run locally
 
-Requires Python 3.10 or later. From the repository root:
+Requires Python 3.12. From the repository root:
 
 ```sh
 python -m http.server 8000
+make check
 ```
 
-Open `http://localhost:8000/`. Run the demonstrations and tests:
+`make check` runs every offline test and demo. It calls no model and needs no key. The reply checks need `pydantic` and run in their own workflow.
 
-```sh
-python -m unittest discover -s tests -v
-python demo/quality_gate.py
-python demo/eval.py
-python demo/eval.py path/to/answers.json
-```
+The live evaluations run only from the manual "Live model evaluation" workflow, which needs an `ANTHROPIC_API_KEY` secret and stops at a token or cost ceiling.
 
-The evaluator expects a JSON object keyed by case ID, with `route` and `reply` fields. A missing or incorrect answer fails the gate. See `demo/answers.json` for the format and `demo/cases.json` for the fictional cases. The scorer checks exact routes and case-insensitive required phrases. It does not assess general response quality.
+## How this is built
 
-The optional MCP server requires the Python MCP SDK (`python -m pip install mcp`). Run `python demo/server.py` as a stdio server. Its `grade_answer` tool uses the same scorer and expects a known case ID.
+I work with AI coding agents. I decide the architecture, write the specification, set the tests and gates a change must pass, and review what merges.
 
 ## Publish
 
-Push this repository to GitHub with `main` as the default branch. In repository settings, select **Pages → Build and deployment → GitHub Actions**. The Pages workflow deploys on pushes to `main` or can be run manually. CI runs the tests and command-line demos on pushes and pull requests.
-
-All scenarios and data are synthetic. The examples are intentionally narrow and do not represent production performance.
+Pushes to `main` run the checks and deploy to GitHub Pages.

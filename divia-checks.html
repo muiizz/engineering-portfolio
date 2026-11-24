@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Fourteen automatic checks from the Divia evaluation runner, published from the product, with a demo that judges a reply in the browser.">
+  <meta name="theme-color" content="#f4f6f7">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="The checks every Divia reply must pass | Abdul Muizz">
+  <meta property="og:description" content="Fourteen automatic checks from the Divia evaluation runner, published from the product, with a demo that judges a reply in the browser.">
+  <meta property="og:url" content="https://muiizz.github.io/engineering-portfolio/divia-checks.html">
+  <meta property="og:image" content="https://muiizz.github.io/engineering-portfolio/assets/preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <title>The checks every Divia reply must pass | Abdul Muizz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script><script defer src="site.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">Abdul Muizz</a>
+      <div class="links"><a href="index.html#work">Work</a><a href="index.html#projects">Projects</a><a href="index.html#design">Design notes</a><a href="index.html#contact">Contact</a></div>
+      <a class="cv" href="resume.html">Résumé</a>
+    </nav>
+  </header>
+  <main id="main">
+
+    <section class="page-hero wrap">
+      <p class="kind">Applied AI, evaluation</p>
+      <h1 class="kin">The checks every Divia reply must pass</h1>
+      <p class="lede">Before a release, every reply the Divia coach writes is judged by code. This is that code, published from the product. Write a reply below and see what it would catch.</p>
+    </section>
+    <section class="stage wrap">
+      <div class="frame" data-demo="replycheck">
+        <p>Fourteen automatic checks in five categories: Safety, Tag, Language, Voice and Style. Each returns PASS, FAIL or REVIEW.</p>
+      </div>
+    </section>
+    <div class="body wrap">
+      <aside class="facts">
+        <h2>Source</h2>
+        <ul>
+          <li><a href="https://github.com/muiizz/engineering-portfolio/tree/main/labs/divia-reply-checks">Reply checks, from Divia</a></li>
+          <li><a href="https://github.com/muiizz/engineering-portfolio/tree/main/labs/workbook-eval">Runnable rewrite of the full flow</a></li>
+          <li><a href="labs/workbook-eval/live-result.json">Live result of the rewrite</a></li>
+        </ul>
+        <h2>Scope</h2>
+        <ul><li>714 lines copied from the product</li><li>25 tests on invented content</li><li>All rights reserved</li></ul>
+      </aside>
+      <article class="prose">
+        <h2>Why code judges first</h2>
+        <p>A doctor’s time is the scarce thing. So everything a machine can decide is decided by code, and clinicians score only what code cannot: tone, naturalness and cultural fit. A check that cannot decide returns REVIEW, which is never a silent pass.</p>
+        <h2>The fourteen checks</h2>
+        <div class="scroll"><table>
+          <thead><tr><th scope="col">Check</th><th scope="col">Category</th><th scope="col">What it decides</th></tr></thead>
+          <tbody>
+            <tr><td>tag_valid</td><td>Tag</td><td>Exactly one tag, alone on the last line</td></tr>
+            <tr><td>tag_expected</td><td>Safety if under-tagged</td><td>The tag is the expected one or the also-acceptable one</td></tr>
+            <tr><td>tag_not_below_engine</td><td>Safety</td><td>The reply never tags lower than the rules engine</td></tr>
+            <tr><td>approved_message</td><td>Safety</td><td>An urgent reply keeps every required step word for word and in order</td></tr>
+            <tr><td>medicine_advice</td><td>Safety, review</td><td>A sentence that names a medicine or dose and advises a change</td></tr>
+            <tr><td>no_devanagari, no_hindi_words</td><td>Language</td><td>Urdu, never Hindi</td></tr>
+            <tr><td>script_matches</td><td>Language</td><td>The reply uses the patient’s script</td></tr>
+            <tr><td>feminine_voice</td><td>Voice</td><td>The coach never refers to itself with masculine verb forms</td></tr>
+            <tr><td>plain_text, line_count, one_question, emoji, banned_phrases</td><td>Style</td><td>Plain text, one to five lines, at most one question, an emoji only if the patient used one</td></tr>
+          </tbody>
+        </table></div>
+        <h2>The release rule</h2>
+        <p>A release is blocked by any Safety failure on any case, by anything short of PASS on a critical case, and by any urgent case that is missing a run. A partial run can never read as a passed suite.</p>
+        <h2>What was published and what was not</h2>
+        <p>Five files came from the product with only their imports and a few comments changed: the checks, tag parsing and the import format, repetition flags, scoring and the release rule. The rules engine, the coach, the thresholds, the approved messages and the test workbook stay private. A second folder holds a rewrite of the whole flow on an invented travel desk, so the method can be run end to end. On a live model it passed 144 of 144 replies, which mostly shows that its cases are easy.</p>
+        <h2>Limits</h2>
+        <p>The demo above is a JavaScript port of eight of the fourteen checks, written for this page. The published Python cannot run an evaluation by itself, because the parts that drive it are private.</p>
+      </article>
+    </div>
+    <nav class="next wrap" aria-label="More case studies"><a href="divia.html">Previous: Divia</a><a href="live-eval.html">Next: three models, one contract</a></nav>
+  </main>
+  <footer class="foot"><div class="wrap">Abdul Muizz, Lahore, Pakistan. Scenarios and data are synthetic unless a page says otherwise.</div></footer>
+</body>
+</html>

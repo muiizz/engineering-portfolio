@@ -2,6 +2,30 @@
 
 One dated entry per session, newest first. Facts only. Each number can be reproduced from the linked repo.
 
+## 24 Nov 2026: Live evaluations, Divia, and a redesign
+
+Site: redesigned with a two-colour, one-accent system and a working demo per case study. Divia now leads the home page.
+
+Done:
+- Live model comparison on the 120-case gate: Haiku 5.5 passed 116, 116, 116; Sonnet 5.5 118, 118, 117; Opus 5.5 120, 120, 120. All routed 30 of 30 urgent cases.
+- Harder set of 36 hand-written cases: Haiku 34, 33, 34; Sonnet and Opus 36, 36, 36.
+- Tool-using agent, 24 tasks: Haiku 24, 23, 24; Sonnet and Opus 23, 23, 23.
+- Retrieval with a learned multilingual encoder: keywords 17 of 36, encoder 29, keywords then encoder 32.
+- Workbook evaluation runner (rules, then model, then checks): 144 of 144 on a live model, cost USD 0.28.
+- Published 714 lines of reply checks from the Divia evaluation runner, with 25 tests on invented content.
+- Divia live evaluation on the standard workbook: 206 of 211 replies passed every automatic check; 22 of 22 urgent cases passed in all three runs.
+
+What failed:
+- The first live run capped replies at 200 tokens and truncated Urdu replies; its numbers were discarded.
+- The scorer banned a phrase even inside a refusal; fixed with a negation window, which is still a heuristic.
+- One agent task was ambiguous and failed two models for an extra, reasonable tool call. Not yet fixed.
+
+Open items:
+- A native reader has not reviewed the Roman Urdu and Urdu text in the fixtures or the 36 harder cases.
+- One provider only. Cases, rules and checks were written by one person.
+- The three English misses at R3 in the safety rules engine are still unexamined; opening the test split ends its use as unseen data.
+- `INTERVIEW.md` answers are empty.
+
 ## 23 Nov 2026: Portfolio release candidate
 
 The public-facing site includes a printable résumé, existing rules-engine and quality-template evidence, a reproducible PostgreSQL case study, a consent-aware routing audit and an MCP support grader. Local checks and negative controls are recorded in the project materials. The PostgreSQL experiment used a single local PostgreSQL 16.2 backend with one million synthetic rows. See [the measured plans](labs/postgres/README.md).
