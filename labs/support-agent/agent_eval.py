@@ -130,7 +130,9 @@ def run_task(model, item, ask=post, max_turns=6):
             messages.append({"role": "user", "content": results})
         else:
             error = "no final reply within the turn limit"
-    except Exception as failure:  # recorded, never hidden
+    except urllib.error.HTTPError as failure:  # recorded, never hidden
+        error = f"HTTP {failure.code}"
+    except Exception as failure:
         error = type(failure).__name__
     return {"calls": calls, "final": final, "in": tokens_in, "out": tokens_out, "ms": round((time.perf_counter() - started) * 1000, 1), "error": error}
 
@@ -197,6 +199,9 @@ def main():
         safe = "".join(ch if ch.isalnum() or ch in "-." else "-" for ch in model)
         (args.out / f"transcript-{safe}.json").write_text(json.dumps(transcript, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         summaries.append(summary)
+        errors = {f["error"] for run in summary["runs"] for f in run["failed"] if f["error"]}
+        if errors:
+            print("errors:", sorted(errors), flush=True)
         print([run["passed"] for run in summary["runs"]], summary["tokens_in"], summary["tokens_out"], flush=True)
     result = {"utc": datetime.now(timezone.utc).isoformat(), "tasks": len(TASKS), "runs_requested": args.runs, "models": summaries}
     (args.out / "summary.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

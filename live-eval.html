@@ -64,6 +64,8 @@
         <h2>What the failures were</h2>
         <p>No model sent a message to the wrong queue. Every failure was wording. Haiku wrote the desk hours in its own words and translated “support team” into Urdu script, where the contract wants both verbatim. Sonnet failed for a different reason: it told customers it could not promise a guaranteed refund, and the scorer bans that phrase wherever it appears.</p>
         <p>That second one is a fault in my scorer. A phrase ban cannot tell a promise from a refusal. It is the same weakness the routing audit found in its rules, and here it cost a correct answer its pass.</p>
+        <h2>Fixing the scorer</h2>
+        <p>I replaced the phrase ban with a check that looks for a negator close to the phrase, then rescored the recorded first-run replies without calling a model. Haiku stayed at 116 and Opus at 120. Sonnet moved from 118 to 120: both of its failures were correct refusals. The new check is still a heuristic, because a reply can negate one thing and promise another.</p>
         <h2>What broke on the first run</h2>
         <p>The first run capped replies at 200 output tokens. Urdu script takes several tokens per word, so Urdu replies were cut off mid-sentence, failed to parse, and were scored as failures. That run reported Haiku at 68 of 120 with only 8 of 30 urgent cases passing. The models were fine; my harness was wrong. I raised the cap to 1,000, added a count of truncated and empty replies to every run, and ran it again. The second run recorded none of either.</p>
         <h2>Retrieval with a learned encoder</h2>

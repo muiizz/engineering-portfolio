@@ -37,6 +37,8 @@
         <ul><li>Live, with its first four patients sending readings every day</li><li>Code and patient data are private</li></ul>
         <h2>Stack</h2>
         <ul><li>Python: FastAPI, Pydantic, pytest, mypy</li><li>PostgreSQL</li><li>TypeScript: Next.js</li><li>Docker</li><li>WhatsApp Cloud API</li></ul>
+        <h2>In the repository</h2>
+        <ul><li>Seven services</li><li>About 8,100 Python test functions</li><li>86 dashboard test files</li><li>23 architecture decision records</li><li>Counted on 24 November 2026</li></ul>
         <h2>Related</h2>
         <ul><li><a href="safety-rules.html#divia">Audit and mutation campaign</a></li><li><a href="safety-rules.html">Open-source teaching version</a></li></ul>
       </aside>
@@ -45,6 +47,7 @@
         <p>A language model could not be the only thing standing between a patient and harm. A deterministic rules engine runs before the model and decides thresholds, emergency words, double-dose detection and urgent routing. The model is the second safety net, never the first.</p>
         <h2>Testing at the boundary</h2>
         <p>Every threshold is tested just below, at and just above its value, in both mg/dL and mmol/L. The rules engine is held at 100% branch coverage, with scheduled mutation testing, and each test is traced to an entry in a hazard log.</p>
+        <p>In the campaign of 23 October 2026 the tests killed 1,427 of 1,497 mutants of the rules engine, 95.3%. The scheduled job fails below 90%. An earlier campaign, before targeted tests were added, scored 81.5%.</p>
         <h2>Reading a meter from a photo</h2>
         <p>Glucose readings are taken from photos of the patient’s meter. Two independent reads must agree before a value is accepted, and a plausible low value is escalated as urgent at once.</p>
         <h2>Evaluating the coach</h2>

@@ -189,6 +189,8 @@ def main():
             safe = "".join(ch if ch.isalnum() or ch in "-." else "-" for ch in model)
             (args.out / f"{tag}answers-{safe}.json").write_text(json.dumps(answers, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             models.append(summary)
+            if any(run["errors"] for run in summary["runs"]):
+                print("errors:", sorted({a["error"] for a in answers.values() if a["error"]}), flush=True)
             print(json.dumps({k: summary[k] for k in ("tokens_in", "tokens_out", "stopped_early")}),
                   [run["passed"] for run in summary["runs"]], flush=True)
     result = {"set": args.set, "utc": datetime.now(timezone.utc).isoformat(), "cases": len(cases), "runs_requested": args.runs, "models": models}
